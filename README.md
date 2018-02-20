@@ -1,6 +1,6 @@
 # gyg-android
 
-##Overview
+## Overview
 
 - App that will allow users to post a job and other users will be able to accept this job.
 - The app will be tailored for small household related or side gig related jobs. e.g Paint a house, fix a tire.
