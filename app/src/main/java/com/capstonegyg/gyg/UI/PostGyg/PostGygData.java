@@ -5,4 +5,5 @@ package com.capstonegyg.gyg.UI.PostGyg;
  */
 
 public class PostGygData {
+
 }
