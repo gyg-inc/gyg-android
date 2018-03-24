@@ -5,6 +5,7 @@
       <module fileurl="file://E:\Projects\gyg-android\Gyg.iml" filepath="E:\Projects\gyg-android\Gyg.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://E:\Projects\gyg-android\app\app.iml" filepath="E:\Projects\gyg-android\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gyg.iml" filepath="$PROJECT_DIR$/gyg.iml" />
       <module fileurl="file://$PROJECT_DIR$/gyg-android.iml" filepath="$PROJECT_DIR$/gyg-android.iml" />
     </modules>
   </component>
