@@ -23,7 +23,7 @@ public class StartScreen extends AppCompatActivity {
         viewGygs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(this, ViewGygActivity.class);
+                Intent i = new Intent(StartScreen.this, ViewGygActivity.class);
                 startActivity(i);
             }
         });
