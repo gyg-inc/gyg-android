@@ -17,6 +17,7 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
 
     @Override
     protected void populateViewHolder(ViewGygViewHolder viewHolder, ViewGygData model, int position) {
-        viewHolder.setJ
+        viewHolder.setGygName(model.jobName);
+        viewHolder.setGygPosterName(model.jobPosterName);
     }
 }

@@ -5,8 +5,8 @@ package com.capstonegyg.gyg.UI.ViewGyg;
  */
 
 public class ViewGygData {
-    String jobName;
-    String jobPosterName;
+    public String jobName;
+    public String jobPosterName;
 
     public ViewGygData(String jobName, String jobPosterName) {
         this.jobName = jobName;
@@ -14,13 +14,5 @@ public class ViewGygData {
     }
 
     public ViewGygData() {
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
-    public void setJobPosterName(String jobPosterName) {
-        this.jobPosterName = jobPosterName;
     }
 }
