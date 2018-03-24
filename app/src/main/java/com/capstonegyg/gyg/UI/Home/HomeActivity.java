@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.capstonegyg.gyg.R;
+import com.capstonegyg.gyg.User;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -12,4 +13,5 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
     }
+
 }
