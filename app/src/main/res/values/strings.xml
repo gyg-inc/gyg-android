@@ -5,4 +5,9 @@
     <string name="payment_screen">Payment Screen</string>
     <string name="view_gygs">View Gygs</string>
     <string name="list_gygs">List Gygs</string>
+    <string name="auth_failed">Invalid login</string>
+    <string name="emailpassword_status_fmt">Unsure 1</string>
+    <string name="firebase_status_fmt">Unsure 2</string>
+    <string name="signed_out">Successfully Logged Out</string>
+
 </resources>
