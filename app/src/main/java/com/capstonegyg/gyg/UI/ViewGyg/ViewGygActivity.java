@@ -12,6 +12,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Created by ipnanayakkara on 3/5/2018.
+ *
+ * setContentView(R.layout.view_gyg_screen);
+ *      This sets the master view for the ViewGygActivity screen
+ *
  */
 
 public class ViewGygActivity extends AppCompatActivity {
