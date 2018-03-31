@@ -12,19 +12,19 @@
             android:id="@+id/gyg_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Gyg Title"/>
+            android:hint="@string/gyg_title"/>
 
         <EditText
             android:id="@+id/gyg_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Gyg Category"/>
+            android:hint="@string/gyg_category"/>
 
         <EditText
             android:id="@+id/gyg_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Work Location"/>
+            android:hint="@string/work_location"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,13 +36,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Pay"
+                android:hint="@string/pay"
                 android:inputType="numberDecimal"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="USD"/>
+                android:text="@string/usd"/>
 
             <Spinner
                 android:id="@+id/time_spinner"
@@ -54,8 +54,8 @@
         <EditText
             android:id="@+id/gyg_description"
             android:layout_width="match_parent"
-            android:layout_height="249dp"
-            android:hint="Please enter a detailed work description here"
+            android:layout_height="wrap_content"
+            android:hint="@string/please_enter_a_detailed_work_description_here"
             android:inputType="textMultiLine" />
 
 

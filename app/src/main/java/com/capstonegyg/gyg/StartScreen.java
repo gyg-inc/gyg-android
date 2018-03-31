@@ -13,7 +13,7 @@ import com.capstonegyg.gyg.UI.ViewGyg.ViewGygActivity;
 public class StartScreen extends AppCompatActivity {
 
     private Button viewGygs;
-    private Button listGygs;
+    private Button postGygs;
     private Button paymentScreen;
 
     @Override
@@ -22,7 +22,7 @@ public class StartScreen extends AppCompatActivity {
         setContentView(R.layout.activity_start_screen);
 
         viewGygs = findViewById(R.id.view_gyg_button);
-        listGygs = findViewById(R.id.list_gyg_button);
+        postGygs = findViewById(R.id.post_gyg_button);
         paymentScreen = findViewById(R.id.goToPaymentScreen);
 
         viewGygs.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +34,7 @@ public class StartScreen extends AppCompatActivity {
         });
 
 
-        listGygs.setOnClickListener(new View.OnClickListener() {
+        postGygs.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent p = new Intent(StartScreen.this, PostGygActivity.class);
                 startActivity(p);
