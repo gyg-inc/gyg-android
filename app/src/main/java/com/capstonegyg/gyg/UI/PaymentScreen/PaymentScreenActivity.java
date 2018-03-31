@@ -10,6 +10,7 @@ import com.capstonegyg.gyg.R;
 
 /**
  * Created by Tony on 3/29/2018.
+ *
  */
 
 public class PaymentScreenActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class PaymentScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_screen);
 
-        Button button = findViewById(R.id.button2);
+        Button button = findViewById(R.id.paymentButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

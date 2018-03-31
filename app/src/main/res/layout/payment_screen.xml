@@ -6,10 +6,25 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="52dp"
-        tools:layout_editor_absoluteY="89dp" />
+        android:id="@+id/paymentButton"
+        android:layout_width="316dp"
+        android:layout_height="142dp"
+        android:text="Pay with Venmo."
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="184dp" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="343dp"
+        android:layout_height="92dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        android:text="Payment Options"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="16dp"
+
+        tools:layout_editor_absoluteY="16dp" />
 </android.support.constraint.ConstraintLayout>
