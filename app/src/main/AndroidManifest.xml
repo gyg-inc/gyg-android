@@ -19,6 +19,7 @@
         <activity android:name=".UI.Profile.ProfileActivity" />
         <activity android:name=".UI.Home.HomeActivity"></activity>
         <activity android:name=".UI.ViewGyg.ViewGygActivity"></activity>
+        <activity android:name=".UI.PostGyg.PostGygActivity"></activity>
     </application>
 
 </manifest>

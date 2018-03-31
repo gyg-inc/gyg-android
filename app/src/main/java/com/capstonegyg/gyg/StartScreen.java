@@ -6,17 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
 import com.capstonegyg.gyg.UI.ViewGyg.ViewGygActivity;
 
 public class StartScreen extends AppCompatActivity {
 
     private Button viewGygs;
+    private Button listGygs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
-        // Jonathan Luetze
 
         viewGygs = findViewById(R.id.view_gyg_button);
 
@@ -25,6 +26,14 @@ public class StartScreen extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(StartScreen.this, ViewGygActivity.class);
                 startActivity(i);
+            }
+        });
+
+        listGygs = findViewById(R.id.list_gyg_button);
+        listGygs.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent p = new Intent(StartScreen.this, PostGygActivity.class);
+                startActivity(p);
             }
         });
     }
