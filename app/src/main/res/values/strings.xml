@@ -10,4 +10,11 @@
     <string name="firebase_status_fmt">Unsure 2</string>
     <string name="signed_out">Successfully Logged Out</string>
 
+    <string name="gyg_title">Gyg Title</string>
+    <string name="gyg_category">Gyg Category</string>
+    <string name="work_location">Work Location</string>
+    <string name="pay">Pay</string>
+    <string name="usd">USD</string>
+    <string name="please_enter_a_detailed_work_description_here">Please enter a detailed work description here</string>
+    <string name="post_gygs">Post Gygs</string>
 </resources>
