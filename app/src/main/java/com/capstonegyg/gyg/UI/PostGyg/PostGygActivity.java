@@ -14,7 +14,7 @@ public class PostGygActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gyg_list_layout);
+        setContentView(R.layout.post_gyg_screen);
     }
 
 }
