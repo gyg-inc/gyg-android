@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/gyg.iml" filepath="$PROJECT_DIR$/gyg.iml" />
-      <module fileurl="file://C:\Users\Tony\Documents\GitHub\gyg\gyg-android.iml" filepath="C:\Users\Tony\Documents\GitHub\gyg\gyg-android.iml" />
     </modules>
   </component>
 </project>
