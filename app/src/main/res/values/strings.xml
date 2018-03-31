@@ -13,7 +13,7 @@
     <string name="please_enter_a_detailed_work_description_here">Please enter a detailed work description here</string>
     <string name="post_gygs">Post Gygs</string>
     <string name="auth_failed">Authentication failed</string>
-    <string name="emailpassword_status_fmt">Unknown 1</string>
-    <string name="firebase_status_fmt">Unknown 2</string>
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="signed_out">Signed out successfully</string>
 </resources>

@@ -37,6 +37,8 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private FirebaseAuth mAuth;
 
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_emailpassword);
 
         //Views
         mStatusTextView = findViewById(R.id.status);
@@ -214,7 +216,6 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             findViewById(R.id.signed_in_buttons).setVisibility(View.GONE);
         }
         }
-    }
 
     @Override
     public void onClick(View v) {
