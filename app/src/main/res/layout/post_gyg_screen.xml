@@ -15,6 +15,12 @@
             android:hint="Gyg Title"/>
 
         <EditText
+            android:id="@+id/gyg_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gyg Category"/>
+
+        <EditText
             android:id="@+id/gyg_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
