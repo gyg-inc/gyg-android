@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< Updated upstream
       <module fileurl="file://$PROJECT_DIR$/Gyg.iml" filepath="$PROJECT_DIR$/Gyg.iml" />
       <module fileurl="file://E:\Projects\gyg-android\Gyg.iml" filepath="E:\Projects\gyg-android\Gyg.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://E:\Projects\gyg-android\app\app.iml" filepath="E:\Projects\gyg-android\app\app.iml" />
       <module fileurl="file://C:\Users\hp-pc\Documents\GitProjects\Gyg\gyg-android.iml" filepath="C:\Users\hp-pc\Documents\GitProjects\Gyg\gyg-android.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gyg-android.iml" filepath="$PROJECT_DIR$/gyg-android.iml" />
+>>>>>>> Stashed changes
     </modules>
   </component>
 </project>
