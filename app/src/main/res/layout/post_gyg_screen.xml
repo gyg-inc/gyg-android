@@ -3,67 +3,80 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/gyg_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/gyg_title"/>
-
-        <EditText
-            android:id="@+id/gyg_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/gyg_category"/>
-
-        <EditText
-            android:id="@+id/gyg_area"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/work_location"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/job_title"
-                android:layout_width="0dp"
+                android:id="@+id/gyg_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/pay"
-                android:inputType="numberDecimal"/>
+                android:hint="@string/gyg_title"
+                android:inputType="text" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/gyg_category"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/usd"/>
+                android:hint="@string/gyg_category"
+                android:inputType="text" />
 
-            <Spinner
-                android:id="@+id/time_spinner"
-                android:layout_width="0dp"
+            <EditText
+                android:id="@+id/gyg_area"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:hint="@string/work_location"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/job_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="@string/pay"
+                    android:inputType="numberDecimal"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usd"/>
+
+                <Spinner
+                    android:id="@+id/time_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/gyg_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/please_enter_a_detailed_work_description_here"
+                android:inputType="textMultiLine" />
+
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/gyg_description"
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/please_enter_a_detailed_work_description_here"
-            android:inputType="textMultiLine" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/submit"
+            />
 
-
-
-
-    </LinearLayout>
-
-
+    </RelativeLayout>
 
 
 

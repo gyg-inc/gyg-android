@@ -10,7 +10,7 @@ import com.capstonegyg.gyg.R;
 import java.util.ArrayList;
 
 /**
- * Created by Jonathan on 3/5/2018.
+ * Written by Jonathan Luetze.
  */
 
 public class PostGygActivity extends AppCompatActivity {
