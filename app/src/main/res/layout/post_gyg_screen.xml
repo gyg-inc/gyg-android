@@ -40,7 +40,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/job_title"
+                    android:id="@+id/gyg_pay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -70,6 +70,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/submit_gyg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
