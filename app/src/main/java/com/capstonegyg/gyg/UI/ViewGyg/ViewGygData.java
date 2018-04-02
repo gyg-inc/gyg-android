@@ -16,6 +16,10 @@ public class ViewGygData {
     public String jobName;
     //The poster's name
     public String jobPosterName;
+    //The name of the job
+    public String jobFee;
+    //The poster's name
+    public String jobLocation;
 
     //Constructor
     public ViewGygData(String jobName, String jobPosterName) {

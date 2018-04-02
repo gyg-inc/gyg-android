@@ -12,13 +12,15 @@ import com.capstonegyg.gyg.R;
 
 public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
-    TextView gygName, gygPosterName;
+    TextView gygName, gygPosterName, gygFee, gygLocation;
 
     public ViewGygViewHolder(View itemView) {
         super(itemView);
 
         gygName = itemView.findViewById(R.id.gyg_name);
         gygPosterName = itemView.findViewById(R.id.gyg_poster_name);
+        gygFee = itemView.findViewById(R.id.gyg_fee);
+        gygLocation = itemView.findViewById(R.id.gyg_location);
     }
 
     public void setGygName(String gygName) {
@@ -27,5 +29,13 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     public void setGygPosterName(String gygPosterName) {
         this.gygName.setText(gygPosterName);
+    }
+
+    public void setGygFee(String gygFee) {
+        this.gygFee.setText(gygFee);
+    }
+
+    public void setGygLocation(String gygLocation) {
+        this.gygLocation.setText(gygLocation);
     }
 }
