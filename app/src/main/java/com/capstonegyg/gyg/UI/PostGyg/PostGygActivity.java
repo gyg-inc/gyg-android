@@ -89,7 +89,7 @@ public class PostGygActivity extends AppCompatActivity {
 
                 PostGygData gyg = new PostGygData(gygName, gygCategory, gygLocation, gygFee,
                         gygDescription, gygTime, gygPosterName);
-                postDBR.child("gygs").push(gyg);//.child("username2").setValue(gyg);
+                postDBR.child("gygs").push().setValue(gyg);//.child("username2").setValue(gyg);
             }
         });
     }
