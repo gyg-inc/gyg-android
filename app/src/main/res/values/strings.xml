@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Gyg</string>
     <string name="payment_options">Payment Options</string>
-    <string name="pay_with_venmo">Pay with Venmo.</string>
+    <string name="pay_with_venmo">Pay Here!</string>
     <string name="payment_screen">Payment Screen</string>
     <string name="view_gygs">View Gygs</string>
     <string name="list_gygs">List Gygs</string>
