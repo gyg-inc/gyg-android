@@ -6,4 +6,60 @@
     android:layout_height="match_parent"
     tools:context="com.capstonegyg.gyg.UI.Profile.ProfileActivity">
 
+    <ImageView
+        android:id="@+id/profile_pict"
+        android:layout_width="75dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="154dp"
+        android:layout_marginStart="155dp"
+        android:layout_marginTop="43dp"
+        app:layout_constraintBottom_toTopOf="@+id/profile_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star" />
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="423dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="14dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_pict" />
+
+    <Button
+        android:id="@+id/profiles_gygs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="280dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="76dp"
+        android:text="@string/my_gygs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_name" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="246dp"
+        android:layout_marginEnd="320dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="246dp"
+        android:text="@string/my_skills"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

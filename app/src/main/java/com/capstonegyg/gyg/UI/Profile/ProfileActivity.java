@@ -1,9 +1,14 @@
 package com.capstonegyg.gyg.UI.Profile;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.capstonegyg.gyg.R;
+import com.capstonegyg.gyg.StartScreen;
+import com.capstonegyg.gyg.UI.ViewGyg.ViewGygActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -14,6 +19,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private ProfileFirebaseAdapter pAdapter;
     private DatabaseReference pDatabaseReference;
+    private Button myGygs;
 
     //FirebaseDatabase database = FirebaseDatabase.getInstance();
     //DatabaseReference myRef = database.getReference().child("user_profile");
@@ -22,6 +28,15 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_screen);
+        myGygs = findViewById(R.id.profiles_gygs);
+
+        myGygs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ProfileActivity.this, ViewGygActivity.class);
+                startActivity(i);
+            }
+        });
 
         //Get the reference to the whole database
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
