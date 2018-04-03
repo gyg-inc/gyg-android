@@ -5,9 +5,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData, ViewGygViewHolder> {
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     //Constructor
     public ViewGygFirebaseAdapter(Class<ViewGygData> modelClass, int modelLayout, Class<ViewGygViewHolder> viewHolderClass, Query query) {
@@ -33,6 +37,7 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(view.getContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+                //DatabaseReference mDatabaseReference = firebaseDatabase.getReference().child("gygs").;
             }
         });
 
