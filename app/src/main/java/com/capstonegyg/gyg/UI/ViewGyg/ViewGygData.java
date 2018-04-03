@@ -13,18 +13,18 @@ package com.capstonegyg.gyg.UI.ViewGyg;
 
 public class ViewGygData {
     //The name of the job
-    public String jobName;
+    public String gygName;
     //The poster's name
-    public String jobPosterName;
+    public String gygPosterName;
     //The name of the job
-    public String jobFee;
+    public Double gygFee;
     //The poster's name
-    public String jobLocation;
+    public String gygLocation;
 
     //Constructor
-    public ViewGygData(String jobName, String jobPosterName) {
-        this.jobName = jobName;
-        this.jobPosterName = jobPosterName;
+    public ViewGygData(String gygName, String gygPosterName) {
+        this.gygName = gygName;
+        this.gygPosterName = gygPosterName;
     }
 
     //Default constructor. (Necassary by Firebase standards)

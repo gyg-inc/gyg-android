@@ -1,7 +1,5 @@
 package com.capstonegyg.gyg.UI.ViewGyg;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 
@@ -16,10 +14,10 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
     @Override
     protected void populateViewHolder(ViewGygViewHolder viewHolder, ViewGygData model, int position) {
         //Set the name of job. Pass in data
-        viewHolder.setGygName(model.jobName);
+        viewHolder.setGygName(model.gygName);
         //Set the poster name. Pass in data
-        viewHolder.setGygPosterName(model.jobPosterName);
-        viewHolder.setGygFee(model.jobFee);
-        viewHolder.setGygLocation(model.jobLocation);
+        viewHolder.setGygPosterName(model.gygPosterName);
+        viewHolder.setGygFee(model.gygFee);
+        viewHolder.setGygLocation(model.gygLocation);
     }
 }

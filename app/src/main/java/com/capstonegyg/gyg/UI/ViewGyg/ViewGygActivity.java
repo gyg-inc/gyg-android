@@ -36,7 +36,7 @@ public class ViewGygActivity extends AppCompatActivity {
         //Get the reference to the whole database
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         //Find the specific Firebase node.
-        mDatabaseReference = firebaseDatabase.getReference().child("view_gygs");
+        mDatabaseReference = firebaseDatabase.getReference().child("gygs");
 
         /*
             @arg1 - The "schema" file that defines data.
