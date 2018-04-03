@@ -55,10 +55,18 @@
                 <Spinner
                     android:id="@+id/time_spinner"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" />
             </LinearLayout>
 
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Looking for a Volunteer (No Pay)"
+                android:textSize="18sp"
+                android:paddingLeft="4dp"/>
 
             <EditText
                 android:id="@+id/gyg_description"
