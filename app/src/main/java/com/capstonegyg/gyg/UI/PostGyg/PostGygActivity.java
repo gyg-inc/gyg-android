@@ -58,7 +58,6 @@ public class PostGygActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Declaring Firebase object
-
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference postDBR = database.getReference();
 
@@ -76,6 +75,8 @@ public class PostGygActivity extends AppCompatActivity {
                 String gygTime = s.getSelectedItem().toString();
 
                 String gygPosterName = "testName";
+                String gygPostedDate = "postedDate";
+                String gygEndDate = "gygEndDate";
 
                 // TO DO: Get slider input to see if volunteering is on or off
                 // change spinner and gyg_pay to reflect choice
@@ -88,7 +89,7 @@ public class PostGygActivity extends AppCompatActivity {
                 /* Creating class object and sending it to Firebase */
 
                 PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
-                        format(gygDescription), gygTime, gygPosterName);
+                        format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate);
                 postDBR.child("gygs").push().setValue(gyg);
             }
 
