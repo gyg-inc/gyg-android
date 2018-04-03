@@ -14,6 +14,21 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     TextView gygName, gygPosterName, gygFee, gygLocation;
 
+    //-------------Click Listeners-------------//
+
+    private ViewGygViewHolder.ClickListener mClickListener;
+
+    //Interface to send callbacks...
+    public interface ClickListener{
+        public void onItemClick(View view, int position);
+    }
+
+    public void setOnClickListener(ViewGygViewHolder.ClickListener clickListener){
+        mClickListener = clickListener;
+    }
+
+    //-------------End Click Listeners-------------//
+
     public ViewGygViewHolder(View itemView) {
         super(itemView);
 
@@ -21,6 +36,14 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
         gygPosterName = itemView.findViewById(R.id.gyg_poster_name);
         gygFee = itemView.findViewById(R.id.gyg_fee);
         gygLocation = itemView.findViewById(R.id.gyg_location);
+
+        //Add a click listener to Android
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mClickListener.onItemClick(view, getAdapterPosition());
+            }
+        });
     }
 
     public void setGygName(String gygName) {

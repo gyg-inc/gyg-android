@@ -1,5 +1,9 @@
 package com.capstonegyg.gyg.UI.ViewGyg;
 
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 
@@ -19,5 +23,19 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
         viewHolder.setGygPosterName(model.gygPosterName);
         viewHolder.setGygFee(model.gygFee, model.gygTime);
         viewHolder.setGygLocation(model.gygLocation);
+    }
+
+    @Override
+    public ViewGygViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ViewGygViewHolder viewHolder =  super.onCreateViewHolder(parent, viewType);
+
+        viewHolder.setOnClickListener(new ViewGygViewHolder.ClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(view.getContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return viewHolder;
     }
 }
