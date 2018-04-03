@@ -20,6 +20,7 @@ public class ViewGygData {
     public Double gygFee;
     //The poster's name
     public String gygLocation;
+    public String gygTime;
 
     //Constructor
     public ViewGygData(String gygName, String gygPosterName) {

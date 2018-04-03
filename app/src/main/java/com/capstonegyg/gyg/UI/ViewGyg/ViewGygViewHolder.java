@@ -31,8 +31,8 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
         this.gygPosterName.setText(gygPosterName);
     }
 
-    public void setGygFee(Double gygFee) {
-        this.gygFee.setText(String.valueOf(gygFee));
+    public void setGygFee(Double gygFee, String gygTime) {
+        this.gygFee.setText("$" + String.valueOf(gygFee) + "/"+ gygTime);
     }
 
     public void setGygLocation(String gygLocation) {

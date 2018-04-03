@@ -17,7 +17,7 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
         viewHolder.setGygName(model.gygName);
         //Set the poster name. Pass in data
         viewHolder.setGygPosterName(model.gygPosterName);
-        viewHolder.setGygFee(model.gygFee);
+        viewHolder.setGygFee(model.gygFee, model.gygTime);
         viewHolder.setGygLocation(model.gygLocation);
     }
 }
