@@ -15,6 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+// add option to delete gyg from user profile
+
 public class ProfileActivity extends AppCompatActivity {
 
     private ProfileFirebaseAdapter pAdapter;

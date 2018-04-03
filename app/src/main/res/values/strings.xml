@@ -35,6 +35,7 @@
     <string name="pay2">Pay:</string>
     <string name="description">Description:</string>
     <string name="gyg">Gyg</string>
+    <string name="gyg_name">Gyg Name</string>
 
 
 </resources>

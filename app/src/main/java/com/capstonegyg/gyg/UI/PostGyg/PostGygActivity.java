@@ -79,6 +79,11 @@ public class PostGygActivity extends AppCompatActivity {
 
                 // TO DO: Get slider input to see if volunteering is on or off
                 // change spinner and gyg_pay to reflect choice
+                // Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
+                // pop up that says it's submitted
+                // move back to previous page
+                // Add posted date from current date
+
 
                 /* Creating class object and sending it to Firebase */
 
