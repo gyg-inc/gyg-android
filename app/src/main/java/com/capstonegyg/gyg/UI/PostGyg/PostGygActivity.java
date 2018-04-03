@@ -62,34 +62,35 @@ public class PostGygActivity extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference postDBR = database.getReference();
 
-
                 /* Getting and formatting user input */
 
-                EditText edt = findViewById(R.id.gyg_title);
-                String gygName = edt.getText().toString();
+                EditText gygName        = findViewById(R.id.gyg_title);
+                EditText gygCategory    = findViewById(R.id.gyg_category);
+                EditText gygLocation    = findViewById(R.id.gyg_area);
+                EditText gygDescription = findViewById(R.id.gyg_description);
 
-                edt = findViewById(R.id.gyg_category);
-                String gygCategory = edt.getText().toString();
-
-                edt = findViewById(R.id.gyg_area);
-                String gygLocation = edt.getText().toString();
-
-                edt = findViewById(R.id.gyg_pay);
+                EditText edt = findViewById(R.id.gyg_pay);
                 double gygFee = Double.parseDouble(edt.getText().toString());
-
-                edt = findViewById(R.id.gyg_description);
-                String gygDescription = edt.getText().toString();
 
                 Spinner s = findViewById(R.id.time_spinner);
                 String gygTime = s.getSelectedItem().toString();
 
                 String gygPosterName = "testName";
 
+                // TO DO: Get slider input to see if volunteering is on or off
+                // change spinner and gyg_pay to reflect choice
+
                 /* Creating class object and sending it to Firebase */
 
-                PostGygData gyg = new PostGygData(gygName, gygCategory, gygLocation, gygFee,
-                        gygDescription, gygTime, gygPosterName);
-                postDBR.child("gygs").push().setValue(gyg);//.child("username2").setValue(gyg);
+                PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
+                        format(gygDescription), gygTime, gygPosterName);
+                postDBR.child("gygs").push().setValue(gyg);
+            }
+
+            /* Function to format the input */
+
+            public String format(EditText E) {
+                return E.getText().toString();
             }
         });
     }
