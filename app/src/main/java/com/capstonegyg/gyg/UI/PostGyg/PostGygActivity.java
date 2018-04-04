@@ -1,6 +1,9 @@
 package com.capstonegyg.gyg.UI.PostGyg;
 
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.app.AlertDialog;
+import android.os.Handler;
+import android.widget.Toast;
+import java.util.Date;
 
 import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.StartScreen;
@@ -49,6 +56,22 @@ public class PostGygActivity extends AppCompatActivity {
                 (this, android.R.layout.simple_spinner_dropdown_item, times);
         spinnerCountShoes.setAdapter(spinnerCountShoesArrayAdapter);
 
+
+
+        /* Gyg Deadline Date Picker Information */
+
+        Button date = findViewById(R.id.date_picker);
+
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "datePicker");
+
+            }
+        });
+
+
         /* Declaring and setting Submit button to send info to Firebase */
 
         Button Submit = findViewById(R.id.submit_gyg);
@@ -75,15 +98,13 @@ public class PostGygActivity extends AppCompatActivity {
                 String gygTime = s.getSelectedItem().toString();
 
                 String gygPosterName = "testName";
-                String gygPostedDate = "postedDate";
+                String gygPostedDate = new Date().toString();
                 String gygEndDate = "gygEndDate";
 
                 // TO DO: Get slider input to see if volunteering is on or off
                 // change spinner and gyg_pay to reflect choice
                 // Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
-                // pop up that says it's submitted
-                // move back to previous page
-                // Add posted date from current date
+                // Finish Deadline date with DatePickerFragment class
 
 
                 /* Creating class object and sending it to Firebase */
@@ -91,6 +112,52 @@ public class PostGygActivity extends AppCompatActivity {
                 PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
                         format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate);
                 postDBR.child("gygs").push().setValue(gyg);
+
+
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(PostGygActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                } else {
+                    builder = new AlertDialog.Builder(PostGygActivity.this);
+                }
+                builder.setTitle("Post Gyg");
+                builder.setMessage("Are you sure you want to post this Gyg?");
+
+
+                /* If user definitely wants to post the gyg */
+                builder.setPositiveButton("yes",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+
+                            AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this);
+                            newB.setMessage("Posted Successfully");
+
+                            newB.create();
+                            newB.show();
+
+                            /* Handler delays message from disappearing */
+
+                            Handler mHandler = new Handler();
+                            mHandler.postDelayed(new Runnable() {
+                                public void run() {
+                                    finish();
+                                }
+                            }, 3000);
+                        }
+                    });
+
+                /* If user doesn't want to post the gyg */
+                builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+
+
+                builder.create();
+                builder.show();
             }
 
             /* Function to format the input */

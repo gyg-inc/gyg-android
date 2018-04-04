@@ -60,20 +60,42 @@
             </LinearLayout>
 
 
-            <Switch
-                android:id="@+id/switch2"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Looking for a Volunteer (No Pay)"
-                android:textSize="18sp"
-                android:paddingLeft="4dp"/>
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/gyg_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/please_enter_a_detailed_work_description_here"
-                android:inputType="textMultiLine" />
+                <Switch
+                    android:id="@+id/switch2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/volunteer_no_pay"
+                    android:textSize="18sp"
+                    android:paddingLeft="4dp"/>
+
+                <Button
+                    android:id="@+id/date_picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_deadline"/>
+
+                <TextView
+                    android:id="@+id/display_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/test"/>
+
+
+            </LinearLayout>
+
+                <EditText
+                    android:id="@+id/gyg_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/please_enter_a_detailed_work_description_here"
+                    android:inputType="textMultiLine" />
+
+
 
         </LinearLayout>
 

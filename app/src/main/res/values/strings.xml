@@ -36,6 +36,9 @@
     <string name="description">Description:</string>
     <string name="gyg">Gyg</string>
     <string name="gyg_name">Gyg Name</string>
+    <string name="volunteer_no_pay">Volunteer (No Pay)</string>
+    <string name="set_deadline">Set Deadline</string>
+    <string name="test">Test</string>
 
 
 </resources>
