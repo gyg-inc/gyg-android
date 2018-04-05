@@ -39,6 +39,16 @@
     <string name="volunteer_no_pay">Volunteer (No Pay)</string>
     <string name="set_deadline">Set Deadline</string>
     <string name="test">Test</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="submit_changes">Submit Changes</string>
+    <string name="update_payment_info">Update Payment Info</string>
+    <string name="upload_new_display_picture">Upload New Display Picture</string>
+    <string name="skill_3">Skill 3</string>
+    <string name="name">Name</string>
+    <string name="skill_1">Skill 1</string>
+    <string name="skill_2">Skill 2</string>
+    <string name="displayed_skiils">Displayed Skiils :</string>
+    <string name="display_name">Display Name :</string>
 
 
 </resources>
