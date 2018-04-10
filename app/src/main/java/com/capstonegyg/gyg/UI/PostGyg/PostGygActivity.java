@@ -1,5 +1,6 @@
 package com.capstonegyg.gyg.UI.PostGyg;
 
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,7 +36,11 @@ import java.util.ArrayList;
  *  PostGyg allows a user to create and post a Gyg to Firebase
  */
 
-public class PostGygActivity extends AppCompatActivity {
+public class PostGygActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+
+    int year;
+    int month;
+    int day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +66,14 @@ public class PostGygActivity extends AppCompatActivity {
 
         /* Gyg Deadline Date Picker Information */
 
-        Button date = findViewById(R.id.date_picker);
+        Button date = findViewById(R.id.date_button);
 
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "datePicker");
+
 
             }
         });
@@ -79,6 +86,9 @@ public class PostGygActivity extends AppCompatActivity {
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
 
                 // Declaring Firebase object
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -166,5 +176,18 @@ public class PostGygActivity extends AppCompatActivity {
                 return E.getText().toString();
             }
         });
+    }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+        this.year = year;
+        this.month = month;
+        this.day = day;
+
+
+        TextView V = findViewById(R.id.display_date);
+        V.setText("Deadline set for: "+ month + "/" + day + "/" + year);
+
     }
 }
