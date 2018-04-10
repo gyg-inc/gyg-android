@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 
 public class DefaultFrag extends Fragment {
     public static DefaultFrag newInstance(int position) {
-
         Bundle args = new Bundle();
 
         DefaultFrag fragment = new DefaultFrag();
