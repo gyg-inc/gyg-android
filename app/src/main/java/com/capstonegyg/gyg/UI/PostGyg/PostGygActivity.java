@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.os.Handler;
@@ -66,13 +67,11 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
 
         /* Setting the background color for the pay section */
-
         ImageView payBackground = findViewById(R.id.pay_background);
         payBackground.setBackgroundColor(Color.rgb(220,220, 220));
 
 
         /* Gyg Deadline Date Picker Information */
-
         Button date = findViewById(R.id.date_button);
 
         date.setOnClickListener(new View.OnClickListener() {
@@ -85,51 +84,14 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
             }
         });
 
-
         /* Declaring and setting Submit button to send info to Firebase */
-
         Button Submit = findViewById(R.id.submit_gyg);
 
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-
-
-                // Declaring Firebase object
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference postDBR = database.getReference();
-
-                /* Getting and formatting user input */
-
-                EditText gygName        = findViewById(R.id.gyg_title);
-                EditText gygCategory    = findViewById(R.id.gyg_category);
-                EditText gygLocation    = findViewById(R.id.gyg_area);
-                EditText gygDescription = findViewById(R.id.gyg_description);
-
-                EditText edt = findViewById(R.id.gyg_pay);
-                double gygFee = Double.parseDouble(edt.getText().toString());
-
-                Spinner s = findViewById(R.id.time_spinner);
-                String gygTime = s.getSelectedItem().toString();
-
-                String gygPosterName = "testName";
-                String gygPostedDate = new Date().toString();
-                String gygEndDate = "gygEndDate";
-
-                // TO DO: Get slider input to see if volunteering is on or off
-                // change spinner and gyg_pay to reflect choice
-                // Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
-                // Finish Deadline date with DatePickerFragment class
-
-
-                /* Creating class object and sending it to Firebase */
-
-                PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
-                        format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate);
-                postDBR.child("gygs").push().setValue(gyg);
-
+                /* Pop-Up Box to verify that the User wants to post the Gyg */
 
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -140,13 +102,46 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                 builder.setTitle("Post Gyg");
                 builder.setMessage("Are you sure you want to post this Gyg?");
 
-
-                /* If user definitely wants to post the gyg */
+                /* If user definitely wants to post the gyg, get data and send it to Firebase */
                 builder.setPositiveButton("yes",
-                    new DialogInterface.OnClickListener() {
+                        new DialogInterface.OnClickListener() {
+
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
 
+                            // Declaring Firebase object
+                            final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()};
+                            DatabaseReference postDBR = database[0].getReference();
+
+                            /* Getting and formatting user input */
+
+                            EditText gygName        = findViewById(R.id.gyg_title);
+                            EditText gygCategory    = findViewById(R.id.gyg_category);
+                            EditText gygLocation    = findViewById(R.id.gyg_area);
+                            EditText gygDescription = findViewById(R.id.gyg_description);
+                            Boolean  gygVolunteer   = findViewById(R.id.switch2).isPressed();
+
+                            EditText edt = findViewById(R.id.gyg_pay);
+                            double gygFee = Double.parseDouble(edt.getText().toString());
+
+                            Spinner s = findViewById(R.id.time_spinner);
+                            String gygTime = s.getSelectedItem().toString();
+
+                            String gygPosterName = "testName";
+                            String gygPostedDate = new Date().toString();
+                            String gygEndDate = "gygEndDate";
+
+                            // TO DO: Get slider input to see if volunteering is on or off
+                            // change spinner and gyg_pay to reflect choice
+                            // Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
+
+
+                            /* Formatting and Pushing of data */
+                            PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
+                                    format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate, gygVolunteer);
+                            postDBR.child("gygs").push().setValue(gyg);
+
+                            /* Posted Successfully Message */
                             AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this);
                             newB.setMessage("Posted Successfully");
 
@@ -165,13 +160,12 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                     });
 
                 /* If user doesn't want to post the gyg */
-                builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
                 });
-
 
                 builder.create();
                 builder.show();
