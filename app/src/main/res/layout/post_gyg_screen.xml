@@ -92,7 +92,7 @@
             </LinearLayout>
 
 
-            <Switch
+            <android.support.v7.widget.SwitchCompat
                 android:id="@+id/switch2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +100,8 @@
                 android:paddingRight="4dp"
                 android:paddingBottom="15sp"
                 android:text="@string/volunteer_no_pay"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:checked="false"/>
 
 
             <LinearLayout

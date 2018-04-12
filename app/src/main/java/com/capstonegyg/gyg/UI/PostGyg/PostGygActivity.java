@@ -8,9 +8,13 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,47 +49,51 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     int month;
     int day;
     String gygEndDate;
+    Boolean  gygVolunteer;
+
+    SwitchCompat sw;
+
+    ArrayList<String> times;
+
+    Spinner timeSpinner;
+
+    EditText gygName;
+    EditText gygCategory;
+    EditText gygLocation;
+    EditText gygDescription;
+
+    double gygFee;
+
+    String gygTime;
+    String gygPosterName;
+    String gygPostedDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_gyg_screen);
 
-        /* Declaring and filling Arraylist and Spinner for time */
-        ArrayList<String> times = new ArrayList<>();
+        //Set views
+        sw = findViewById(R.id.switch2);
+        timeSpinner = findViewById(R.id.time_spinner);
+
         gygEndDate = "NONE";
 
-        times.add("Hourly");
-        times.add("Daily");
-        times.add("Weekly");
-        times.add("Monthly");
-        times.add("Yearly");
+        /* Initialize data */
 
-        Spinner spinnerCountShoes = findViewById(R.id.time_spinner);
-        ArrayAdapter<String> spinnerCountShoesArrayAdapter = new ArrayAdapter<>
-                (this, android.R.layout.simple_spinner_dropdown_item, times);
-        spinnerCountShoes.setAdapter(spinnerCountShoesArrayAdapter);
+        initTimeList();
 
+        initTimeSpinner();
 
-        /* Setting the background color for the pay section */
-        ImageView payBackground = findViewById(R.id.pay_background);
-        payBackground.setBackgroundColor(Color.rgb(220,220, 220));
+        initDatePicker();
 
+        initVolunteerSwitch();
 
-        /* Gyg Deadline Date Picker Information */
-        Button date = findViewById(R.id.date_button);
-
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment();
-                newFragment.show(getFragmentManager(), "datePicker");
-            }
-        });
+        setDesign();
 
         /* Declaring and setting Submit button to send info to Firebase */
         Button Submit = findViewById(R.id.submit_gyg);
-
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,57 +109,34 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                 builder.setMessage("Are you sure you want to post this Gyg?");
 
                 /* If user definitely wants to post the gyg, get data and send it to Firebase */
-                builder.setPositiveButton("yes",
-                        new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        getInput();
 
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
+                        // TO DO:
+                        // change gyg_pay to reflect choice of volunteering or not (e.g. 0)
+                        // Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
+                        // option to add picture for a gyg
 
-                            // Declaring Firebase object
-                            final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()};
-                            DatabaseReference postDBR = database[0].getReference();
+                        pushToFirebase();
 
-                            /* Getting and formatting user input */
-                            EditText gygName        = findViewById(R.id.gyg_title);
-                            EditText gygCategory    = findViewById(R.id.gyg_category);
-                            EditText gygLocation    = findViewById(R.id.gyg_area);
-                            EditText gygDescription = findViewById(R.id.gyg_description);
-                            Boolean  gygVolunteer   = findViewById(R.id.switch2).isPressed();
+                        /* Posted Successfully Message */
+                        AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this);
+                        newB.setMessage("Posted Successfully");
 
-                            EditText edt = findViewById(R.id.gyg_pay);
-                            double gygFee = Double.parseDouble(edt.getText().toString());
+                        newB.create();
+                        newB.show();
 
-                            Spinner s = findViewById(R.id.time_spinner);
-                            String gygTime = s.getSelectedItem().toString();
-
-                            String gygPosterName = "testName";
-                            String gygPostedDate = new Date().toString();
-
-                            // TO DO: Get slider input to see if volunteering is on or off
-                            // change gyg_pay to reflect choice (e.g. 0)
-                            // Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
-
-                            /* Formatting and Pushing of data */
-                            PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
-                                    format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate, gygVolunteer);
-                            postDBR.child("gygs").push().setValue(gyg);
-
-                            /* Posted Successfully Message */
-                            AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this);
-                            newB.setMessage("Posted Successfully");
-
-                            newB.create();
-                            newB.show();
-
-                            /* Handler delays message from disappearing */
-                            Handler mHandler = new Handler();
-                            mHandler.postDelayed(new Runnable() {
-                                public void run() {
-                                    finish();
-                                }
-                            }, 3000);
-                        }
-                    });
+                        /* Handler delays message from disappearing */
+                        Handler mHandler = new Handler();
+                        mHandler.postDelayed(new Runnable() {
+                            public void run() {
+                                finish();
+                            }
+                        }, 3000);
+                    }
+                });
 
                 /* If user doesn't want to post the gyg */
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -162,11 +147,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                 });
                 builder.create();
                 builder.show();
-            }
-
-            /* Function to format the input */
-            private String format(EditText E) {
-                return E.getText().toString();
             }
         });
     }
@@ -190,6 +170,88 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
         V.setTextSize(18);
         V.setAllCaps(true);
-
     }
+
+    //Private methods
+    void initTimeList() {
+        /* Declaring and filling Arraylist and Spinner for time */
+        times = new ArrayList<>();
+        times.add("Hourly");
+        times.add("Daily");
+        times.add("Weekly");
+        times.add("Monthly");
+        times.add("Yearly");
+    }
+
+    void initTimeSpinner() {
+        ArrayAdapter<String> timeSpinnerArrayAdapter = new ArrayAdapter<>
+                (this, android.R.layout.simple_spinner_dropdown_item, times);
+        timeSpinner.setAdapter(timeSpinnerArrayAdapter);
+    }
+
+    void setDesign() {
+        /* Setting the background color for the pay section */
+        ImageView payBackground = findViewById(R.id.pay_background);
+        payBackground.setBackgroundColor(Color.rgb(220,220, 220));
+    }
+
+    void initDatePicker() {
+        /* Gyg Deadline Date Picker Information */
+        Button date = findViewById(R.id.date_button);
+        date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(), "datePicker");
+            }
+        });
+    }
+
+    void initVolunteerSwitch() {
+        this.gygVolunteer = false;
+
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if (isChecked) {gygVolunteer = true;}
+            }
+        });
+    }
+
+
+    void getInput() {
+        /* Getting and formatting user input */
+        gygName        = findViewById(R.id.gyg_title);
+        gygCategory    = findViewById(R.id.gyg_category);
+        gygLocation    = findViewById(R.id.gyg_area);
+        gygDescription = findViewById(R.id.gyg_description);
+
+        EditText edt = findViewById(R.id.gyg_pay);
+        gygFee = Double.parseDouble(edt.getText().toString());
+
+        //Spinner s = findViewById(R.id.time_spinner);
+        gygTime = timeSpinner.getSelectedItem().toString();
+
+        gygPosterName = "testName";
+        gygPostedDate = new Date().toString();
+    }
+
+    void pushToFirebase() {
+        // Declaring Firebase object
+        final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()};
+        DatabaseReference postDBR = database[0].getReference();
+
+        /* Formatting and Pushing of data */
+        PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
+                format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate, gygVolunteer);
+        postDBR.child("gygs").push().setValue(gyg);
+    }
+
+    /* Function to format the input */
+    private String format(EditText E) {
+        return E.getText().toString();
+    }
+
 }
