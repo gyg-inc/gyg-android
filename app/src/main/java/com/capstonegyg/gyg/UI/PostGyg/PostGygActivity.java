@@ -43,6 +43,11 @@ import java.util.ArrayList;
  *  PostGyg allows a user to create and post a Gyg to Firebase
  */
 
+// TO DO:
+// lower limit gyg pay to 100th place
+// Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
+// option to add picture for a gyg
+
 public class PostGygActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     int year;
@@ -97,56 +102,40 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getInput();
+                if (gygVolunteer && gygFee != 0.00) {
+                   showVolunteerAlert();
 
-                /* Pop-Up Box to verify that the User wants to post the Gyg */
-                AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder = new AlertDialog.Builder(PostGygActivity.this, android.R.style.Theme_Material_Dialog_Alert);
                 } else {
-                    builder = new AlertDialog.Builder(PostGygActivity.this);
+                    /* Pop-Up Box to verify that the User wants to post the Gyg */
+                    AlertDialog.Builder builder;
+
+                    builder = new AlertDialog.Builder(PostGygActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                    builder.setTitle("Post Gyg");
+                    builder.setMessage("Are you sure you want to post this Gyg?");
+
+                    /* If user definitely wants to post the gyg, get data and send it to Firebase */
+                    builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            getInput();
+
+                            pushToFirebase();
+
+                            showPostSuccess();
+                        }
+                    });
+
+                    /* If user doesn't want to post the gyg */
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    builder.create();
+                    builder.show();
                 }
-                builder.setTitle("Post Gyg");
-                builder.setMessage("Are you sure you want to post this Gyg?");
-
-                /* If user definitely wants to post the gyg, get data and send it to Firebase */
-                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        getInput();
-
-                        // TO DO:
-                        // change gyg_pay to reflect choice of volunteering or not (e.g. 0)
-                        // Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
-                        // option to add picture for a gyg
-
-                        pushToFirebase();
-
-                        /* Posted Successfully Message */
-                        AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this);
-                        newB.setMessage("Posted Successfully");
-
-                        newB.create();
-                        newB.show();
-
-                        /* Handler delays message from disappearing */
-                        Handler mHandler = new Handler();
-                        mHandler.postDelayed(new Runnable() {
-                            public void run() {
-                                finish();
-                            }
-                        }, 3000);
-                    }
-                });
-
-                /* If user doesn't want to post the gyg */
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                builder.create();
-                builder.show();
             }
         });
     }
@@ -208,14 +197,25 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     }
 
     void initVolunteerSwitch() {
-        this.gygVolunteer = false;
+        gygVolunteer = false;
 
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                if (isChecked) {gygVolunteer = true;}
+                if (isChecked) {
+                    gygVolunteer = true;
+                    gygFee = 0.00;
+                    String free = "0.00";
+                    EditText edt = findViewById(R.id.gyg_pay);
+                    edt.setText(free);
+                }
+                else {
+                    gygVolunteer = false;
+                    EditText edt = findViewById(R.id.gyg_pay);
+                    edt.setText("");
+                }
             }
         });
     }
@@ -254,4 +254,48 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         return E.getText().toString();
     }
 
+    void showVolunteerAlert() {
+        AlertDialog.Builder b2 = new AlertDialog.Builder(PostGygActivity.this,android.R.style.Theme_Material_Dialog_Alert);
+        b2.setTitle("Volunteer Alert");
+        b2.setMessage("Please turn Volunteering off before setting a payment");
+
+
+        b2.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+            }
+        });
+
+        b2.create();
+        b2.show();
+
+        resetVolunteer();
+    }
+
+    void resetVolunteer() {
+        String free = "0.00";
+        EditText edt = findViewById(R.id.gyg_pay);
+        edt.setText(free);
+    }
+
+    void showPostSuccess() {
+        /* Posted Successfully Message */
+        AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this);
+        newB.setMessage("Posted Successfully");
+
+        newB.create();
+        newB.show();
+
+        delayMessage();
+    }
+
+    void delayMessage() {
+        /* Handler delays message from disappearing */
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                finish();
+            }
+        }, 3000);
+    }
 }
