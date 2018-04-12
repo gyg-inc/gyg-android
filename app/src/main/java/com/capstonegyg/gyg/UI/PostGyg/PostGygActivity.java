@@ -44,6 +44,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     int year;
     int month;
     int day;
+    String gygEndDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,8 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         setContentView(R.layout.post_gyg_screen);
 
         /* Declaring and filling Arraylist and Spinner for time */
-
         ArrayList<String> times = new ArrayList<>();
+        gygEndDate = "NONE";
 
         times.add("Hourly");
         times.add("Daily");
@@ -79,8 +80,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View v) {
                 DialogFragment newFragment = new DatePickerFragment();
                 newFragment.show(getFragmentManager(), "datePicker");
-
-
             }
         });
 
@@ -92,7 +91,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View v) {
 
                 /* Pop-Up Box to verify that the User wants to post the Gyg */
-
                 AlertDialog.Builder builder;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     builder = new AlertDialog.Builder(PostGygActivity.this, android.R.style.Theme_Material_Dialog_Alert);
@@ -114,7 +112,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                             DatabaseReference postDBR = database[0].getReference();
 
                             /* Getting and formatting user input */
-
                             EditText gygName        = findViewById(R.id.gyg_title);
                             EditText gygCategory    = findViewById(R.id.gyg_category);
                             EditText gygLocation    = findViewById(R.id.gyg_area);
@@ -129,12 +126,10 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
                             String gygPosterName = "testName";
                             String gygPostedDate = new Date().toString();
-                            String gygEndDate = "gygEndDate";
 
                             // TO DO: Get slider input to see if volunteering is on or off
-                            // change spinner and gyg_pay to reflect choice
+                            // change gyg_pay to reflect choice (e.g. 0)
                             // Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
-
 
                             /* Formatting and Pushing of data */
                             PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
@@ -149,7 +144,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                             newB.show();
 
                             /* Handler delays message from disappearing */
-
                             Handler mHandler = new Handler();
                             mHandler.postDelayed(new Runnable() {
                                 public void run() {
@@ -166,13 +160,11 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                         finish();
                     }
                 });
-
                 builder.create();
                 builder.show();
             }
 
             /* Function to format the input */
-
             private String format(EditText E) {
                 return E.getText().toString();
             }
@@ -186,7 +178,9 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         this.month = month;
         this.day = day;
 
-        String dateString = "Deadline: "+ month + "/" + day + "/" + year;
+        String dateString = "Deadline: "+ month + "/" + day + "/" + year; // creates displayed date
+
+        this.gygEndDate = month + "/" + day + "/" + year; // saves date that's pushed to Firebase
 
         TextView V = findViewById(R.id.display_date);
         V.setText(dateString);
