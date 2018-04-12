@@ -49,5 +49,9 @@
     <string name="update_payment_info">Update Payment Info</string>
     <string name="upload_new_display_picture">Upload New Display Picture</string>
     <string name="submit_changes">Submit Changes</string>
+    <string name="set_a_deadline">SET a deadline</string>
+    <string name="deadline_not_set">DEADLINE NOT SET</string>
+    <string name="change_deadline">CHANGE DEADLINE</string>
+    <string name="background_colors">background_colors</string>
 
 </resources>

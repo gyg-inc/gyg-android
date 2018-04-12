@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.app.AlertDialog;
@@ -62,6 +64,11 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                 (this, android.R.layout.simple_spinner_dropdown_item, times);
         spinnerCountShoes.setAdapter(spinnerCountShoesArrayAdapter);
 
+
+        /* Setting the background color for the pay section */
+
+        ImageView payBackground = findViewById(R.id.pay_background);
+        payBackground.setBackgroundColor(Color.rgb(220,220, 220));
 
 
         /* Gyg Deadline Date Picker Information */
@@ -172,7 +179,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
             /* Function to format the input */
 
-            public String format(EditText E) {
+            private String format(EditText E) {
                 return E.getText().toString();
             }
         });
@@ -185,9 +192,16 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         this.month = month;
         this.day = day;
 
+        String dateString = "Deadline: "+ month + "/" + day + "/" + year;
 
         TextView V = findViewById(R.id.display_date);
-        V.setText("Deadline set for: "+ month + "/" + day + "/" + year);
+        V.setText(dateString);
+
+        Button W = findViewById(R.id.date_button);
+        W.setText(R.string.change_deadline);
+
+        V.setTextSize(18);
+        V.setAllCaps(true);
 
     }
 }
