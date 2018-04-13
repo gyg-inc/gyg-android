@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,8 +46,8 @@ import java.util.ArrayList;
 
 // TO DO:
 // lower limit gyg pay to 100th place
-// Check for no input or missing input and set fields accordingly (throw error, mark empty fields red)
 // option to add picture for a gyg
+    // location should suggest current location/ ability on a map to look it up
 
 public class PostGygActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
@@ -72,7 +73,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     String gygTime;
     String gygPosterName;
     String gygPostedDate;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,11 +102,17 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getInput();
-                if (gygVolunteer && gygFee != 0.00) {
-                   showVolunteerAlert();
 
-                } else {
+                Boolean goodInput = checkInput();
+
+                if(goodInput) {getInput();}
+
+                if (gygVolunteer && gygFee != 0.00 && goodInput) {
+                    showAlert("Volunteer Alert", "Please turn Volunteering off before setting a payment");
+                    resetVolunteer();
+                }
+                else if (goodInput) {
+
                     /* Pop-Up Box to verify that the User wants to post the Gyg */
                     AlertDialog.Builder builder;
 
@@ -140,6 +146,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         });
     }
 
+    /* Sets information collected from date picker */
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 
@@ -161,7 +168,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         V.setAllCaps(true);
     }
 
-    //Private methods
+    /* Private methods */
     void initTimeList() {
         /* Declaring and filling Arraylist and Spinner for time */
         times = new ArrayList<>();
@@ -172,6 +179,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         times.add("Yearly");
     }
 
+    /* Initializes the Time Spinner */
     void initTimeSpinner() {
         ArrayAdapter<String> timeSpinnerArrayAdapter = new ArrayAdapter<>
                 (this, android.R.layout.simple_spinner_dropdown_item, times);
@@ -184,6 +192,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         payBackground.setBackgroundColor(Color.rgb(220,220, 220));
     }
 
+    /* Initializes the date picker and controls its behavior */
     void initDatePicker() {
         /* Gyg Deadline Date Picker Information */
         Button date = findViewById(R.id.date_button);
@@ -196,6 +205,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         });
     }
 
+    /* Initializes the volunteer switch and controls its behavior */
     void initVolunteerSwitch() {
         gygVolunteer = false;
 
@@ -220,16 +230,17 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         });
     }
 
-
+    /* Sets remainder of variables not set by checkInput
+     * Checks for no payment
+     */
     void getInput() {
-        /* Getting and formatting user input */
-        gygName        = findViewById(R.id.gyg_title);
-        gygCategory    = findViewById(R.id.gyg_category);
-        gygLocation    = findViewById(R.id.gyg_area);
-        gygDescription = findViewById(R.id.gyg_description);
 
         EditText edt = findViewById(R.id.gyg_pay);
         gygFee = Double.parseDouble(edt.getText().toString());
+
+        if(gygFee == 0.00) {
+            gygVolunteer = true;    // switch volunteer to true if it's free
+        }
 
         //Spinner s = findViewById(R.id.time_spinner);
         gygTime = timeSpinner.getSelectedItem().toString();
@@ -238,6 +249,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         gygPostedDate = new Date().toString();
     }
 
+    /* Creates Gyg object and pushes it to Firebase */
     void pushToFirebase() {
         // Declaring Firebase object
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()};
@@ -254,11 +266,16 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         return E.getText().toString();
     }
 
-    void showVolunteerAlert() {
-        AlertDialog.Builder b2 = new AlertDialog.Builder(PostGygActivity.this,android.R.style.Theme_Material_Dialog_Alert);
-        b2.setTitle("Volunteer Alert");
-        b2.setMessage("Please turn Volunteering off before setting a payment");
+    /* Function to return if EditText element is empty */
+    Boolean isEmpty(EditText E) {
+        return E.getText().toString().equals("");
+    }
 
+    /* Function to display an Alert box with OK button based on title and message (parameters) */
+    void showAlert(String title, String message) {
+        AlertDialog.Builder b2 = new AlertDialog.Builder(PostGygActivity.this,android.R.style.Theme_Material_Dialog_Alert);
+        b2.setTitle(title);
+        b2.setMessage(message);
 
         b2.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
@@ -268,16 +285,16 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
         b2.create();
         b2.show();
-
-        resetVolunteer();
     }
 
+    /* Function to reset payment as volunteer (back to 0.00) */
     void resetVolunteer() {
         String free = "0.00";
         EditText edt = findViewById(R.id.gyg_pay);
         edt.setText(free);
     }
 
+    /* Displays a success message after posting Gyg to Firebase */
     void showPostSuccess() {
         /* Posted Successfully Message */
         AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this);
@@ -289,6 +306,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         delayMessage();
     }
 
+    /* Delays message before disappearing */
     void delayMessage() {
         /* Handler delays message from disappearing */
         Handler mHandler = new Handler();
@@ -297,5 +315,43 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                 finish();
             }
         }, 3000);
+    }
+
+    /*  Sets variables needed for checking and checks for empty input
+     *  Throws error if empty input is found
+     */
+    Boolean checkInput() {
+
+        /* Getting and formatting user input */
+        gygName        = findViewById(R.id.gyg_title);
+        gygCategory    = findViewById(R.id.gyg_category);
+        gygLocation    = findViewById(R.id.gyg_area);
+        gygDescription = findViewById(R.id.gyg_description);
+
+        EditText edt   = findViewById(R.id.gyg_pay);
+
+        if(isEmpty(gygName)) {
+            showAlert("No Title", "Please enter a title for this Gyg");
+            return false;
+        }
+        else if(isEmpty(gygCategory)) {
+            showAlert("No Category", "Please specify a category for this Gyg");
+            return false;
+        }
+        else if(isEmpty(gygLocation)) {
+            showAlert("No Location", "Please specify a Location for this Gyg");
+            return false;
+        }
+        else if(isEmpty(edt)) {
+            showAlert("No Payment", "Please enter a valid amount for payment or mark as volunteer");
+            return false;
+        }
+        else if(isEmpty(gygDescription)) {
+            showAlert("No Description", "Please enter a Description for this Gyg");
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
