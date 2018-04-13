@@ -37,6 +37,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *  Written by Jonathan Luetze.
@@ -45,7 +47,6 @@ import java.util.ArrayList;
  */
 
 // TO DO:
-// lower limit gyg pay to 100th place
 // option to add picture for a gyg
     // location should suggest current location/ ability on a map to look it up
 
@@ -346,6 +347,10 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
             showAlert("No Payment", "Please enter a valid amount for payment or mark as volunteer");
             return false;
         }
+        else if(!checkCurrency(edt)) {
+            showAlert("Incorrect Payment Input", "Please enter a valid currency amount");
+            return false;
+        }
         else if(isEmpty(gygDescription)) {
             showAlert("No Description", "Please enter a Description for this Gyg");
             return false;
@@ -354,4 +359,16 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
             return true;
         }
     }
+
+    /* Function to check accurate currency input using a regular expression */
+    Boolean checkCurrency(EditText E) {
+        String s = format(E);
+        String pattern;
+
+        pattern = "[0-9]*((\\.[0-9]{0," + 2 + "})?)||(\\.)?";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(s);
+        return m.matches();
+    }
+
 }
