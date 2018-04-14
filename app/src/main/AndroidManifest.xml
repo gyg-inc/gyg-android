@@ -23,7 +23,6 @@
         <activity android:name=".UI.PostGyg.PostGygActivity" />
         <activity android:name=".UI.PaymentScreen.PaymentScreenActivity" />
         <activity android:name=".UI.Authentication.AuthenticationActivity" />
-        <activity android:name=".UI.PostGyg.MyLocationUsingHelper" />
         <activity android:name=".UI.Profile.Settings"
             android:label="@string/profile_settings"
             android:parentActivityName=".UI.Profile.ProfileActivity">

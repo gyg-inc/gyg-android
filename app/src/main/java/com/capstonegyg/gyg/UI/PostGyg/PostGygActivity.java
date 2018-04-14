@@ -58,6 +58,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import butterknife.BindView;
+
 /**
  *  Written by Jonathan Luetze.
  *
@@ -93,21 +95,34 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     String gygPosterName;
     String gygPostedDate;
 
+    String address;
+
+    newLocation l;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_gyg_screen);
 
 
-     //   Intent i = new Intent(PostGygActivity.this, MyLocationUsingHelper.class);
-     //   startActivity(i);
 
-    //    MyLocationUsingHelper myLocation;
-    //    myLocation=new MyLocationUsingHelper(this);
-
-
-
+        /* get Location Data */
+        l = new newLocation(this);
         gygLocation = findViewById(R.id.gyg_area);
+
+        TextView rlPick = findViewById(R.id.rlPickLocation);
+        rlPick.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+
+              address = l.getLocation();
+
+              gygLocation.setText(address);
+
+              }
+          });
+
+        gygLocation.setText(address);
 
         //Set views
         sw = findViewById(R.id.switch2);
@@ -219,7 +234,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     void setDesign() {
         /* Setting the background color for the pay section */
         ImageView payBackground = findViewById(R.id.pay_background);
-        payBackground.setBackgroundColor(Color.rgb(220,220, 220));
+        payBackground.setBackgroundColor(Color.rgb(240,240, 240));
     }
 
     /* Initializes the date picker and controls its behavior */
@@ -400,4 +415,12 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         return m.matches();
     }
 
+    public void showToast(String message)
+    {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
 }
+
+
+

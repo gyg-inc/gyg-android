@@ -53,5 +53,6 @@
     <string name="deadline_not_set">DEADLINE NOT SET</string>
     <string name="change_deadline">CHANGE DEADLINE</string>
     <string name="background_colors">background_colors</string>
+    <string name="get_location">GET LOCATION</string>
 
 </resources>

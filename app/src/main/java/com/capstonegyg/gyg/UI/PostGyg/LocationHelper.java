@@ -5,24 +5,33 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.capstonegyg.gyg.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,14 +39,22 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class LocationHelper implements com.capstonegyg.gyg.UI.PostGyg.PermissionUtils.PermissionResultCallback{
+public class LocationHelper extends AppCompatActivity implements com.capstonegyg.gyg.UI.PostGyg.PermissionUtils.PermissionResultCallback{
 
     private Context context;
     private Activity current_activity;
 
     private boolean isPermissionGranted;
 
+    private TextView latitude;
+    private TextView longitude;
+
+
+    private Location l;
+
     private Location mLastLocation;
+
+    private FusedLocationProviderClient mmLastLocation;
 
     // Google client to interact with Google API
 
@@ -108,10 +125,20 @@ public class LocationHelper implements com.capstonegyg.gyg.UI.PostGyg.Permission
 
             try
             {
-                mLastLocation = LocationServices.FusedLocationApi
-                        .getLastLocation(mGoogleApiClient);
+                mmLastLocation = LocationServices.getFusedLocationProviderClient(context);
+              /*  mLastLocation = LocationServices.FusedLocationApi
+                        .getLastLocation(mGoogleApiClient); */
 
-                return mLastLocation;
+                mmLastLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if(location != null) {
+                            l = location;
+                        }
+                    }
+                });
+
+                return l;
             }
             catch (SecurityException e)
             {
