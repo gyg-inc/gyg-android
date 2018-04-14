@@ -23,6 +23,7 @@
         <activity android:name=".UI.PostGyg.PostGygActivity" />
         <activity android:name=".UI.PaymentScreen.PaymentScreenActivity" />
         <activity android:name=".UI.Authentication.AuthenticationActivity" />
+        <activity android:name=".UI.PostGyg.MyLocationUsingHelper" />
         <activity android:name=".UI.Profile.Settings"
             android:label="@string/profile_settings"
             android:parentActivityName=".UI.Profile.ProfileActivity">
@@ -31,6 +32,15 @@
                 android:value=".UI.Profile.ProfileActivity" />
         </activity>
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>
