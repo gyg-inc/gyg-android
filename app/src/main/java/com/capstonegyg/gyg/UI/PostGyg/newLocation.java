@@ -56,35 +56,35 @@ public class newLocation extends AppCompatActivity implements ConnectionCallback
 
         locationHelper=new LocationHelper(this.context);
         locationHelper.checkpermission();
-
-         //  ButterKnife.bind(this);
     }
 
     public String getLocation() {
 
         mLastLocation=locationHelper.getLocation();
 
+        String address = "";
+
          if (mLastLocation != null) {
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
 
              showToast("Longitude: " + longitude + "\nLatitude: " + latitude);
-             String address = getAddress();
-
-             return address;
+             address = getAddress();
         }
         else {
             showToast("Couldn't get the location. Make sure location is enabled on the device");
-            return "";
         }
 
-    /*    // check availability of play services
-               if (locationHelper.checkPlayServices()) {
+        // check availability of play services
+        if (locationHelper.checkPlayServices()) {
+
+        //     showToast("TRUE!");
 
         // Building the GoogleApi client
-                 locationHelper.buildGoogleApiClient();
-              }
-*/
+            locationHelper.buildGoogleApiClient();
+         }
+
+         return address;
     }
 
     public String getAddress()
@@ -155,7 +155,6 @@ public class newLocation extends AppCompatActivity implements ConnectionCallback
     public void onConnectionSuspended(int arg0) {
         locationHelper.connectApiClient();
     }
-
 
     // Permission check functions
     @Override

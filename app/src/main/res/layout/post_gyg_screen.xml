@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/gyg_title"
                 android:inputType="text"
-                android:text=""/>
+                android:text="" />
 
             <EditText
                 android:id="@+id/gyg_category"
@@ -57,38 +58,39 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/gyg_category"
                 android:inputType="text"
-                android:text=""/>
+                android:text="" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/rlPickLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center"
+                    android:text="@string/get_location"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
                 <EditText
                     android:id="@+id/gyg_area"
-                    android:layout_width="wrap_content"
+                    android:layout_width="263dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
                     android:hint="@string/work_location"
-                    android:text=""
-                    android:inputType="text" />
-
-                <TextView
-                    android:layout_gravity="end"
-                    android:id="@+id/rlPickLocation"
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/get_location"
-                    android:textColor="@color/colorPrimary" />
-
+                    android:inputType="textCapWords"
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="10sp"
-                android:paddingBottom="10sp">
+                android:paddingBottom="10sp"
+                android:paddingTop="10sp">
 
                 <EditText
                     android:id="@+id/gyg_pay"
@@ -96,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="@string/pay"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,19 +117,19 @@
                 android:id="@+id/switch2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingBottom="15sp"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
-                android:paddingBottom="15sp"
                 android:text="@string/volunteer_no_pay"
-                android:textSize="18sp"
-                android:checked="false"/>
+                android:textSize="18sp" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
 
                 <Button
@@ -135,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/set_a_deadline"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
 
                 <TextView
@@ -145,10 +147,9 @@
                     android:layout_marginEnd="0dp"
                     android:text="@string/deadline_not_set"
                     android:textAlignment="textEnd"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
-
 
             <EditText
                 android:id="@+id/gyg_description"
@@ -156,9 +157,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/please_enter_a_detailed_work_description_here"
                 android:inputType="textMultiLine"
-                android:text=""/>
-
-
+                android:text="" />
         </LinearLayout>
 
         <Button
@@ -170,8 +169,5 @@
             android:text="@string/submit" />
 
     </RelativeLayout>
-
-
-
 
 </android.support.constraint.ConstraintLayout>

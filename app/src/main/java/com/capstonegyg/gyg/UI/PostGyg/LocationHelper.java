@@ -19,17 +19,22 @@ import android.widget.Toast;
 import com.capstonegyg.gyg.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import org.w3c.dom.Text;
 
@@ -49,11 +54,9 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
     private TextView latitude;
     private TextView longitude;
 
-
+    // Location variables
     private Location l;
-
     private Location mLastLocation;
-
     private FusedLocationProviderClient mmLastLocation;
 
     // Google client to interact with Google API
@@ -61,13 +64,13 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
     private GoogleApiClient mGoogleApiClient;
 
     // list of permissions
-
     private ArrayList<String> permissions=new ArrayList<>();
     private com.capstonegyg.gyg.UI.PostGyg.PermissionUtils permissionUtils;
 
     private final static int PLAY_SERVICES_REQUEST = 1000;
     private final static int REQUEST_CHECK_SETTINGS = 2000;
 
+    /* Constructor */
     public LocationHelper(Context context) {
 
         this.context=context;
@@ -80,10 +83,7 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
 
     }
 
-    /**
-     * Method to check the availability of location permissions
-     * */
-
+    /* Checks if location access is granted or not */
     public void checkpermission()
     {
         permissionUtils.check_permission(permissions,"Need GPS permission for getting your location",1);
@@ -93,9 +93,6 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
         return isPermissionGranted;
     }
 
-    /**
-     * Method to verify google play services on the device
-     * */
 
     public boolean checkPlayServices() {
 
@@ -115,10 +112,7 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
         return true;
     }
 
-    /**
-     * Method to display the location on UI
-     * */
-
+    /* Returns Location Object */
     public Location getLocation() {
 
         if (isPermissionGranted()) {
@@ -126,8 +120,6 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
             try
             {
                 mmLastLocation = LocationServices.getFusedLocationProviderClient(context);
-              /*  mLastLocation = LocationServices.FusedLocationApi
-                        .getLastLocation(mGoogleApiClient); */
 
                 mmLastLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -137,7 +129,6 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
                         }
                     }
                 });
-
                 return l;
             }
             catch (SecurityException e)
@@ -149,6 +140,7 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
         return null;
     }
 
+    /* Returns Address Object based on Latitude and Longitude */
     public Address getAddress(double latitude,double longitude)
     {
         Geocoder geocoder;
@@ -156,7 +148,7 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
         geocoder = new Geocoder(context, Locale.getDefault());
 
         try {
-            addresses = geocoder.getFromLocation(latitude,longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            addresses = geocoder.getFromLocation(latitude,longitude, 1);
             return addresses.get(0);
 
         } catch (IOException e) {
@@ -172,50 +164,68 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
      */
 
     public void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(context)
+
+        // building API client
+  /*      mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) current_activity)
                 .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) current_activity)
-                .addApi(LocationServices.API).build();
+                .addApi(LocationServices.API)
+                .build();
 
         mGoogleApiClient.connect();
-
+*/
+       // creating a request
         LocationRequest mLocationRequest = LocationRequest.create();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
+
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(mLocationRequest);
+ /*
+//        Task<LocationSettingsResponse> result =
+//                LocationServices.getSettingsClient(this).checkLocationSettings(builder.build());
 
-        PendingResult<LocationSettingsResult> result =
-                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
+     //   PendingResult<LocationSettingsResult> result =
+    //            LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
 
-        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
             @Override
-            public void onResult(@NonNull LocationSettingsResult locationSettingsResult) {
+            public void onComplete(Task<LocationSettingsResponse> task) {
+                try {
+                    // location settings are satisfied
+                    LocationSettingsResponse response = task.getResult(ApiException.class);
+                    mLastLocation=getLocation();
 
-                final Status status = locationSettingsResult.getStatus();
+                } catch (ApiException exception) {
+                    switch (exception.getStatusCode()) {
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            // Location settings are not satisfied. But could be fixed by showing the
+                            // user a dialog.
+                            try {
+                                // Cast to a resolvable exception.
+                                ResolvableApiException resolvable = (ResolvableApiException) exception;
+                                // Show the dialog by calling startResolutionForResult(),
+                                // and check the result in onActivityResult().
 
-                switch (status.getStatusCode()) {
-                    case LocationSettingsStatusCodes.SUCCESS:
-                        // All location settings are satisfied. The client can initialize location requests here
-                        mLastLocation=getLocation();
-                        break;
-                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        try {
-                            // Show the dialog by calling startResolutionForResult(),
-                            // and check the result in onActivityResult().
-                            status.startResolutionForResult(current_activity, REQUEST_CHECK_SETTINGS);
-
-                        } catch (IntentSender.SendIntentException e) {
-                            // Ignore the error.
-                        }
-                        break;
-                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        break;
+                                resolvable.startResolutionForResult(
+                                        current_activity,
+                                        REQUEST_CHECK_SETTINGS);
+                            } catch (IntentSender.SendIntentException e) {
+                                // Ignore the error.
+                            } catch (ClassCastException e) {
+                                // Ignore, should be an impossible error.
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            // Location settings are not satisfied. However, we have no way to fix the
+                            // settings so we won't show the dialog.
+                            break;
+                    }
                 }
             }
-        });
+        }); */
     }
 
     /**
