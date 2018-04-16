@@ -57,6 +57,12 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
 
         mAuth = FirebaseAuth.getInstance();
 
+        FirebaseUser user = mAuth.getCurrentUser();
+        if(user != null) {
+            Intent i = new Intent(AuthenticationActivity.this, StartScreen.class);
+            startActivity(i);
+        }
+
     }
 
 
