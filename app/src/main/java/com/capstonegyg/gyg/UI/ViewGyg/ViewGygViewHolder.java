@@ -1,5 +1,6 @@
 package com.capstonegyg.gyg.UI.ViewGyg;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.capstonegyg.gyg.R;
 public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     TextView gygName, gygPosterName, gygFee, gygLocation;
+    String gygDescription, gygTime, gygCategory;
 
     //-------------Click Listeners-------------//
 
@@ -41,6 +43,14 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("GYG_NAME", gygName.getText().toString());
+                dataBundle.putString("GYG_POSTER_NAME", gygPosterName.getText().toString());
+                dataBundle.putString("GYG_FEE", gygFee.getText().toString());
+                dataBundle.putString("GYG_LOCATION", gygLocation.getText().toString());
+                dataBundle.putString("GYG_DESCRIPTION", gygPosterName.getText().toString());
+                dataBundle.putString("GYG_TIME", gygPosterName.getText().toString());
+                dataBundle.putString("GYG_CATEGORYN", gygPosterName.getText().toString());
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
         });
@@ -61,4 +71,6 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
     public void setGygLocation(String gygLocation) {
         this.gygLocation.setText(gygLocation);
     }
+
+
 }

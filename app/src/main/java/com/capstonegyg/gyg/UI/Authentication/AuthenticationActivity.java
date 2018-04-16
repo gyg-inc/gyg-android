@@ -11,6 +11,7 @@ import android.view.View;
 import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.StartScreen;
 import com.capstonegyg.gyg.UI.Home.HomeActivity;
+import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,10 +39,13 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
     private EditText mPasswordField;
 
     private FirebaseAuth mAuth;
+    private FirebaseDatabase database;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emailpassword);
+        database = FirebaseDatabase.getInstance();
 
         //Views
         mStatusTextView = findViewById(R.id.status);
@@ -96,6 +100,20 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            DatabaseReference postDBR = database.getReference();
+                            postDBR.child("users")
+                                    .child(mAuth.getCurrentUser().getUid())
+                                    .push()
+                                    .setValue(mAuth.getCurrentUser().getUid());
+                            for(int i = 0; i < 3; i++) {
+                                postDBR.child("users")
+                                        .child("skills")
+                                        .child("skill"+i)
+                                        .push()
+                                        .setValue("Skill "+(i+1));
+                            }
+
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
