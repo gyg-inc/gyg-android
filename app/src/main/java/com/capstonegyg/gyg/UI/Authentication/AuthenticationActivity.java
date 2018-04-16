@@ -63,9 +63,12 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
             startActivity(i);
             finish();
         }
-
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 
     //onStart check the user
     @Override
