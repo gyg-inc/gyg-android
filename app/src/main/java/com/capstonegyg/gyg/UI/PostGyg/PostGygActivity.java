@@ -117,7 +117,14 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
               address = l.getLocation();
 
-              gygLocation.setText(address);
+            //  showToast(l.address);
+          //    delayMessage();
+
+                  delay();
+
+           //   address = l.getLocation();
+
+            //  gygLocation.setText(address);
 
               }
           });
@@ -419,6 +426,20 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
+
+
+    /* Delays message before disappearing */
+    void delay() {
+        /* Handler delays message from disappearing */
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                address = l.getLocation();
+                gygLocation.setText(address);
+            }
+        }, 300);
+    }
+
 
 }
 

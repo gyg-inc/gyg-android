@@ -51,9 +51,6 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
 
     private boolean isPermissionGranted;
 
-    private TextView latitude;
-    private TextView longitude;
-
     // Location variables
     private Location l;
     private Location mLastLocation;
@@ -156,76 +153,6 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
         }
 
         return null;
-    }
-
-
-    /**
-     * Method used to build GoogleApiClient
-     */
-
-    public void buildGoogleApiClient() {
-
-        // building API client
-  /*      mGoogleApiClient = new GoogleApiClient.Builder(context)
-                .addConnectionCallbacks((GoogleApiClient.ConnectionCallbacks) current_activity)
-                .addOnConnectionFailedListener((GoogleApiClient.OnConnectionFailedListener) current_activity)
-                .addApi(LocationServices.API)
-                .build();
-
-        mGoogleApiClient.connect();
-*/
-       // creating a request
-        LocationRequest mLocationRequest = LocationRequest.create();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(mLocationRequest);
- /*
-//        Task<LocationSettingsResponse> result =
-//                LocationServices.getSettingsClient(this).checkLocationSettings(builder.build());
-
-     //   PendingResult<LocationSettingsResult> result =
-    //            LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
-
-        result.addOnCompleteListener(new OnCompleteListener<LocationSettingsResponse>() {
-            @Override
-            public void onComplete(Task<LocationSettingsResponse> task) {
-                try {
-                    // location settings are satisfied
-                    LocationSettingsResponse response = task.getResult(ApiException.class);
-                    mLastLocation=getLocation();
-
-                } catch (ApiException exception) {
-                    switch (exception.getStatusCode()) {
-                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                            // Location settings are not satisfied. But could be fixed by showing the
-                            // user a dialog.
-                            try {
-                                // Cast to a resolvable exception.
-                                ResolvableApiException resolvable = (ResolvableApiException) exception;
-                                // Show the dialog by calling startResolutionForResult(),
-                                // and check the result in onActivityResult().
-
-                                resolvable.startResolutionForResult(
-                                        current_activity,
-                                        REQUEST_CHECK_SETTINGS);
-                            } catch (IntentSender.SendIntentException e) {
-                                // Ignore the error.
-                            } catch (ClassCastException e) {
-                                // Ignore, should be an impossible error.
-                            }
-                            break;
-                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                            // Location settings are not satisfied. However, we have no way to fix the
-                            // settings so we won't show the dialog.
-                            break;
-                    }
-                }
-            }
-        }); */
     }
 
     /**

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -41,11 +42,14 @@ public class newLocation extends AppCompatActivity implements ConnectionCallback
     private Context context;
     private Activity current_activity;
 
+    private int checker;
+
     double latitude;
     double longitude;
 
+    String address;
+
     String currentLocation;
-  //  private GoogleApiClient mGoogleApiClient;
 
     LocationHelper locationHelper;
 
@@ -56,35 +60,33 @@ public class newLocation extends AppCompatActivity implements ConnectionCallback
 
         locationHelper=new LocationHelper(this.context);
         locationHelper.checkpermission();
+        checker = 0;
+        address = "";
     }
 
     public String getLocation() {
 
         mLastLocation=locationHelper.getLocation();
 
-        String address = "";
-
          if (mLastLocation != null) {
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
 
-             showToast("Longitude: " + longitude + "\nLatitude: " + latitude);
+        //     showToast("Longitude: " + longitude + "\nLatitude: " + latitude);
              address = getAddress();
+             return address;
         }
         else {
-            showToast("Couldn't get the location. Make sure location is enabled on the device");
+             if(checker < 2) {
+                 checker += 1;
+                 delayMessage();
+
+                 return address;
+             }
+             else
+                 showToast("Couldn't get the location. Make sure location is enabled on the device");
+             return address;
         }
-
-        // check availability of play services
-        if (locationHelper.checkPlayServices()) {
-
-        //     showToast("TRUE!");
-
-        // Building the GoogleApi client
-            locationHelper.buildGoogleApiClient();
-         }
-
-         return address;
     }
 
     public String getAddress()
@@ -169,4 +171,16 @@ public class newLocation extends AppCompatActivity implements ConnectionCallback
     {
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
     }
+
+    /* Delays message before disappearing */
+    void delayMessage() {
+        /* Handler delays message from disappearing */
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            public void run() {
+                address = getLocation();
+            }
+        }, 20);
+    }
+
 }
