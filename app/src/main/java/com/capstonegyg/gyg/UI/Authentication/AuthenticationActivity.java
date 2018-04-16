@@ -1,5 +1,6 @@
 package com.capstonegyg.gyg.UI.Authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.capstonegyg.gyg.R;
+import com.capstonegyg.gyg.StartScreen;
+import com.capstonegyg.gyg.UI.Home.HomeActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -118,6 +121,8 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            Intent i = new Intent(AuthenticationActivity.this, StartScreen.class);
+                            startActivity(i);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
