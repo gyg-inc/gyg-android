@@ -104,10 +104,12 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                             DatabaseReference postDBR = database.getReference();
                             postDBR.child("users")
                                     .child(mAuth.getCurrentUser().getUid())
+                                    .child("user_id")
                                     .push()
                                     .setValue(mAuth.getCurrentUser().getUid());
                             for(int i = 0; i < 3; i++) {
                                 postDBR.child("users")
+                                        .child(mAuth.getCurrentUser().getUid())
                                         .child("skills")
                                         .child("skill"+i)
                                         .push()
