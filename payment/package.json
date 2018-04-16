@@ -1,0 +1,8 @@
+{
+    "name": "gyg",
+    "description": "a really cool app",
+    "version": "1.0.0",
+    "engines": {
+      "node": "8.7.0"
+    }
+  }
