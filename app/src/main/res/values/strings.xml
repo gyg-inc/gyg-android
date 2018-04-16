@@ -42,7 +42,7 @@
     <string name="profile_settings">Profile Settings</string>
     <string name="name">Name</string>
     <string name="display_name">Displayed Name :</string>
-    <string name="displayed_skills">Displayed Skiils :</string>
+    <string name="displayed_skills">Displayed Skills :</string>
     <string name="skill_1">Skill 1</string>
     <string name="skill_2">Skill 2</string>
     <string name="skill_3">Skill 3</string>
@@ -54,5 +54,8 @@
     <string name="change_deadline">CHANGE DEADLINE</string>
     <string name="background_colors">background_colors</string>
     <string name="get_location">GET LOCATION</string>
+    <string name="change_password">Change Password :</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
 
 </resources>
