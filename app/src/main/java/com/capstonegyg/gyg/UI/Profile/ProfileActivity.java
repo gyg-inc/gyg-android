@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.StartScreen;
+import com.capstonegyg.gyg.UI.Authentication.AuthenticationActivity;
 import com.capstonegyg.gyg.UI.ViewGyg.ViewGygActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,9 +36,11 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private TextView userName;
+    private FirebaseAuth mAuth;
 
     //FirebaseDatabase database = FirebaseDatabase.getInstance();
     //DatabaseReference myRef = database.getReference().child("user_profile");
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,6 +58,12 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(i);
             return true;
         }
+        if (id == R.id.sign_out) {
+            mAuth.signOut();
+            Intent i = new Intent(ProfileActivity.this, AuthenticationActivity.class);
+            startActivity(i);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -63,6 +72,9 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_screen);
         myGygs = findViewById(R.id.profiles_gygs);
+
+        mAuth = FirebaseAuth.getInstance();
+        //FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
             // Name, email address, and profile photo Url
