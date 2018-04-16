@@ -133,6 +133,7 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                             updateUI(user);
                             Intent i = new Intent(AuthenticationActivity.this, StartScreen.class);
                             startActivity(i);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
