@@ -6,59 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".UI.Profile.Settings">
 
-    <EditText
-        android:id="@+id/new_pw"
-        android:layout_width="243dp"
+    <Button
+        android:id="@+id/button_submit"
+        android:layout_width="201dp"
         android:layout_height="46dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="228dp"
+        android:text="@string/submit_changes"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/text_oldpw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/text_newpw"
+        android:layout_width="231dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/new_password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/pay_update"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/text_updatePW"
-        app:layout_constraintTop_toBottomOf="@+id/skill3"
-        app:layout_constraintVertical_bias="0.702" />
-
-    <EditText
-        android:id="@+id/old_pw"
-        android:layout_width="243dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/old_password"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/pay_update"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/text_updatePW"
-        app:layout_constraintTop_toBottomOf="@+id/skill3"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintTop_toBottomOf="@+id/text_oldpw"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/text_updatePW"
         android:layout_width="105dp"
-        android:layout_height="52dp"
+        android:layout_height="46dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/change_password"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541" />
+        app:layout_constraintTop_toBottomOf="@+id/button_submit"
+        app:layout_constraintVertical_bias="0.18" />
 
     <Button
         android:id="@+id/pay_update"
@@ -69,7 +67,7 @@
         android:layout_marginStart="8dp"
         android:text="@string/update_payment_info"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toTopOf="@+id/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -96,19 +94,16 @@
         android:id="@+id/skill3"
         android:layout_width="193dp"
         android:layout_height="44dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/skill_3"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toEndOf="@+id/text_displaySkills"
-        app:layout_constraintTop_toBottomOf="@+id/skill2"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintTop_toBottomOf="@+id/skill2" />
 
     <TextView
         android:id="@+id/text_displaySkills"
@@ -137,26 +132,27 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/skill_2"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toEndOf="@+id/text_displaySkills"
         app:layout_constraintTop_toBottomOf="@+id/skill1"
-        app:layout_constraintVertical_bias="0.015" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/text_name"
         android:layout_width="193dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/name"
-        app:layout_constraintBottom_toTopOf="@+id/skill1"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/text_oldpw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.771"
         app:layout_constraintStart_toEndOf="@+id/text_displayName"
@@ -164,21 +160,21 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/submit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/button_update_pw"
+        android:layout_width="196dp"
+        android:layout_height="44dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/submit_changes"
+        android:layout_marginTop="8dp"
+        android:text="@string/update_pw"
         android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/pay_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.981" />
+        app:layout_constraintTop_toBottomOf="@+id/text_updatePW"
+        app:layout_constraintVertical_bias="0.44" />
 
     <TextView
         android:id="@+id/text_displayName"
@@ -197,5 +193,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.21" />
+
+    <EditText
+        android:id="@+id/text_oldpw"
+        android:layout_width="231dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="108dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/old_password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/pay_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_updatePW"
+        app:layout_constraintTop_toBottomOf="@+id/skill3"
+        app:layout_constraintVertical_bias="0.55" />
 
 </android.support.constraint.ConstraintLayout>

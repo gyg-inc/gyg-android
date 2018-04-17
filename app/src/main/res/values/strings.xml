@@ -55,8 +55,9 @@
     <string name="background_colors">background_colors</string>
     <string name="get_location">GET LOCATION</string>
     <string name="change_password">Change Password :</string>
-    <string name="old_password">Old Password</string>
+    <string name="old_password">Current Password</string>
     <string name="new_password">New Password</string>
+    <string name="update_pw">Update</string>
     <string name="cancel">Cancel</string>
 
 </resources>
