@@ -53,19 +53,13 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
 
     // Location variables
     private Location l;
-    private Location mLastLocation;
     private FusedLocationProviderClient mmLastLocation;
-
-    // Google client to interact with Google API
-
-    private GoogleApiClient mGoogleApiClient;
 
     // list of permissions
     private ArrayList<String> permissions=new ArrayList<>();
     private com.capstonegyg.gyg.UI.PostGyg.PermissionUtils permissionUtils;
 
     private final static int PLAY_SERVICES_REQUEST = 1000;
-    private final static int REQUEST_CHECK_SETTINGS = 2000;
 
     /* Constructor */
     public LocationHelper(Context context) {
@@ -155,50 +149,10 @@ public class LocationHelper extends AppCompatActivity implements com.capstonegyg
         return null;
     }
 
-    /**
-     * Method used to connect GoogleApiClient
-     */
-    public void connectApiClient()
-    {
-        mGoogleApiClient.connect();
-    }
-
-    /**
-     * Method used to get the GoogleApiClient
-     */
-    public GoogleApiClient getGoogleApiCLient()
-    {
-        return mGoogleApiClient;
-    }
-
-
-    /**
-     * Handles the permission results
-     */
+    /* Handles Permission Results */
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
        permissionUtils.onRequestPermissionsResult(requestCode,permissions,grantResults);
-    }
-
-    /**
-     * Handles the activity results
-     */
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_CHECK_SETTINGS:
-                switch (resultCode) {
-                    case Activity.RESULT_OK:
-                        // All required changes were successfully made
-                        mLastLocation=getLocation();
-                        break;
-                    case Activity.RESULT_CANCELED:
-                        // The user was asked to change settings, but chose not to
-                        break;
-                    default:
-                        break;
-                }
-                break;
-        }
     }
 
     @Override

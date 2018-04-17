@@ -87,6 +87,7 @@ public class PermissionUtils
 
                 if (hasPermission != PackageManager.PERMISSION_GRANTED) {
                     listPermissionsNeeded.add(permissions.get(i));
+
                 }
             }
 
@@ -182,6 +183,13 @@ public class PermissionUtils
         void PermissionDenied(int request_code);
         void NeverAskAgain(int request_code);
     }
+
+    private void showToast(String message)
+    {
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+    }
+
+
 }
 
 

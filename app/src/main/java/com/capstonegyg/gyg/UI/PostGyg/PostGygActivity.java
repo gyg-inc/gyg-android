@@ -1,5 +1,6 @@
 package com.capstonegyg.gyg.UI.PostGyg;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -67,9 +68,16 @@ import butterknife.BindView;
  */
 
 // TO DO:
-// option to add picture for a gyg
-    // location should suggest current location/ ability on a map to look it up
-
+    // option to add picture for a gyg - possible future implementation
+    // Change address to add City and State - possible future implementation
+    // Cancel button next to submit (DONE)
+    // Add gygWorkerName, gygAcceptedDate (DONE)
+    // remove location functions that are unnecessary (DONE)
+    // reboot activity after requesting location (DONE)
+    // change function names for location to reflect what they're doing
+    // split address into zip, city, and state
+    // implement editing a gyg from Mygygs to go back here, with filled in information (make function to set filled in information so that separate class can call it)
+    //      (maybe delete the old one, post the new one once submit is clicked (have to keep track if edited or initial post for this))
 public class PostGygActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     int year;
@@ -92,10 +100,12 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     double gygFee;
 
     String gygTime;
+    String address;
     String gygPosterName;
     String gygPostedDate;
 
-    String address;
+    String gygWorkerName;
+    String gygAcceptedDate;
 
     newLocation l;
 
@@ -104,6 +114,14 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_gyg_screen);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            gygName        = findViewById(R.id.gyg_title);
+            gygCategory    = findViewById(R.id.gyg_category);
+            gygLocation    = findViewById(R.id.gyg_area);
+            gygDescription = findViewById(R.id.gyg_description);
+            gygName.setText(extras.getString("gygName"));
+        }
 
 
         /* get Location Data */
@@ -114,28 +132,24 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         rlPick.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-
               address = l.getLocation();
 
-            //  showToast(l.address);
-          //    delayMessage();
-
-                  delay();
-
-           //   address = l.getLocation();
-
-            //  gygLocation.setText(address);
-
+              secondLocationFetch();
               }
           });
 
-        gygLocation.setText(address);
+        if(address == "REBOOT")
+            rebootActivity();
+        else
+            gygLocation.setText(address);
 
         //Set views
         sw = findViewById(R.id.switch2);
         timeSpinner = findViewById(R.id.time_spinner);
 
         gygEndDate = "NONE";
+        gygWorkerName = "";
+        gygAcceptedDate = "";
 
         /* Initialize data */
 
@@ -149,6 +163,15 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
         setDesign();
 
+        /* Setting the Cancel button onClick listener */
+        Button Cancel = findViewById(R.id.cancel_gyg);
+        Cancel.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  yesNoPopUp("Cancel Gyg", "Are you sure you want to Cancel?");
+              }
+          });
+
         /* Declaring and setting Submit button to send info to Firebase */
         Button Submit = findViewById(R.id.submit_gyg);
         Submit.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +179,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View v) {
 
                 Boolean goodInput = checkInput();
-
                 if(goodInput) {getInput();}
 
                 if (gygVolunteer && gygFee != 0.00 && goodInput) {
@@ -164,35 +186,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                     resetVolunteer();
                 }
                 else if (goodInput) {
-
-                    /* Pop-Up Box to verify that the User wants to post the Gyg */
-                    AlertDialog.Builder builder;
-
-                    builder = new AlertDialog.Builder(PostGygActivity.this, android.R.style.Theme_Material_Dialog_Alert);
-                    builder.setTitle("Post Gyg");
-                    builder.setMessage("Are you sure you want to post this Gyg?");
-
-                    /* If user definitely wants to post the gyg, get data and send it to Firebase */
-                    builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            getInput();
-
-                            pushToFirebase();
-
-                            showPostSuccess();
-                        }
-                    });
-
-                    /* If user doesn't want to post the gyg */
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
-                    builder.create();
-                    builder.show();
+                    doubleCheckAndPush();
                 }
             }
         });
@@ -230,6 +224,32 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         times.add("Monthly");
         times.add("Yearly");
     }
+
+    void yesNoPopUp(String title, String message) {
+        AlertDialog.Builder builder;
+
+        builder = new AlertDialog.Builder(PostGygActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+        builder.setTitle(title);
+        builder.setMessage(message);
+
+        /* If user definitely wants to post the gyg, get data and send it to Firebase */
+        builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        builder.create();
+        builder.show();
+    }
+
 
     /* Initializes the Time Spinner */
     void initTimeSpinner() {
@@ -282,6 +302,42 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         });
     }
 
+
+    void doubleCheckAndPush() {
+
+        /* Pop-Up Box to verify that the User wants to post the Gyg */
+        AlertDialog.Builder builder;
+
+        builder = new AlertDialog.Builder(PostGygActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+        builder.setTitle("Post Gyg");
+        builder.setMessage("Are you sure you want to post this Gyg?");
+
+        /* If user definitely wants to post the gyg, get data and send it to Firebase */
+        builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                getInput();
+
+                pushToFirebase();
+
+                showPostSuccess();
+            }
+        });
+
+        /* If user doesn't want to post the gyg */
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.create();
+        builder.show();
+    }
+
+
+
+
     /* Sets remainder of variables not set by checkInput
      * Checks for no payment
      */
@@ -309,7 +365,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
         /* Formatting and Pushing of data */
         PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
-                format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate, gygVolunteer);
+                format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate, gygVolunteer, gygWorkerName, gygAcceptedDate);
         postDBR.child("gygs").push().setValue(gyg);
     }
 
@@ -429,15 +485,29 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
 
     /* Delays message before disappearing */
-    void delay() {
+    void secondLocationFetch() {
         /* Handler delays message from disappearing */
         Handler mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 address = l.getLocation();
-                gygLocation.setText(address);
+                if(address == "REBOOT") {
+                    rebootActivity();
+                }
+                else
+                    gygLocation.setText(address);
+
             }
         }, 300);
+    }
+
+
+    void rebootActivity() {
+        showToast("Could not fetch Location. Refreshing.");
+        Intent intent = new Intent(getApplicationContext(), PostGygActivity.class);
+        //   intent.putExtra("gygName",format(gygName));
+        finish();
+        startActivity(intent);
     }
 
 

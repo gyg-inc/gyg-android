@@ -16,11 +16,11 @@ public class PostGygData {
     public String gygPostedDate;
     public String gygEndDate;
     public Boolean gygVolunteer;
-
-
+    public String gygWorkerName;
+    public String gygAcceptedDate;
 
     //Constructor
-    public PostGygData(String gygName, String gygCategory, String gygLocation, Double gygFee, String gygDescription, String gygTime, String gygPosterName, String gygPostedDate, String gygEndDate, Boolean gygVolunteer) {
+    public PostGygData(String gygName, String gygCategory, String gygLocation, Double gygFee, String gygDescription, String gygTime, String gygPosterName, String gygPostedDate, String gygEndDate, Boolean gygVolunteer, String gygWorkerName, String gygAcceptedDate) {
         this.gygName = gygName;
         this.gygCategory = gygCategory;
         this.gygLocation = gygLocation;
@@ -31,6 +31,8 @@ public class PostGygData {
         this.gygPostedDate = gygPostedDate;
         this.gygEndDate = gygEndDate;
         this.gygVolunteer = gygVolunteer;
+        this.gygWorkerName = gygWorkerName;
+        this.gygAcceptedDate = gygAcceptedDate;
     }
     public PostGygData(){}
 }
