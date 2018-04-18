@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/skill1"
+        android:id="@+id/text_skill1"
         android:layout_width="193dp"
         android:layout_height="44dp"
         android:layout_marginBottom="8dp"
@@ -91,7 +91,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/skill3"
+        android:id="@+id/text_skill3"
         android:layout_width="193dp"
         android:layout_height="44dp"
         android:layout_marginEnd="8dp"
@@ -103,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toEndOf="@+id/text_displaySkills"
-        app:layout_constraintTop_toBottomOf="@+id/skill2" />
+        app:layout_constraintTop_toBottomOf="@+id/text_skill2" />
 
     <TextView
         android:id="@+id/text_displaySkills"
@@ -124,7 +124,7 @@
         app:layout_constraintVertical_bias="0.15" />
 
     <EditText
-        android:id="@+id/skill2"
+        android:id="@+id/text_skill2"
         android:layout_width="193dp"
         android:layout_height="44dp"
         android:layout_marginBottom="8dp"
@@ -138,7 +138,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toEndOf="@+id/text_displaySkills"
-        app:layout_constraintTop_toBottomOf="@+id/skill1"
+        app:layout_constraintTop_toBottomOf="@+id/text_skill1"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
@@ -208,7 +208,7 @@
         app:layout_constraintBottom_toTopOf="@+id/pay_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_updatePW"
-        app:layout_constraintTop_toBottomOf="@+id/skill3"
+        app:layout_constraintTop_toBottomOf="@+id/text_skill3"
         app:layout_constraintVertical_bias="0.55" />
 
 </android.support.constraint.ConstraintLayout>
