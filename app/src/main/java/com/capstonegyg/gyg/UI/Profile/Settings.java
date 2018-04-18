@@ -31,6 +31,7 @@ import java.net.PasswordAuthentication;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
+    private String UID;
 
     private EditText oldPass;
     private EditText newPass;
@@ -46,23 +47,23 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         ActionBar actionBar = this.getSupportActionBar();
 
         mAuth = FirebaseAuth.getInstance();
-        String UID = mAuth.getCurrentUser().getUid().toString();
-        String path = "gyg-inc/users/" + UID + "/skills/skill0";
+        UID = mAuth.getCurrentUser().getUid();
+        String path = "gyg-inc/users";
 
         //showToast(path);
         database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference(path);
+        DatabaseReference ref = database.getReference().child(path);
+        showToast(ref.toString());
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //String v = dataSnapshot.getKey();
-                //showToast(v);
+                show_data(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                showToast("The read failed: " + databaseError.getCode());
             }
         });
 
@@ -134,6 +135,25 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                 }
             }
         });
+    }
+
+    public void show_data(DataSnapshot dataSnapshot) {
+        //showToast(""+dataSnapshot.getChildrenCount());
+        showToast(""+dataSnapshot.hasChild(UID));
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            UserData userData = new UserData();
+            userData.setUser_id(ds.child(UID).getValue(UserData.class).getUser_id()); //set the user_id
+            userData.setDiaplay_name(ds.child(UID).getValue(UserData.class).getDiaplay_name()); //set the display_name
+            userData.setSkills(ds.child(UID).getValue(UserData.class).getSkills()); //set the user_id
+
+            //display all the information
+            showToast("User ID :" + userData.getUser_id() +
+                    "Display Name :" + userData.getDiaplay_name() +
+                    "Skills : [1] " + userData.getSkills()[0] +
+                    " [2] " + userData.getSkills()[1] +
+                    " [3] " + userData.getSkills()[2]);
+
+        }
     }
 
     public void showToast(String message)
