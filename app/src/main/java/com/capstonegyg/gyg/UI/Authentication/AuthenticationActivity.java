@@ -111,6 +111,10 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                                         .child("skill"+i)
                                         .setValue("Skill "+(i+1));
                             }
+                            postDBR.child("users")
+                                    .child(mAuth.getCurrentUser().getUid())
+                                    .child("display_name")
+                                    .setValue("User" + mAuth.getCurrentUser().getUid().hashCode());
 
                             updateUI(user);
                         } else {

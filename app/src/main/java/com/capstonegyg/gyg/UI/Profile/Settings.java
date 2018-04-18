@@ -1,5 +1,6 @@
 package com.capstonegyg.gyg.UI.Profile;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -18,7 +19,13 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.PasswordAuthentication;
 
@@ -31,13 +38,35 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_settings_screen);
         ActionBar actionBar = this.getSupportActionBar();
 
+        mAuth = FirebaseAuth.getInstance();
+        String UID = mAuth.getCurrentUser().getUid().toString();
+        String path = "gyg-inc/users/" + UID + "/skills/skill0";
+
+        //showToast(path);
         database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference(path);
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //String v = dataSnapshot.getKey();
+                //showToast(v);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //showToast(ref.toString());
 
         //Views
         oldPass = findViewById(R.id.text_oldpw);
