@@ -54,6 +54,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -351,14 +352,23 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     void pushToFirebase() {
         // Declaring Firebase object
 
-        final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()};
-        DatabaseReference postDBR = database[0].getReference();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference postDBR = database.getReference();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         /* Formatting and Pushing of data */
         PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
                 format(gygDescription), gygTime, getGygPosterName(), gygPostedDate, gygEndDate, gygVolunteer, gygWorkerName, gygAcceptedDate);
 
-        postDBR.child("gygs").push().setValue(gyg);
+        DatabaseReference ref = postDBR.child("gygs").push();
+        ref.setValue(gyg);
+
+
+        postDBR.child("users")
+                .child(mAuth.getCurrentUser().getUid())
+                .child("my_gygs")
+                .push()
+                .setValue(ref.getKey());
     }
 
     String getGygPosterName() {
