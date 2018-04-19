@@ -28,6 +28,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+  *Created by Andrew Vivian
+  */
 
 public class AuthenticationActivity extends AppCompatActivity implements View.OnClickListener {
 
