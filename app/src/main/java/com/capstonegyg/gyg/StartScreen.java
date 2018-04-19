@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.capstonegyg.gyg.UI.PaymentScreen.PaymentScreenActivity;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
+import com.capstonegyg.gyg.UI.PostGyg.newLocation;
 import com.capstonegyg.gyg.UI.Profile.ProfileActivity;
 import com.capstonegyg.gyg.UI.ViewGyg.ViewGygActivity;
 
@@ -27,6 +28,10 @@ public class StartScreen extends AppCompatActivity {
         postGygs = findViewById(R.id.post_gyg_button);
         paymentScreen = findViewById(R.id.goToPaymentScreen);
         profile = findViewById(R.id.profile_button);
+
+        newLocation l = new newLocation(this);
+        l.getLocation();
+
 
         viewGygs.setOnClickListener(new View.OnClickListener() {
             @Override

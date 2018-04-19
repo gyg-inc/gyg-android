@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
@@ -52,6 +53,7 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -74,8 +76,7 @@ import butterknife.BindView;
     // Add gygWorkerName, gygAcceptedDate (DONE)
     // remove location functions that are unnecessary (DONE)
     // reboot activity after requesting location (DONE)
-    // change function names for location to reflect what they're doing
-    // split address into zip, city, and state
+    // change function names for location to reflect what they're doing (DONE)
     // implement editing a gyg from Mygygs to go back here, with filled in information (make function to set filled in information so that separate class can call it)
     //      (maybe delete the old one, post the new one once submit is clicked (have to keep track if edited or initial post for this))
 public class PostGygActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -109,20 +110,13 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
     newLocation l;
 
+    SharedPreferences sharedPref;
+    String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_gyg_screen);
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            gygName        = findViewById(R.id.gyg_title);
-            gygCategory    = findViewById(R.id.gyg_category);
-            gygLocation    = findViewById(R.id.gyg_area);
-            gygDescription = findViewById(R.id.gyg_description);
-            gygName.setText(extras.getString("gygName"));
-        }
-
 
         /* get Location Data */
         l = new newLocation(this);
@@ -138,9 +132,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
               }
           });
 
-        if(address == "REBOOT")
-            rebootActivity();
-        else
             gygLocation.setText(address);
 
         //Set views
@@ -353,20 +344,25 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         //Spinner s = findViewById(R.id.time_spinner);
         gygTime = timeSpinner.getSelectedItem().toString();
 
-        gygPosterName = "testName";
         gygPostedDate = new Date().toString();
     }
 
     /* Creates Gyg object and pushes it to Firebase */
     void pushToFirebase() {
         // Declaring Firebase object
+
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()};
         DatabaseReference postDBR = database[0].getReference();
 
         /* Formatting and Pushing of data */
         PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
-                format(gygDescription), gygTime, gygPosterName, gygPostedDate, gygEndDate, gygVolunteer, gygWorkerName, gygAcceptedDate);
+                format(gygDescription), gygTime, getGygPosterName(), gygPostedDate, gygEndDate, gygVolunteer, gygWorkerName, gygAcceptedDate);
+
         postDBR.child("gygs").push().setValue(gyg);
+    }
+
+    String getGygPosterName() {
+        return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     /* Function to format the input */
@@ -491,23 +487,10 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         mHandler.postDelayed(new Runnable() {
             public void run() {
                 address = l.getLocation();
-                if(address == "REBOOT") {
-                    rebootActivity();
-                }
-                else
-                    gygLocation.setText(address);
+                gygLocation.setText(address);
 
             }
         }, 300);
-    }
-
-
-    void rebootActivity() {
-        showToast("Could not fetch Location. Refreshing.");
-        Intent intent = new Intent(getApplicationContext(), PostGygActivity.class);
-        //   intent.putExtra("gygName",format(gygName));
-        finish();
-        startActivity(intent);
     }
 
 
