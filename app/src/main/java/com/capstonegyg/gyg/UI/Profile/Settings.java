@@ -1,8 +1,6 @@
 package com.capstonegyg.gyg.UI.Profile;
 
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,15 +17,12 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.PasswordAuthentication;
 import java.util.Objects;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
@@ -42,7 +37,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     private EditText skill3;
 
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
     private DatabaseReference ref;
     
     @Override
@@ -52,8 +46,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         ActionBar actionBar = this.getSupportActionBar();
         mAuth = FirebaseAuth.getInstance();
         UID = mAuth.getCurrentUser().getUid();
-        database = FirebaseDatabase.getInstance();
-        ref = database.getInstance().getReference("users").child(UID);
+        ref = FirebaseDatabase.getInstance().getReference("users").child(UID);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,7 +95,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         final FirebaseUser user = mAuth.getCurrentUser();
         final String email;
 
-
         if (i == R.id.button_update_pw) {
             if (user != null) {
                 email = user.getEmail();
@@ -119,7 +111,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             }
         }
         if (i == R.id.button_submit) {
-            DatabaseReference postDBR = database.getReference();
+            DatabaseReference postDBR = FirebaseDatabase.getInstance().getReference();
             if (displayName.getText().length() + skill1.getText().length() + skill2.getText().length() + skill3.getText().length() == 0)
                 showToast("Enter the values you wish to update.");
             else {
@@ -177,7 +169,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void show_data(DataSnapshot dataSnapshot) {
-        displayName.setHint(Objects.requireNonNull(dataSnapshot.child("display_name").getValue()).toString());
+        displayName.setText(Objects.requireNonNull(dataSnapshot.child("display_name").getValue()).toString());
         skill1.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString());
         skill2.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill1").getValue()).toString());
         skill3.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill2").getValue()).toString());
@@ -187,7 +179,5 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
-
-
 
 }

@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 /*
 *   Change display name, change skillset, change payment info (send to Shawn), change picture, submit to commit changes
- */
+*/
 
 // add option to delete gyg from user profile
 
@@ -38,17 +38,12 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView userName;
     private FirebaseAuth mAuth;
 
-    //FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //DatabaseReference myRef = database.getReference().child("user_profile");
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.profile_settings_menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -77,18 +72,19 @@ public class ProfileActivity extends AppCompatActivity {
         //FirebaseUser user = mAuth.getCurrentUser();
 
         if (user != null) {
-            // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
-            Uri photoUrl = user.getPhotoUrl();
+             String UID = user.getUid();
+
+             // Name, email address, and profile photo Url
+            //String name = user.getDisplayName();
+            //Uri photoUrl = user.getPhotoUrl();
 
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
             // FirebaseUser.getIdToken() instead.
-            String uid = user.getUid();
 
-            userName = findViewById(R.id.profile_name);
-            userName.setText(name);
 
+            //userName = findViewById(R.id.profile_name);
+            //userName.setText(name);
 
         }
 
@@ -114,6 +110,5 @@ public class ProfileActivity extends AppCompatActivity {
         pAdapter = new ProfileFirebaseAdapter(ProfileData.class, R.layout.gyg_list_layout, ProfileViewHolder.class, pDatabaseReference);
 
     }
-
 
 }

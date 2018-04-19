@@ -60,5 +60,6 @@
     <string name="update_pw">Update</string>
     <string name="cancel">Cancel</string>
     <string name="profile_header">Public Profile</string>
+    <string name="profile_pic">Profile Picture</string>
 
 </resources>
