@@ -23,7 +23,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class PaymentScreenActivity extends AppCompatActivity {
 
-    int REQUEST_CODE = 50;
+    private int REQUEST_CODE = 50;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
