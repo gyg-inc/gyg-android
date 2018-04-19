@@ -16,7 +16,6 @@ public class StartScreen extends AppCompatActivity {
 
     private Button viewGygs;
     private Button postGygs;
-    private Button paymentScreen;
     private Button profile;
 
     @Override
@@ -26,7 +25,6 @@ public class StartScreen extends AppCompatActivity {
 
         viewGygs = findViewById(R.id.view_gyg_button);
         postGygs = findViewById(R.id.post_gyg_button);
-        paymentScreen = findViewById(R.id.goToPaymentScreen);
         profile = findViewById(R.id.profile_button);
 
         newLocation l = new newLocation(this);
@@ -49,12 +47,6 @@ public class StartScreen extends AppCompatActivity {
             }
         });
 
-        paymentScreen.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent p = new Intent(StartScreen.this, PaymentScreenActivity.class);
-                startActivity(p);
-            }
-        });
 
         profile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
