@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.net.PasswordAuthentication;
+import java.util.Objects;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
@@ -43,27 +44,20 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference ref;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_settings_screen);
         ActionBar actionBar = this.getSupportActionBar();
-
         mAuth = FirebaseAuth.getInstance();
         UID = mAuth.getCurrentUser().getUid();
-        String path = "gyg-inc/users";
-
-        //showToast(path);
         database = FirebaseDatabase.getInstance();
         ref = database.getInstance().getReference("users").child(UID);
-        //showToast(ref.toString());
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 show_data(dataSnapshot);
             }
 
@@ -72,8 +66,6 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                 showToast("The read failed: " + databaseError.getCode());
             }
         });
-
-        //showToast(ref.toString());
 
         //Views
         oldPass = findViewById(R.id.text_oldpw);
@@ -108,9 +100,12 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         int i = v.getId();
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
-        final String email = user.getEmail();
+        final String email;
+
 
         if (i == R.id.button_update_pw) {
+            if (user != null) {
+                email = user.getEmail();
             String oldpw = oldPass.getText().toString();
             final String newpw = newPass.getText().toString();
             if (oldpw.length() > 0 && newpw.length() > 0 && newpw.length() >= 6 && !oldpw.equals(newpw))
@@ -121,39 +116,39 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                 showToast("Passwords must be at least 6 characters long.");
             else
                 showToast("Please enter both current and new password.");
+            }
         }
         if (i == R.id.button_submit) {
             DatabaseReference postDBR = database.getReference();
             if (displayName.getText().length() + skill1.getText().length() + skill2.getText().length() + skill3.getText().length() == 0)
                 showToast("Enter the values you wish to update.");
             else {
-            if (displayName.getText().length() >= 6 && displayName.getText().length() > 0)
-                postDBR.child("users")
-                        .child(UID)
-                        .child("display_name")
-                        .setValue(displayName.getText().toString());
-            else
-                showToast("Diaplay names must be at least 6 characters");
-            if (skill1.getText().length() > 0)
-                postDBR.child("users")
-                        .child(UID)
-                        .child("skills")
-                        .child("skill0")
-                        .setValue(skill1.getText().toString());
-            if (skill2.getText().length() > 0)
-                postDBR.child("users")
-                        .child(UID)
-                        .child("skills")
-                        .child("skill1")
-                        .setValue(skill2.getText().toString());
-            if (skill3.getText().length() > 0)
-                postDBR.child("users")
-                        .child(UID)
-                        .child("skills")
-                        .child("skill2")
-                        .setValue(skill3.getText().toString());
-
-            showToast("Profile Updated Successfully!");
+                if (displayName.getText().length() >= 6)
+                    postDBR.child("users")
+                            .child(UID)
+                            .child("display_name")
+                            .setValue(displayName.getText().toString());
+                else if (displayName.getText().length() < 6 && displayName.getText().length() > 0)
+                    showToast("Diaplay names must be at least 6 characters");
+                if (skill1.getText().length() > 0)
+                    postDBR.child("users")
+                            .child(UID)
+                            .child("skills")
+                            .child("skill0")
+                            .setValue(skill1.getText().toString());
+                if (skill2.getText().length() > 0)
+                    postDBR.child("users")
+                            .child(UID)
+                            .child("skills")
+                            .child("skill1")
+                            .setValue(skill2.getText().toString());
+                if (skill3.getText().length() > 0)
+                    postDBR.child("users")
+                            .child(UID)
+                            .child("skills")
+                            .child("skill2")
+                            .setValue(skill3.getText().toString());
+                showToast("Profile Updated Successfully!");
             }
         }
     }
@@ -182,10 +177,10 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void show_data(DataSnapshot dataSnapshot) {
-        displayName.setHint(dataSnapshot.child("display_name").getValue().toString());
-        skill1.setHint(dataSnapshot.child("skills").child("skill0").getValue().toString());
-        skill2.setHint(dataSnapshot.child("skills").child("skill1").getValue().toString());
-        skill3.setHint(dataSnapshot.child("skills").child("skill2").getValue().toString());
+        displayName.setHint(Objects.requireNonNull(dataSnapshot.child("display_name").getValue()).toString());
+        skill1.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString());
+        skill2.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill1").getValue()).toString());
+        skill3.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill2").getValue()).toString());
     }
 
     public void showToast(String message)
