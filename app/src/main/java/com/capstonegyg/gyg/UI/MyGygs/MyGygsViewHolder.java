@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.capstonegyg.gyg.R;
+import com.google.firebase.database.Query;
 
 public class MyGygsViewHolder extends RecyclerView.ViewHolder {
     TextView gygName, gygPosterName, gygFee, gygLocation;
@@ -26,7 +28,7 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder {
 
     //-------------End Click Listeners-------------//
 
-    public MyGygsViewHolder(View itemView) {
+    public MyGygsViewHolder(final View itemView) {
         super(itemView);
 
         gygName = itemView.findViewById(R.id.gyg_name);
@@ -45,10 +47,23 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder {
                 dataBundle.putString("GYG_LOCATION", gygLocation.getText().toString());
                 dataBundle.putString("GYG_DESCRIPTION", gygPosterName.getText().toString());
                 dataBundle.putString("GYG_TIME", gygPosterName.getText().toString());
-                dataBundle.putString("GYG_CATEGORYN", gygPosterName.getText().toString());
+                dataBundle.putString("GYG_CATEGORY", gygPosterName.getText().toString());
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
         });
+
+        // WORK IN PROGRESS
+        TextView delete = itemView.findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("THIS IS A TEST" + getAdapterPosition());
+                itemView.getId();
+               // Query queryRef = userDBR.child("gygs").orderByChild("gygPosterName").equalTo(mAuth.getCurrentUser().getUid());
+
+            }
+        });
+
     }
 
     public void setGygName(String gygName) {
@@ -67,6 +82,9 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder {
         this.gygLocation.setText(gygLocation);
     }
 
-
+ /*   public void showToast(String message)
+    {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    } */
 
 }
