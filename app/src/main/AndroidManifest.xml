@@ -25,6 +25,7 @@
         <activity android:name=".UI.Home.HomeActivity" />
         <activity android:name=".UI.ViewGyg.ViewGygActivity" />
         <activity android:name=".UI.PostGyg.PostGygActivity" />
+        <activity android:name=".UI.MyGygs.MyGygsActivity"/>
         <activity android:name=".UI.PaymentScreen.PaymentScreenActivity" />
         <activity android:name=".StartScreen" />
         <!--<activity android:name=".UI.Authentication.AuthenticationActivity" />-->
