@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.capstonegyg.gyg.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by Isuru Nanayakkara on 3/24/2018.
  */
@@ -15,6 +17,7 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     TextView gygName, gygPosterName, gygFee, gygLocation;
     String gygDescription, gygTime, gygCategory;
+    ArrayList<String> dataEntries;
 
     //---------------------------------Click Listeners----------------------------------//
 
@@ -39,6 +42,8 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
         gygFee = itemView.findViewById(R.id.gyg_fee);
         gygLocation = itemView.findViewById(R.id.gyg_location);
 
+        dataEntries = new ArrayList<>(3);
+
         //Add a click listener to Android
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,9 +54,9 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
                 dataBundle.putString("GYG_POSTER_NAME", gygPosterName.getText().toString());
                 dataBundle.putString("GYG_FEE", gygFee.getText().toString());
                 dataBundle.putString("GYG_LOCATION", gygLocation.getText().toString());
-                dataBundle.putString("GYG_DESCRIPTION", gygDescription);
-                dataBundle.putString("GYG_TIME", gygTime);
-                dataBundle.putString("GYG_CATEGORY", gygCategory);
+                dataBundle.putString("GYG_DESCRIPTION", dataEntries.get(0));
+                dataBundle.putString("GYG_TIME", dataEntries.get(1));
+                dataBundle.putString("GYG_CATEGORY", dataEntries.get(2));
 
                 mClickListener.onItemClick(view, dataBundle);
             }
@@ -76,13 +81,16 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     public void setGygDescription(String gygDescription) {
         this.gygDescription = gygDescription;
+        dataEntries.set(0, gygDescription);
     }
 
     public void setGygTime(String gygTime) {
         this.gygTime = gygTime;
+        dataEntries.set(1, gygTime);
     }
 
     public void setGygCategory(String gygCategory) {
         this.gygCategory = gygCategory;
+        dataEntries.set(2, gygCategory);
     }
 }
