@@ -1,20 +1,25 @@
 package com.capstonegyg.gyg.UI.Profile;
 
+import java.util.*;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.Toast;
 import android.widget.TextView;
 
 import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.UI.Authentication.AuthenticationActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /*
 *   Change display name, change skillset, change payment info (send to Shawn), change picture, submit to commit changes
@@ -24,13 +29,17 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private ProfileFirebaseAdapter pAdapter;
-    private DatabaseReference pDatabaseReference;
-    private Button myGygs;
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String UID, email;
 
-    private TextView userName;
+    private TextView displayName;
+    private TextView emailDisplay;
+    private TextView skill1;
+    private TextView skill2;
+    private TextView skill3;
+
+    private FirebaseUser user;
     private FirebaseAuth mAuth;
+    private DatabaseReference ref;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,41 +69,57 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_screen);
-
         mAuth = FirebaseAuth.getInstance();
-        //FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         if (user != null) {
-             String UID = user.getUid();
+            UID = user.getUid();
+            email = user.getEmail();
+            ref = FirebaseDatabase.getInstance().getReference("users").child(UID);
 
-             // Name, email address, and profile photo Url
-            //String name = user.getDisplayName();
-            //Uri photoUrl = user.getPhotoUrl();
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    show_data(dataSnapshot);
+                }
 
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    showToast("The read failed: " + databaseError.getCode());
+                }
+            });
 
-
-            //userName = findViewById(R.id.profile_name);
-            //userName.setText(name);
-
+            //Views
+            displayName = findViewById(R.id.text_displayed_name);
+            emailDisplay = findViewById(R.id.text_email_address);
+            skill1 = findViewById(R.id.text_skill_1);
+            skill2 = findViewById(R.id.text_skill_2);
+            skill3 = findViewById(R.id.text_skill_3);
         }
+        else
+            {
+            Intent p = new Intent(ProfileActivity.this, AuthenticationActivity.class);
+            startActivity(p);
+            }
 
 
-        //Get the reference to the whole database
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        //Find the specific Firebase node.
-        pDatabaseReference = firebaseDatabase.getReference().child("user_profile");
+    }
 
-        /*
-            @arg1 - The "schema" file that defines data.
-            @arg2 - The individual layout that is populated.
-            @arg3 - The class that injects data into the gyg_list_layout
-            @arg4 - The database reference. Holds actual data.
-         */
-        pAdapter = new ProfileFirebaseAdapter(ProfileData.class, R.layout.gyg_list_layout, ProfileViewHolder.class, pDatabaseReference);
+    public void show_data(DataSnapshot dataSnapshot) {
+        displayName.setText(Objects.requireNonNull(dataSnapshot.child("display_name").getValue()).toString());
+        if ((boolean) Objects.requireNonNull(dataSnapshot.child("show_email").getValue()))
+            emailDisplay.setText(email);
+        else
+            emailDisplay.setText("[E-Mail not shared]");
+        skill1.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString());
+        skill2.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill1").getValue()).toString());
+        skill3.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill2").getValue()).toString());
 
+    }
+
+    public void showToast(String message)
+    {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
 }
