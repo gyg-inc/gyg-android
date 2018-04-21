@@ -66,7 +66,6 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_screen);
-        myGygs = findViewById(R.id.profiles_gygs);
 
         mAuth = FirebaseAuth.getInstance();
         //FirebaseUser user = mAuth.getCurrentUser();
@@ -88,13 +87,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
 
-        myGygs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(ProfileActivity.this, ViewGygActivity.class);
-                startActivity(i);
-            }
-        });
 
         //Get the reference to the whole database
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

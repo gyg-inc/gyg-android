@@ -58,7 +58,7 @@
     <string name="new_password">New Password</string>
     <string name="update_pw">Update</string>
     <string name="cancel">Cancel</string>
-    <string name="profile_header">Public Profile</string>
+    <string name="profile_header">Your Public Profile</string>
     <string name="profile_pic">Profile Picture</string>
     <string name="my_gygs">My Gygs</string>
     <string name="name_of_location">Name of Location</string>
@@ -66,5 +66,8 @@
     <string name="fee">$$$ FEE</string>
     <string name="delete">DELETE</string>
     <string name="edit">EDIT</string>
+    <string name="skills">Displayed Skills</string>
+    <string name="displayed_name">Display Name</string>
+    <string name="email_address">email@address</string>
 
 </resources>
