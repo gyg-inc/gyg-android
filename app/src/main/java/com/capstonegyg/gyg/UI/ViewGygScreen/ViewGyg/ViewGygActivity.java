@@ -1,4 +1,4 @@
-package com.capstonegyg.gyg.UI.ViewGyg;
+package com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -7,11 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.capstonegyg.gyg.UI.MyGygs.MyGygsActivity;
-import com.capstonegyg.gyg.UI.PaymentScreen.PaymentScreenActivity;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
 import com.capstonegyg.gyg.UI.PostGyg.newLocation;
 import com.capstonegyg.gyg.UI.Profile.ProfileActivity;
-import com.capstonegyg.gyg.UI.ViewGyg.ViewGygActivity;
+import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygActivity;
 
 public class StartScreen extends AppCompatActivity {
 

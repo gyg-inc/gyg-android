@@ -1,4 +1,4 @@
-package com.capstonegyg.gyg.UI.ViewGyg;
+package com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg;
 
 /**
  * Created by ipnanayakkara on 3/5/2018.

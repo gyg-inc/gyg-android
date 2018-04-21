@@ -1,25 +1,13 @@
 package com.capstonegyg.gyg.UI.PostGyg;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.location.Location;
-import android.location.LocationManager;
-import android.location.LocationListener;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,7 +16,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.os.Handler;
@@ -36,33 +23,13 @@ import android.widget.Toast;
 import java.util.Date;
 
 import com.capstonegyg.gyg.R;
-import com.capstonegyg.gyg.StartScreen;
-import com.capstonegyg.gyg.UI.Profile.ProfileActivity;
-import com.capstonegyg.gyg.UI.Profile.ProfileData;
-import com.capstonegyg.gyg.UI.Profile.ProfileFirebaseAdapter;
-import com.capstonegyg.gyg.UI.Profile.ProfileViewHolder;
-import com.capstonegyg.gyg.UI.Profile.Settings;
-import com.capstonegyg.gyg.UI.ViewGyg.ViewGygActivity;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import butterknife.BindView;
 
 /**
  *  Written by Jonathan Luetze.

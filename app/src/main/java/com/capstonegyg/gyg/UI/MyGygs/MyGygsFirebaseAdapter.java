@@ -4,8 +4,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.capstonegyg.gyg.UI.ViewGyg.ViewGygData;
-import com.capstonegyg.gyg.UI.ViewGyg.ViewGygViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;

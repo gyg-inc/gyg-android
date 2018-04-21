@@ -5,11 +5,10 @@
  */
 
 
-package com.capstonegyg.gyg.UI.ViewGyg;
+package com.capstonegyg.gyg.UI.ViewGygScreen.ViewDetailedGyg;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 
 import com.capstonegyg.gyg.R;

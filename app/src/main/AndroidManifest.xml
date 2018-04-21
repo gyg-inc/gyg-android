@@ -23,7 +23,7 @@
             android:label="@string/profile_header"
             android:launchMode="singleTop"></activity>
         <activity android:name=".UI.Home.HomeActivity" />
-        <activity android:name=".UI.ViewGyg.ViewGygActivity" />
+        <activity android:name=".UI.ViewGygScreen.ViewGyg.ViewGygActivity" />
         <activity android:name=".UI.PostGyg.PostGygActivity" />
         <activity android:name=".UI.MyGygs.MyGygsActivity"/>
         <activity android:name=".UI.PaymentScreen.PaymentScreenActivity" />
