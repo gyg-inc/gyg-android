@@ -144,7 +144,7 @@
             android:visibility="visible"
             app:cardBackgroundColor="@color/bt_paypal_monogram_button_background"
             app:cardCornerRadius="@dimen/activity_horizontal_margin"
-            app:cardElevation="@dimen/activity_horizontal_margin"
+            app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

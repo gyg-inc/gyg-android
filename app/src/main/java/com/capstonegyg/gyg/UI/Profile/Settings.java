@@ -11,7 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Switch;
+import android.widget.CompoundButton;
 
 import com.capstonegyg.gyg.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,7 +38,7 @@ import java.util.Objects;
 
 public class Settings extends AppCompatActivity implements View.OnClickListener {
 
-    private String UID;
+    private String UID, email;
     private int REQUEST_CODE = 50;
 
     private EditText oldPass;
@@ -45,8 +47,11 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     private EditText skill1;
     private EditText skill2;
     private EditText skill3;
+    private TextView emailDisplay;
+    private Switch swtch;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private DatabaseReference ref;
     
     @Override
@@ -55,7 +60,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         setContentView(R.layout.profile_settings_screen);
         ActionBar actionBar = this.getSupportActionBar();
         mAuth = FirebaseAuth.getInstance();
-        UID = mAuth.getCurrentUser().getUid();
+        user = mAuth.getCurrentUser();
+        UID = user.getUid();
+        email = user.getEmail();
         ref = FirebaseDatabase.getInstance().getReference("users").child(UID);
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -87,11 +94,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
-        Button button = findViewById(R.id.button_pay_update);
-
-
         // End Shawn's thing
-
 
         //Views
         oldPass = findViewById(R.id.text_oldpw);
@@ -100,16 +103,32 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         skill1 = findViewById(R.id.text_skill1);
         skill2 = findViewById(R.id.text_skill2);
         skill3 = findViewById(R.id.text_skill3);
+        emailDisplay = findViewById(R.id.text_email_address);
 
         //Buttons
         findViewById(R.id.button_submit).setOnClickListener(this);
         findViewById(R.id.button_update_pw).setOnClickListener(this);
         findViewById(R.id.button_pay_update).setOnClickListener(this);
 
+        //Switch
+        swtch = findViewById(R.id.switch_email);
+
         // Set the action bar back button to look like an up button
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        emailDisplay.setText("("+email+")");
+
+        swtch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    ref.child("show_email").setValue(true);
+                else
+                    ref.child("show_email").setValue(false);
+            }
+        });
+
     }
 
     @Override
@@ -125,27 +144,22 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = mAuth.getCurrentUser();
-        final String email;
-
-        if (i == R.id.button_update_pw) {
+        DatabaseReference postDBR = FirebaseDatabase.getInstance().getReference();
+          if (i == R.id.button_update_pw) {
             if (user != null) {
-                email = user.getEmail();
-            String oldpw = oldPass.getText().toString();
-            final String newpw = newPass.getText().toString();
-            if (oldpw.length() > 0 && newpw.length() > 0 && newpw.length() >= 6 && !oldpw.equals(newpw))
-                update_pw(user, email, oldpw, newpw);
-            else if (oldpw.length() > 0 && newpw.length() > 0 && newpw.length() >= 6 && oldpw.equals(newpw))
-                showToast("That's the same password!");
-            else if (oldpw.length() > 0 && newpw.length() > 0 && newpw.length() < 6)
-                showToast("Passwords must be at least 6 characters long.");
-            else
-                showToast("Please enter both current and new password.");
+                String oldpw = oldPass.getText().toString();
+                final String newpw = newPass.getText().toString();
+                if (oldpw.length() > 0 && newpw.length() > 0 && newpw.length() >= 6 && !oldpw.equals(newpw))
+                    update_pw(user, email, oldpw, newpw);
+                else if (oldpw.length() > 0 && newpw.length() > 0 && newpw.length() >= 6 && oldpw.equals(newpw))
+                    showToast("That's the same password!");
+                else if (oldpw.length() > 0 && newpw.length() > 0 && newpw.length() < 6)
+                    showToast("Passwords must be at least 6 characters long.");
+                else
+                    showToast("Please enter both current and new password.");
             }
         }
         if (i == R.id.button_submit) {
-            DatabaseReference postDBR = FirebaseDatabase.getInstance().getReference();
             if (displayName.getText().length() + skill1.getText().length() + skill2.getText().length() + skill3.getText().length() == 0)
                 showToast("Enter the values you wish to update.");
             else {
@@ -180,6 +194,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         if (i == R.id.button_pay_update) {
             onBraintreeSubmit(v);
         }
+
     }
 
     @Override
@@ -225,6 +240,10 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         skill1.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString());
         skill2.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill1").getValue()).toString());
         skill3.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill2").getValue()).toString());
+        if ((boolean) dataSnapshot.child("show_email").getValue())
+            swtch.setChecked(true);
+        else
+            swtch.setChecked(false);
     }
 
     public void onBraintreeSubmit(View v) {

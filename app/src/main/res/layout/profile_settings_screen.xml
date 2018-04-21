@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06999999" />
+        app:layout_constraintVertical_bias="0.060000002" />
 
     <EditText
         android:id="@+id/text_newpw"
@@ -60,7 +60,7 @@
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_submit"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintVertical_bias="0.120000005" />
 
     <Button
         android:id="@+id/button_pay_update"
@@ -186,7 +186,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_updatePW"
-        app:layout_constraintVertical_bias="0.44" />
+        app:layout_constraintVertical_bias="0.23000002" />
 
     <TextView
         android:id="@+id/text_displayName"
@@ -220,7 +220,57 @@
         app:layout_constraintBottom_toTopOf="@+id/button_pay_update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_updatePW"
-        app:layout_constraintTop_toBottomOf="@+id/text_skill3"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintTop_toBottomOf="@+id/button_submit"
+        app:layout_constraintVertical_bias="0.04000002" />
+
+    <TextView
+        android:id="@+id/text_share_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/share_email_address"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_pay_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_update_pw"
+        app:layout_constraintVertical_bias="0.100000024" />
+
+    <TextView
+        android:id="@+id/text_email_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/email_address_paren"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_pay_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_update_pw"
+        app:layout_constraintVertical_bias="0.64" />
+
+    <Switch
+        android:id="@+id/switch_email"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        app:layout_constraintBottom_toTopOf="@+id/button_pay_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/text_share_email"
+        app:layout_constraintTop_toBottomOf="@+id/button_update_pw" />
 
 </android.support.constraint.ConstraintLayout>

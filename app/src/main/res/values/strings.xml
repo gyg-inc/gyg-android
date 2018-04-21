@@ -56,7 +56,7 @@
     <string name="change_password">Change Password :</string>
     <string name="old_password">Current Password</string>
     <string name="new_password">New Password</string>
-    <string name="update_pw">Update</string>
+    <string name="update_pw">Update Password</string>
     <string name="cancel">Cancel</string>
     <string name="profile_header">Your Public Profile</string>
     <string name="profile_pic">Profile Picture</string>
@@ -69,5 +69,8 @@
     <string name="skills">Displayed Skills</string>
     <string name="displayed_name">Display Name</string>
     <string name="email_address">email@address</string>
+    <string name="share_email_address">Share email address?</string>
+    <string name="email_address_paren">(email@address)</string>
+    <string name="share">Share</string>
 
 </resources>
