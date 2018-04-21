@@ -14,31 +14,38 @@ import android.widget.TextView;
 import com.capstonegyg.gyg.R;
 
 public class ViewDetailedGygActivity extends AppCompatActivity {
+    private TextView fee;
+    private TextView name;
+    private TextView cat;
+    private TextView loc;
+    private TextView desc;
+    private TextView pname;
+    private TextView time;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gyg_details_screen);
+
+        fee = findViewById(R.id.detail_fee);
+        name = findViewById(R.id.detail_name);
+        cat = findViewById(R.id.detail_category);
+        loc = findViewById(R.id.detail_location);
+        desc = findViewById(R.id.detail_description);
+        pname = findViewById(R.id.detail_jobposter);
+
+        setGygData(getIntent().getExtras().getBundle("GYG_DATA"));
     }
 
-    public void SetGygData(String gygName, String gygCategory, String gygLocation, Double gygFee, String gygDescription, String gygTime, String gygPosterName) {
-
-        TextView fee = (TextView) findViewById(R.id.detail_fee);
-        fee.setText("$" + String.valueOf(gygFee) + "/"+ gygTime);
-
-        TextView name = (TextView) findViewById(R.id.detail_name);
-        name.setText(gygName);
-
-        TextView cat = (TextView) findViewById(R.id.detail_category);
-        cat.setText(gygCategory);
-
-        TextView loc = (TextView) findViewById(R.id.detail_location);
-        loc.setText(gygLocation);
-
-        TextView desc = (TextView) findViewById(R.id.detail_description);
-        desc.setText(gygDescription);
-
-        TextView pname = (TextView) findViewById(R.id.detail_jobposter);
-        pname.setText(gygPosterName);
-
+    public void setGygData(Bundle data) {
+        if(data != null) {
+            fee.setText(data.getString("GYG_FEE"));
+            name.setText(data.getString("GYG_NAME"));
+            cat.setText(data.getString("GYG_CATEGORY"));
+            loc.setText(data.getString("GYG_LOCATION"));
+            desc.setText(data.getString("GYG_DESCRIPTION"));
+            pname.setText(data.getString("GYG_POSTER_NAME"));
+            //GYG_TIME
+        }
     }
 }
