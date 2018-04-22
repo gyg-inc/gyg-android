@@ -46,18 +46,14 @@
 
             <EditText
                 android:id="@+id/gyg_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/PostGygEditText"
                 android:hint="@string/gyg_title"
-                android:inputType="text"
                 android:text="" />
 
             <EditText
                 android:id="@+id/gyg_category"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/PostGygEditText"
                 android:hint="@string/gyg_category"
-                android:inputType="text"
                 android:text="" />
 
             <LinearLayout
@@ -155,8 +151,7 @@
 
             <EditText
                 android:id="@+id/gyg_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/PostGygEditText"
                 android:hint="@string/please_enter_a_detailed_work_description_here"
                 android:inputType="textMultiLine"
                 android:text="" />
@@ -176,9 +171,10 @@
                 android:layout_alignParentBottom="true"
                 android:backgroundTint="@color/red"
                 android:layout_centerHorizontal="true"
-                android:text="@string/cancel"
                 android:textStyle="bold"
-                android:textColor="@color/icons"/>
+                android:textColor="@color/icons"
+                android:text="@string/cancel"
+                />
 
             <Button
                 android:id="@+id/submit_gyg"
