@@ -7,6 +7,7 @@
 
 package com.capstonegyg.gyg.UI.ViewGygScreen.ViewDetailedGyg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,13 +17,14 @@ import android.widget.Toast;
 
 import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
+import com.capstonegyg.gyg.UI.Profile.GeneralProfileActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ViewDetailedGygActivity extends AppCompatActivity {
+public class ViewDetailedGygActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView fee;
     private TextView name;
     private TextView cat;
@@ -36,13 +38,15 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
 
     private String gygKey;
-    private String userName;
+    private StringBuilder posterName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gyg_details_screen);
+        posterName = new StringBuilder();
 
+        //Text views
         fee = findViewById(R.id.detail_fee);
         name = findViewById(R.id.detail_name);
         cat = findViewById(R.id.detail_category);
@@ -50,14 +54,9 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
         desc = findViewById(R.id.description_data);
         pname = findViewById(R.id.detail_jobposter);
 
+        //Buttons
         seeProfileButton = findViewById(R.id.see_profile_button);
-
-        seeProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ViewDetailedGygActivity.this, "Redirect To Profile. Coming Soon.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        seeProfileButton.setOnClickListener(this);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         gygKey = getIntent().getExtras().getString("GYG_KEY");
@@ -76,6 +75,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
                 cat.setText("Category: " + post.gygCategory);
                 loc.setText("Location: " + post.gygLocation);
                 desc.setText(post.gygDescription);
+                posterName.append(post.gygPosterName);
 
                 //Set user name
                 DatabaseReference posterNameReference = firebaseDatabase.getReference().child("users").child(post.gygPosterName);
@@ -101,5 +101,17 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        //Set user name
+        switch (v.getId()) {
+            case R.id.see_profile_button :
+                Intent i = new Intent(ViewDetailedGygActivity.this, GeneralProfileActivity.class);
+                i.putExtra("POSTER_UID", posterName.toString());
+                startActivity(i);
+                break;
+        }
     }
 }

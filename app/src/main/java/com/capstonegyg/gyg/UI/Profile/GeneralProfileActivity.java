@@ -72,45 +72,39 @@ public class GeneralProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.general_profile_screen);
-        mAuth = FirebaseAuth.getInstance();
-        // Needs to get whatever user is being viewed here instead.
-        user = mAuth.getCurrentUser();
+//        mAuth = FirebaseAuth.getInstance();
+//        // Needs to get whatever user is being viewed here instead.
+//        user = mAuth.getCurrentUser();
 
-        if (user != null) {
-            UID = user.getUid();
-            email = user.getEmail();
-            ref = FirebaseDatabase.getInstance().getReference("users").child(UID);
+        //Get UID that is passed in.
+        UID = getIntent().getExtras().getString("POSTER_UID");
+        //Get ref to child
+        ref = FirebaseDatabase.getInstance().getReference("users").child(UID);
 
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    show_data(dataSnapshot);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    showToast("The read failed: " + databaseError.getCode());
-                }
-            });
-
-            //Views
-            displayName = findViewById(R.id.text_displayed_name);
-            emailDisplay = findViewById(R.id.text_email_address);
-            displayedSkills = findViewById(R.id.text_displayed_skills);
-            skill1 = findViewById(R.id.text_skill_1);
-            skill2 = findViewById(R.id.text_skill_2);
-            skill3 = findViewById(R.id.text_skill_3);
-            profilePic = findViewById(R.id.profile_image);
-            bannerPic = findViewById(R.id.image_banner);
-
-            //Buttons
-            //None yet I guess.
-        }
-        else
-            {
-            Intent p = new Intent(GeneralProfileActivity.this, AuthenticationActivity.class);
-            startActivity(p);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                show_data(dataSnapshot);
             }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                showToast("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        //Views
+        displayName = findViewById(R.id.text_displayed_name);
+        emailDisplay = findViewById(R.id.text_email_address);
+        displayedSkills = findViewById(R.id.text_displayed_skills);
+        skill1 = findViewById(R.id.text_skill_1);
+        skill2 = findViewById(R.id.text_skill_2);
+        skill3 = findViewById(R.id.text_skill_3);
+        profilePic = findViewById(R.id.profile_image);
+        bannerPic = findViewById(R.id.image_banner);
+
+        //Buttons
+        //None yet I guess.
     }
 
     public void show_data(DataSnapshot dataSnapshot) {
