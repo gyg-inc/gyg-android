@@ -21,12 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/*
-*   Change display name, change skillset, change payment info (send to Shawn), change picture, submit to commit changes
-*/
-
-// add option to delete gyg from user profile
-
 public class ProfileActivity extends AppCompatActivity {
 
     private String UID, email;
@@ -101,8 +95,6 @@ public class ProfileActivity extends AppCompatActivity {
             Intent p = new Intent(ProfileActivity.this, AuthenticationActivity.class);
             startActivity(p);
             }
-
-
     }
 
     public void show_data(DataSnapshot dataSnapshot) {
