@@ -122,7 +122,14 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                                     .child(mAuth.getCurrentUser().getUid())
                                     .child("show_email")
                                     .setValue(true);
-
+                            postDBR.child("users")
+                                    .child(mAuth.getCurrentUser().getUid())
+                                    .child("pic_ref")
+                                    .setValue("https://firebasestorage.googleapis.com/v0/b/gyg-inc.appspot.com/o/profile_pics%2Fice_cream_guy.png?alt=media&token=5f0175ae-d729-4249-be10-66c8215bcce5");
+                            postDBR.child("users")
+                                    .child(mAuth.getCurrentUser().getUid())
+                                    .child("banner_ref")
+                                    .setValue("https://firebasestorage.googleapis.com/v0/b/gyg-inc.appspot.com/o/banner_pics%2Fimage%3A270399?alt=media&token=36136fa6-ced0-462d-a212-9a5ef7a54bff");
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
