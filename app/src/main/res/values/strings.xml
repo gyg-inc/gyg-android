@@ -61,9 +61,6 @@
     <string name="profile_header">Your Public Profile</string>
     <string name="profile_pic">Profile Picture</string>
     <string name="my_gygs">My Gygs</string>
-    <string name="name_of_location">Name of Location</string>
-    <string name="gyg_poster_name">Gyg Poster Name</string>
-    <string name="fee">$$$ FEE</string>
     <string name="delete">DELETE</string>
     <string name="edit">EDIT</string>
     <string name="skills">Displayed Skills</string>
@@ -72,5 +69,8 @@
     <string name="share_email_address">Share email address?</string>
     <string name="email_address_paren">(email@address)</string>
     <string name="share">Share</string>
+    <string name="name_of_location">Name of Location</string>
+    <string name="gyg_poster_name">Gyg Poster Name</string>
+    <string name="fee">$$$ FEE</string>
 
 </resources>

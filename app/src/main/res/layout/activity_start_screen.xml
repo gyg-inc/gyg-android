@@ -25,54 +25,31 @@
 
         <Button
             android:id="@+id/view_gyg_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/GeneralButtons"
             android:layout_marginTop="80dp"
             android:layout_marginBottom="8dp"
             android:layout_marginHorizontal="8dp"
-            android:background="@color/accent"
             android:text="@string/view_gygs"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="18sp"
-            android:textStyle="bold"
            />
 
 
         <Button
             android:id="@+id/post_gyg_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin = "8dp"
-            android:background="@color/accent"
+            style="@style/GeneralButtons"
             android:text="@string/post_gygs"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="18sp"
-            android:textStyle="bold"
            />
 
         <Button
             android:id="@+id/profile_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-
-            android:background="@color/accent"
+            style="@style/GeneralButtons"
             android:text="@string/profile"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="18sp"
-            android:textStyle="bold"
          />
 
         <Button
             android:id="@+id/mygygs_button"
-            android:layout_width="match_parent"
+            style="@style/GeneralButtons"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:background="@color/accent"
             android:text="@string/my_gygs"
-            android:textColor="@color/cardview_light_background"
-            android:textSize="18sp"
-            android:textStyle="bold"
             />
 
 
