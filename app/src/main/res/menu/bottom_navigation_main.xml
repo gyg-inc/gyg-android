@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_favorites"
+        android:id="@+id/action_profile_tab"
         android:enabled="true"
-        android:icon="@drawable/ic_favorite_white_24dp"
-        android:title="Favorites"
+        android:icon="@drawable/ic_account_box_white_48dp"
+        android:title="Profile"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_schedules"
+        android:id="@+id/action_home_tab"
         android:enabled="true"
-        android:icon="@drawable/ic_access_time_white_24dp"
-        android:title="Schedule"
+        android:icon="@drawable/ic_home_white_48dp"
+        android:title="Home"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_music"
+        android:id="@+id/action_post_tab"
         android:enabled="true"
-        android:icon="@drawable/ic_audiotrack_white_24dp"
-        android:title="Music"
+        android:icon="@drawable/ic_add_box_white_48dp"
+        android:title="Post"
         app:showAsAction="ifRoom" />
 </menu>

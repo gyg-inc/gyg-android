@@ -65,7 +65,8 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
 
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null) {
-            Intent i = new Intent(AuthenticationActivity.this, StartScreen.class);
+            //Intent i = new Intent(AuthenticationActivity.this, StartScreen.class);
+            Intent i = new Intent(AuthenticationActivity.this, HomeActivity.class);
             startActivity(i);
             finish();
         }
@@ -165,7 +166,8 @@ public class AuthenticationActivity extends AppCompatActivity implements View.On
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
-                            Intent i = new Intent(AuthenticationActivity.this, StartScreen.class);
+                            //Intent i = new Intent(AuthenticationActivity.this, StartScreen.class);
+                            Intent i = new Intent(AuthenticationActivity.this, HomeActivity.class);
                             startActivity(i);
                             finish();
                         } else {
