@@ -69,7 +69,7 @@
                         android:padding="8dp">
 
                         <TextView
-                            android:id="@+id/gyg_poster_name"
+                            android:id="@+id/gyg_worker_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

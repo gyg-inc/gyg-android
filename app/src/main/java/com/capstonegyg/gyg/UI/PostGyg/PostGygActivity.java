@@ -76,6 +76,8 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     String gygWorkerName;
     String gygAcceptedDate;
 
+    String gygKey;
+
     newLocation l;
 
     SharedPreferences sharedPref;
@@ -323,11 +325,14 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         DatabaseReference postDBR = database.getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        DatabaseReference ref = postDBR.child("gygs").push();
+
+        gygKey = ref.getKey();
+
         /* Formatting and Pushing of data */
         PostGygData gyg = new PostGygData(format(gygName), format(gygCategory), format(gygLocation), gygFee,
-                format(gygDescription), gygTime, getGygPosterName(), gygPostedDate, gygEndDate, gygVolunteer, gygWorkerName, gygAcceptedDate);
+                format(gygDescription), gygTime, getGygPosterName(), gygPostedDate, gygEndDate, gygVolunteer, gygWorkerName, gygAcceptedDate, gygKey);
 
-        DatabaseReference ref = postDBR.child("gygs").push();
         ref.setValue(gyg);
 
 

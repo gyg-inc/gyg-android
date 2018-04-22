@@ -137,7 +137,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/set_a_deadline"
-                    android:textSize="16sp" />
+                    android:backgroundTint="@color/accent"
+                    android:textSize="16sp"
+                    android:textColor="@color/icons"/>
 
 
                 <TextView
@@ -172,9 +174,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_alignParentBottom="true"
-
+                android:backgroundTint="@color/red"
                 android:layout_centerHorizontal="true"
-                android:text="@string/cancel"/>
+                android:text="@string/cancel"
+                android:textStyle="bold"
+                android:textColor="@color/icons"/>
 
             <Button
                 android:id="@+id/submit_gyg"
@@ -183,7 +187,10 @@
                 android:layout_weight="1"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="@string/submit"/>
+                android:backgroundTint="@color/accent"
+                android:text="@string/submit"
+                android:textColor="@color/icons"
+                android:textStyle="bold"/>
         </LinearLayout>
 
     </RelativeLayout>

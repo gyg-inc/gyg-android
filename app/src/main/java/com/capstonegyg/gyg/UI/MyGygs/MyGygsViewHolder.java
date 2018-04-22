@@ -7,11 +7,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capstonegyg.gyg.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class MyGygsViewHolder extends RecyclerView.ViewHolder {
-    TextView gygName, gygPosterName, gygFee, gygLocation;
-    String gygDescription, gygTime, gygCategory;
+    TextView gygName,gygWorkerName, gygFee, gygLocation;
+    String gygDescription, gygTime, gygCategory,gygKey;
 
     //-------------Click Listeners-------------//
 
@@ -28,39 +30,37 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder {
 
     //-------------End Click Listeners-------------//
 
-    public MyGygsViewHolder(final View itemView) {
+
+    public MyGygsViewHolder(View itemView) {
         super(itemView);
 
         gygName = itemView.findViewById(R.id.gyg_name);
-        gygPosterName = itemView.findViewById(R.id.gyg_poster_name);
+        gygWorkerName = itemView.findViewById(R.id.gyg_worker_name);
         gygFee = itemView.findViewById(R.id.gyg_fee);
         gygLocation = itemView.findViewById(R.id.gyg_location);
 
-        //Add a click listener to Android
+        // Add a click listener to Android
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putString("GYG_NAME", gygName.getText().toString());
-                dataBundle.putString("GYG_POSTER_NAME", gygPosterName.getText().toString());
                 dataBundle.putString("GYG_FEE", gygFee.getText().toString());
                 dataBundle.putString("GYG_LOCATION", gygLocation.getText().toString());
-                dataBundle.putString("GYG_DESCRIPTION", gygPosterName.getText().toString());
-                dataBundle.putString("GYG_TIME", gygPosterName.getText().toString());
-                dataBundle.putString("GYG_CATEGORY", gygPosterName.getText().toString());
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
         });
 
-        // WORK IN PROGRESS
+        // Delete Gyg if user chooses to do so
         TextView delete = itemView.findViewById(R.id.delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("THIS IS A TEST" + getAdapterPosition());
-                itemView.getId();
-               // Query queryRef = userDBR.child("gygs").orderByChild("gygPosterName").equalTo(mAuth.getCurrentUser().getUid());
 
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference userDBR = database.getReference();
+
+                userDBR.child("gygs").child(gygKey).removeValue();
             }
         });
 
@@ -70,8 +70,12 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder {
         this.gygName.setText(gygName);
     }
 
-    public void setGygPosterName(String gygPosterName) {
-        this.gygPosterName.setText(gygPosterName);
+    // Sets worker name, indicates POSTED if gyg hasn't been accepted yet
+    public void setGygWorkerName(String gygWorkerName) {
+        if(gygWorkerName.equals("")) {
+            gygWorkerName = "POSTED";
+        }
+        this.gygWorkerName.setText(gygWorkerName);
     }
 
     public void setGygFee(Double gygFee, String gygTime) {
@@ -82,9 +86,7 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder {
         this.gygLocation.setText(gygLocation);
     }
 
- /*   public void showToast(String message)
-    {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
-    } */
-
+    public void setGygKey(String gygKey) {
+        this.gygKey = gygKey;
+    }
 }

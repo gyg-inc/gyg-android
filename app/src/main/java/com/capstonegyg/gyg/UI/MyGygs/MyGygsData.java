@@ -15,11 +15,14 @@ public class MyGygsData {
     public String gygDescription;
     //Gyg category
     public String gygCategory;
+    public String gygKey;
+    public String gygWorkerName;
 
     //Constructor
-    public MyGygsData(String gygName, String gygPosterName) {
+    public MyGygsData(String gygName, String gygPosterName, String gygWorkerName) {
         this.gygName = gygName;
         this.gygPosterName = gygPosterName;
+        this.gygWorkerName = gygWorkerName;
     }
 
     //Default constructor. (Necassary by Firebase standards)

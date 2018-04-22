@@ -1,16 +1,21 @@
 package com.capstonegyg.gyg.UI.MyGygs;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 public class MyGygsFirebaseAdapter extends FirebaseRecyclerAdapter <MyGygsData, MyGygsViewHolder> {
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+    public String gygKey;
 
     //Constructor
     public MyGygsFirebaseAdapter(Class<MyGygsData> modelClass, int modelLayout, Class<MyGygsViewHolder> viewHolderClass, Query query) {
@@ -23,9 +28,11 @@ public class MyGygsFirebaseAdapter extends FirebaseRecyclerAdapter <MyGygsData, 
         //Set the name of job. Pass in data
         viewHolder.setGygName(model.gygName);
         //Set the poster name. Pass in data
-        viewHolder.setGygPosterName(model.gygPosterName);
         viewHolder.setGygFee(model.gygFee, model.gygTime);
         viewHolder.setGygLocation(model.gygLocation);
+        viewHolder.setGygKey(model.gygKey);
+        viewHolder.setGygWorkerName(model.gygWorkerName);
+        gygKey = model.gygKey;
     }
 
     @Override
@@ -35,8 +42,7 @@ public class MyGygsFirebaseAdapter extends FirebaseRecyclerAdapter <MyGygsData, 
         viewHolder.setOnClickListener(new MyGygsViewHolder.ClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(view.getContext(), "Item clicked at " + position, Toast.LENGTH_SHORT).show();
-                //DatabaseReference mDatabaseReference = firebaseDatabase.getReference().child("gygs").;
+                Toast.makeText(view.getContext(), "Item clicked at " + position + gygKey, Toast.LENGTH_SHORT).show();
             }
         });
 
