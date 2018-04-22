@@ -42,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView displayName;
     private TextView emailDisplay;
+    private TextView displayedSkills;
     private TextView skill1;
     private TextView skill2;
     private TextView skill3;
@@ -111,6 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
             //Views
             displayName = findViewById(R.id.text_displayed_name);
             emailDisplay = findViewById(R.id.text_email_address);
+            displayedSkills = findViewById(R.id.text_displayed_skills);
             skill1 = findViewById(R.id.text_skill_1);
             skill2 = findViewById(R.id.text_skill_2);
             skill3 = findViewById(R.id.text_skill_3);
@@ -198,12 +200,24 @@ public class ProfileActivity extends AppCompatActivity {
             emailDisplay.setText(email);
         else
             emailDisplay.setText("[E-Mail not shared]");
-        skill1.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString());
-        skill2.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill1").getValue()).toString());
-        skill3.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill2").getValue()).toString());
+        String skStr1 = Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString();
+        String skStr2 = Objects.requireNonNull(dataSnapshot.child("skills").child("skill1").getValue()).toString();
+        String skStr3 = Objects.requireNonNull(dataSnapshot.child("skills").child("skill2").getValue()).toString();
+        if (skStr1.length() == 0 && skStr2.length() == 0 && skStr3.length() == 0) {
+            displayedSkills.setText("");
+            skill1.setText("");
+            skill2.setText("[No Displayed Skills]");
+            skill3.setText("");
+        }
+        else
+        {
+            displayedSkills.setText("Displayed Skills");
+            skill1.setText(skStr1);
+            skill2.setText(skStr2);
+            skill3.setText(skStr3);
+        }
         Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("pic_ref").getValue())).override(155, 155).into(profilePic);
-        if (!Objects.requireNonNull(dataSnapshot.child("pic_ref").getValue()).equals(""))
-            Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("banner_ref").getValue())).centerCrop().into(bannerPic);
+        Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("banner_ref").getValue())).centerCrop().into(bannerPic);
     }
 
     void yesNoPopUp(String title, String message) {

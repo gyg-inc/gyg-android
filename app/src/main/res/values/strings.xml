@@ -72,5 +72,6 @@
     <string name="name_of_location">Name of Location</string>
     <string name="gyg_poster_name">Gyg Poster Name</string>
     <string name="fee">$$$ FEE</string>
+    <string name="exit">Emergency Sign Out Button</string>
 
 </resources>

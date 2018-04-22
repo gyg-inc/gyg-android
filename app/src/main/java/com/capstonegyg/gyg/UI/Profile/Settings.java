@@ -170,19 +170,16 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                             .setValue(displayName.getText().toString());
                 else if (displayName.getText().length() < 6 && displayName.getText().length() > 0)
                     showToast("Diaplay names must be at least 6 characters");
-                if (skill1.getText().length() > 0)
                     postDBR.child("users")
                             .child(UID)
                             .child("skills")
                             .child("skill0")
                             .setValue(skill1.getText().toString());
-                if (skill2.getText().length() > 0)
                     postDBR.child("users")
                             .child(UID)
                             .child("skills")
                             .child("skill1")
                             .setValue(skill2.getText().toString());
-                if (skill3.getText().length() > 0)
                     postDBR.child("users")
                             .child(UID)
                             .child("skills")
