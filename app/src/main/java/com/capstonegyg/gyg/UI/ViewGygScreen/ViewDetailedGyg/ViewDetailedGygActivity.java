@@ -9,7 +9,8 @@ package com.capstonegyg.gyg.UI.ViewGygScreen.ViewDetailedGyg;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
     private TextView pname;
     private TextView time;
 
+    private Button seeProfileButton;
+
     private FirebaseDatabase firebaseDatabase;
 
     @Override
@@ -41,8 +44,17 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
         name = findViewById(R.id.detail_name);
         cat = findViewById(R.id.detail_category);
         loc = findViewById(R.id.detail_location);
-        desc = findViewById(R.id.detail_description);
+        desc = findViewById(R.id.description_data);
         pname = findViewById(R.id.detail_jobposter);
+
+        seeProfileButton = findViewById(R.id.see_profile_button);
+
+        seeProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ViewDetailedGygActivity.this, "Redirect To Profile. Coming Soon.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         setGygData(getIntent().getExtras().getString("GYG_KEY"));
@@ -55,18 +67,35 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PostGygData post = dataSnapshot.getValue(PostGygData.class);
-                fee.setText(post.gygFee.toString());
+                fee.setText("Pay: $" + post.gygFee.toString() + "/" + post.gygTime);
                 name.setText(post.gygName);
-                cat.setText(post.gygCategory);
-                loc.setText(post.gygLocation);
+                cat.setText("Category: " + post.gygCategory);
+                loc.setText("Location: " + post.gygLocation);
                 desc.setText(post.gygDescription);
-                pname.setText(post.gygName);
+
+                //Set user name
+                DatabaseReference posterNameReference = firebaseDatabase.getReference().child("users").child(post.gygPosterName);
+                //At child node get user name
+                posterNameReference.child("display_name").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Set poster name
+                        String name = (String) dataSnapshot.getValue();
+                        pname.setText("Posted by: " + name);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //Errors
+                    }
+                });
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ViewDetailedGygActivity.this, "Read Failed. Check Connection", Toast.LENGTH_SHORT);
+                Toast.makeText(ViewDetailedGygActivity.this, "Read Failed. Check Connection", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }

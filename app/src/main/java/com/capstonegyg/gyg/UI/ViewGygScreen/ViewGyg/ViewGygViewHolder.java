@@ -42,8 +42,6 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
         gygFee = itemView.findViewById(R.id.gyg_fee);
         gygLocation = itemView.findViewById(R.id.gyg_location);
 
-        //dataEntries = new ArrayList<>(3);
-
         //Add a click listener to Android
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

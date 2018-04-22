@@ -30,9 +30,9 @@
     <string name="title">Title:</string>
     <string name="category">Category:</string>
     <string name="location">Location:</string>
-    <string name="offered_by">Offered By:</string>
+    <string name="offered_by">Poster:</string>
     <string name="pay2">Pay:</string>
-    <string name="description">Description:</string>
+    <string name="description">Description</string>
     <string name="gyg">Gyg</string>
     <string name="gyg_name">Gyg Name</string>
     <string name="volunteer_no_pay">Volunteer (No Pay)</string>
@@ -76,5 +76,6 @@
     <string name="report_user">Report User</string>
     <string name="user_profile">User Profile</string>
     <string name="general_profile">General Profile</string>
+    <string name="see_profile">See Profile</string>
 
 </resources>
