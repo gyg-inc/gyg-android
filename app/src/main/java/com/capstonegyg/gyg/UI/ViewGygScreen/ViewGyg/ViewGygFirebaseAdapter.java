@@ -51,9 +51,6 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
         viewHolder.setGygName(model.gygName);
         viewHolder.setGygFee(model.gygFee, model.gygTime);
         viewHolder.setGygLocation(model.gygLocation);
-        viewHolder.setGygCategory(model.gygCategory);
-        viewHolder.setGygDescription(model.gygDescription);
-        viewHolder.setGygTime(model.gygTime);
     }
 
     @Override
@@ -62,18 +59,6 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
         //final String currentGygKey = get
 
         viewHolder.setOnClickListener(new ViewGygViewHolder.ClickListener() {
-            @Override
-            public void onItemClick(View view, Bundle data) {
-                /*
-                //Create Intent
-                Intent i = new Intent(view.getContext(), ViewDetailedGygActivity.class);
-                //Pass along the data
-                i.putExtra("GYG_DATA", data);
-                //Get context to start ViewDetailedGygActivity
-                view.getContext().startActivity(i);
-                */
-            }
-
             @Override
             public void onItemClick(View view, int position) {
                 String gygKey = getRef(position).getKey();

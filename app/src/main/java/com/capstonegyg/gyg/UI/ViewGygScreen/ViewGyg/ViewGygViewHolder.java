@@ -18,8 +18,6 @@ import java.util.ArrayList;
 public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     TextView gygName, gygPosterName, gygFee, gygLocation;
-    String gygDescription, gygTime, gygCategory;
-    //ArrayList<String> dataEntries;
 
     //---------------------------------Click Listeners----------------------------------//
 
@@ -27,7 +25,6 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     //Interface to send callbacks...
     public interface ClickListener{
-        public void onItemClick(View view, Bundle data);
         public void onItemClick(View view, int position);
     }
 
@@ -51,17 +48,6 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Bundle dataBundle = new Bundle();
-//                //Set data bundle
-//                dataBundle.putString("GYG_NAME", gygName.getText().toString());
-//                dataBundle.putString("GYG_POSTER_NAME", gygPosterName.getText().toString());
-//                dataBundle.putString("GYG_FEE", gygFee.getText().toString());
-//                dataBundle.putString("GYG_LOCATION", gygLocation.getText().toString());
-//                dataBundle.putString("GYG_DESCRIPTION", dataEntries.get(0));
-//                dataBundle.putString("GYG_TIME", dataEntries.get(1));
-//                dataBundle.putString("GYG_CATEGORY", dataEntries.get(2));
-//
-//                mClickListener.onItemClick(view, dataBundle);
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
         });
@@ -81,20 +67,5 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     public void setGygLocation(String gygLocation) {
         this.gygLocation.setText(gygLocation);
-    }
-
-    public void setGygDescription(String gygDescription) {
-        this.gygDescription = gygDescription;
-        //dataEntries.set(0, gygDescription);
-    }
-
-    public void setGygTime(String gygTime) {
-        this.gygTime = gygTime;
-        //dataEntries.set(1, gygTime);
-    }
-
-    public void setGygCategory(String gygCategory) {
-        this.gygCategory = gygCategory;
-        //dataEntries.set(2, gygCategory);
     }
 }

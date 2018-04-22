@@ -22,18 +22,4 @@ public class ViewGygData {
     public String gygLocation;
     //Time of post
     public String gygTime;
-    //Description of Gyg
-    public String gygDescription;
-    //Gyg category
-    public String gygCategory;
-
-//    //Constructor
-//    public ViewGygData(String gygName, String gygPosterName) {
-//        this.gygName = gygName;
-//        this.gygPosterName = gygPosterName;
-//    }
-//
-//    //Default constructor. (Necassary by Firebase standards)
-//    public ViewGygData() {
-//    }
 }
