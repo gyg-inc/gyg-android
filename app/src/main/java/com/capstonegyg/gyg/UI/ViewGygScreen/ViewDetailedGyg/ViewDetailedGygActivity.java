@@ -35,6 +35,9 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
 
+    private String gygKey;
+    private String userName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +60,8 @@ public class ViewDetailedGygActivity extends AppCompatActivity {
         });
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        setGygData(getIntent().getExtras().getString("GYG_KEY"));
+        gygKey = getIntent().getExtras().getString("GYG_KEY");
+        setGygData(gygKey);
     }
 
     public void setGygData(String gygKey) {
