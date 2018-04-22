@@ -2,6 +2,7 @@ package com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -63,10 +64,23 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
         viewHolder.setOnClickListener(new ViewGygViewHolder.ClickListener() {
             @Override
             public void onItemClick(View view, Bundle data) {
+                /*
                 //Create Intent
                 Intent i = new Intent(view.getContext(), ViewDetailedGygActivity.class);
                 //Pass along the data
                 i.putExtra("GYG_DATA", data);
+                //Get context to start ViewDetailedGygActivity
+                view.getContext().startActivity(i);
+                */
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+                String gygKey = getRef(position).getKey();
+                Log.d("GYG_KEY", gygKey);
+                Intent i = new Intent(view.getContext(), ViewDetailedGygActivity.class);
+                //Pass along the data
+                i.putExtra("GYG_KEY", gygKey);
                 //Get context to start ViewDetailedGygActivity
                 view.getContext().startActivity(i);
             }

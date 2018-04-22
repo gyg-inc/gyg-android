@@ -30,6 +30,7 @@
         <activity android:name=".UI.PostGyg.PostGygActivity" />
         <activity android:name=".UI.MyGygs.MyGygsActivity"/>
         <activity android:name=".StartScreen" />
+        <activity android:name=".UI.ViewGygScreen.ViewDetailedGyg.ViewDetailedGygActivity"/>
         <!--<activity android:name=".UI.Authentication.AuthenticationActivity" />-->
         <activity android:name=".UI.Profile.Settings"
             android:label="@string/profile_settings"
