@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.profile_screen, container, false);
+        View view = inflater.inflate(R.layout.profile_screen_2, container, false);
 
         context = getContext();
 

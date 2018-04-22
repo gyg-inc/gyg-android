@@ -3,13 +3,18 @@ package com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.capstonegyg.gyg.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Isuru Nanayakkara on 3/24/2018.
@@ -18,6 +23,7 @@ import java.util.ArrayList;
 public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     TextView gygName, gygPosterName, gygFee, gygLocation;
+    CircleImageView gygPosterFace;
 
     //---------------------------------Click Listeners----------------------------------//
 
@@ -41,6 +47,7 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
         gygPosterName = itemView.findViewById(R.id.gyg_poster_name);
         gygFee = itemView.findViewById(R.id.gyg_fee);
         gygLocation = itemView.findViewById(R.id.gyg_location);
+        gygPosterFace = itemView.findViewById(R.id.poster_face);
 
         //Add a click listener to Android
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -65,5 +72,13 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     public void setGygLocation(String gygLocation) {
         this.gygLocation.setText(gygLocation);
+    }
+
+    public void setGygPosterFace(String uri) {
+        Glide
+                .with(gygPosterFace.getContext())
+                .load(uri)
+                //.override(75, 75)
+                .into(gygPosterFace);
     }
 }
