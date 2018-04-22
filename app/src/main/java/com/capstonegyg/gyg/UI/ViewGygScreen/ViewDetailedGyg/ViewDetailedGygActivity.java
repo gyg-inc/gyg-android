@@ -43,7 +43,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gyg_details_screen);
+        setContentView(R.layout.view_gyg_details_screen);
         posterName = new StringBuilder();
 
         //Text views
