@@ -58,6 +58,7 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
     @Override
     public ViewGygViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewGygViewHolder viewHolder =  super.onCreateViewHolder(parent, viewType);
+        //final String currentGygKey = get
 
         viewHolder.setOnClickListener(new ViewGygViewHolder.ClickListener() {
             @Override
