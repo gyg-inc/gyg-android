@@ -53,7 +53,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseUser user;
     private FirebaseAuth mAuth;
-    private DatabaseReference postDBR;
     private DatabaseReference ref;
     private FirebaseStorage mStor;
     private StorageReference mProStorRef;
@@ -91,7 +90,6 @@ public class ProfileActivity extends AppCompatActivity {
         if (user != null) {
             UID = user.getUid();
             email = user.getEmail();
-            postDBR = FirebaseDatabase.getInstance().getReference().child("users").child(UID);
             mStor = FirebaseStorage.getInstance();
             mProStorRef = mStor.getReference().child("profile_pics");
             mBanStorRef = mStor.getReference().child("banner_pics");
@@ -170,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
                         Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
                         // Update the database with this reference
-                        postDBR.child("pic_ref").setValue(downloadUrl.toString());
+                        ref.child("pic_ref").setValue(downloadUrl.toString());
                         }
                     });
         }
@@ -188,7 +186,7 @@ public class ProfileActivity extends AppCompatActivity {
                             Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
                             // Update the database with this reference
-                            postDBR.child("banner_ref").setValue(downloadUrl.toString());
+                            ref.child("banner_ref").setValue(downloadUrl.toString());
                         }
                     });
         }

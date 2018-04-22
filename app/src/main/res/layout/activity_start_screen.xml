@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="575dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -23,7 +23,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="90dp"
+            android:layout_margin="70dp"
             android:layout_marginBottom="180dp"
             android:text="@string/gyg"
             android:textAlignment="center"
@@ -49,6 +49,13 @@
             android:id="@+id/profile_button"
             style="@style/GeneralButtons"
             android:text="@string/profile" />
+
+        <Button
+            android:id="@+id/external_profile"
+            style="@style/GeneralButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/general_profile" />
 
         <Button
             android:id="@+id/post_gyg_button"

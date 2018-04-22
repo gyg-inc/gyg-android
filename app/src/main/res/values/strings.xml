@@ -73,5 +73,8 @@
     <string name="gyg_poster_name">Gyg Poster Name</string>
     <string name="fee">$$$ FEE</string>
     <string name="exit">Emergency Sign Out Button</string>
+    <string name="report_user">Report User</string>
+    <string name="user_profile">User Profile</string>
+    <string name="general_profile">General Profile</string>
 
 </resources>

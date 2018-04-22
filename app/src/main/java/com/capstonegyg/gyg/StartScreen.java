@@ -10,6 +10,7 @@ import com.capstonegyg.gyg.UI.Authentication.AuthenticationActivity;
 import com.capstonegyg.gyg.UI.MyGygs.MyGygsActivity;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
 import com.capstonegyg.gyg.UI.PostGyg.newLocation;
+import com.capstonegyg.gyg.UI.Profile.GeneralProfileActivity;
 import com.capstonegyg.gyg.UI.Profile.ProfileActivity;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +22,7 @@ public class StartScreen extends AppCompatActivity {
     private Button myGygs;
     private Button profile;
     private Button emergencyExit;
+    private Button generalProfile;
 
     private FirebaseAuth mAuth;
 
@@ -36,6 +38,7 @@ public class StartScreen extends AppCompatActivity {
         myGygs = findViewById(R.id.mygygs_button);
         profile = findViewById(R.id.profile_button);
         emergencyExit = findViewById(R.id.emergency_exit);
+        generalProfile = findViewById(R.id.external_profile);
 
 
         newLocation l = new newLocation(this);
@@ -77,6 +80,13 @@ public class StartScreen extends AppCompatActivity {
             public void onClick(View v) {
                 mAuth.signOut();
                 Intent p = new Intent(StartScreen.this, AuthenticationActivity.class);
+                startActivity(p);
+            }
+        });
+
+        generalProfile.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent p = new Intent(StartScreen.this, GeneralProfileActivity.class);
                 startActivity(p);
             }
         });
