@@ -15,11 +15,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData, ViewGygViewHolder> {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersReference;
+    private FirebaseStorage storageReference;
 
     //Constructor
     public ViewGygFirebaseAdapter(Class<ViewGygData> modelClass, int modelLayout, Class<ViewGygViewHolder> viewHolderClass, Query query) {
@@ -39,6 +42,21 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
                 //Poster name
                 String name = (String) dataSnapshot.getValue();
                 viewHolder.setGygPosterName(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Errors
+            }
+        });
+
+        usersReference.child("pic_ref").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Poster picture
+                String pictureStringRef = (String) dataSnapshot.getValue();
+                //StorageReference profilePicRef = storageReference.getReference().child("profile_pics").child(pictureStringRef);
+                viewHolder.setGygPosterFace(pictureStringRef);
             }
 
             @Override
