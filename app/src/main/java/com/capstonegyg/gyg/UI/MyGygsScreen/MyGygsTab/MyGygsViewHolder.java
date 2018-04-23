@@ -127,12 +127,11 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder implements View.On
                                         .child(auth.getCurrentUser().getUid())
                                         .child("my_gygs");
 
-        //Go into my_gygs array
+        //Loop through and filter the gygs
         deleteRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> matchSnapShot = dataSnapshot.getChildren();
-                //Loop through each gyg
                 for (DataSnapshot match : matchSnapShot) {
                     //If this is the gyg we want to delete
                     if(gygKey.equals(match.getValue().toString())) {

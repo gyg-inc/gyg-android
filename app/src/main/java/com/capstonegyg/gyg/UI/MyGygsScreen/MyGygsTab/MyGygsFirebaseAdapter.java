@@ -1,9 +1,11 @@
 package com.capstonegyg.gyg.UI.MyGygsScreen.MyGygsTab;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.capstonegyg.gyg.UI.MyGygsScreen.GygHits.GygHitsActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -39,7 +41,8 @@ public class MyGygsFirebaseAdapter extends FirebaseRecyclerAdapter <MyGygsData, 
         viewHolder.setOnClickListener(new MyGygsViewHolder.ClickListener() {
             @Override
             public void onHitClick(View view, int position) {
-
+                Intent i = new Intent(view.getContext(), GygHitsActivity.class);
+                i.putExtra("GYG_KEY", getRef(position).getKey());
             }
 
             @Override
