@@ -133,15 +133,20 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
     }
 
     public void acceptGyg() {
+        //Get authUser
         FirebaseUser thisUser = firebaseAuth.getCurrentUser();
+        //Added for future use
+        DatabaseReference hitsRef =
+                firebaseDatabase.getReference()
+                .child("notifications")       //In notifications node
+                .child(posterUid.toString())  //For particular user
+                .child(gygKey)                //For particular Gyg
+                .child("hits");               //Hits array
 
         //User signed in
         if(thisUser != null) {
-            firebaseDatabase.getReference()
-                    .child("notifications")       //In notifications node
-                    .child(posterUid.toString())  //For particular user
-                    .child(gygKey)                //For particular Gyg
-                    .child("hits")                //Hits array
+
+            hitsRef
                     .push()
                     .setValue(thisUser.getUid()); //Set this user as interested
 

@@ -38,9 +38,15 @@ public class MyGygsFirebaseAdapter extends FirebaseRecyclerAdapter <MyGygsData, 
 
         viewHolder.setOnClickListener(new MyGygsViewHolder.ClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(view.getContext(), "Item clicked at " + position + gygKey, Toast.LENGTH_SHORT).show();
+            public void onHitClick(View view, int position) {
+
             }
+
+            @Override
+            public void onEditClick(View view, int position) {
+
+            }
+
         });
 
         return viewHolder;
