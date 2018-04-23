@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewDetailedGyg.ViewDetailedGygActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,53 +25,59 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersReference;
-    private FirebaseStorage storageReference;
+    private FirebaseAuth firebaseAuth;
 
     //Constructor
     public ViewGygFirebaseAdapter(Class<ViewGygData> modelClass, int modelLayout, Class<ViewGygViewHolder> viewHolderClass, Query query) {
         super(modelClass, modelLayout, viewHolderClass, query);
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     //Inject the model data into its respective viewholder/layout widget.
     @Override
     protected void populateViewHolder(final ViewGygViewHolder viewHolder, final ViewGygData model, int position) {
-        //Get reference to user that posted
-        usersReference = firebaseDatabase.getReference().child("users").child(model.gygPosterName);
-        //At child node get
-        usersReference.child("display_name").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //Poster name
-                String name = (String) dataSnapshot.getValue();
-                viewHolder.setGygPosterName(name);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Errors
-            }
-        });
+        //If not viewing user
+        if(model.gygPosterName != firebaseAuth.getCurrentUser().getUid()) {
 
-        usersReference.child("pic_ref").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //Poster picture
-                String pictureStringRef = (String) dataSnapshot.getValue();
-                //StorageReference profilePicRef = storageReference.getReference().child("profile_pics").child(pictureStringRef);
-                viewHolder.setGygPosterFace(pictureStringRef);
-            }
+            //Get reference to user that posted
+            usersReference = firebaseDatabase.getReference().child("users").child(model.gygPosterName);
+            //At child node get
+            usersReference.child("display_name").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //Poster name
+                    String name = (String) dataSnapshot.getValue();
+                    viewHolder.setGygPosterName(name);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Errors
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //Errors
+                }
+            });
 
-        //Set the name of job. Pass in data
-        viewHolder.setGygName(model.gygName);
-        viewHolder.setGygFee(model.gygFee, model.gygTime);
-        viewHolder.setGygLocation(model.gygLocation);
+            //Set profile picture
+            usersReference.child("pic_ref").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //Poster picture
+                    String pictureStringRef = (String) dataSnapshot.getValue();
+                    viewHolder.setGygPosterFace(pictureStringRef);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //Errors
+                }
+            });
+
+            //Set the gyg data
+            viewHolder.setGygName(model.gygName);
+            viewHolder.setGygFee(model.gygFee, model.gygTime);
+            viewHolder.setGygLocation(model.gygLocation);
+        }
     }
 
     @Override
@@ -80,7 +89,7 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
             @Override
             public void onItemClick(View view, int position) {
                 String gygKey = getRef(position).getKey();
-                Log.d("GYG_KEY", gygKey);
+                //Log.d("GYG_KEY", gygKey);
                 Intent i = new Intent(view.getContext(), ViewDetailedGygActivity.class);
                 //Pass along the data
                 i.putExtra("GYG_KEY", gygKey);
@@ -91,7 +100,5 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
 
         return viewHolder;
     }
-
-
 
 }

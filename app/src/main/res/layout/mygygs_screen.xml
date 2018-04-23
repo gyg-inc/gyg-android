@@ -26,7 +26,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/accent">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -87,7 +88,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:background="@color/primary_text"
                         android:orientation="horizontal"
                         android:padding="8dp">
 

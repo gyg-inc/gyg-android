@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.capstonegyg.gyg.R;
+import com.capstonegyg.gyg.UI.MyGygs.MyGygsFragment;
 import com.capstonegyg.gyg.UI.Profile.ProfileFragment;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygFragment;
 import com.capstonegyg.gyg.User;
@@ -63,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
                 break;
             case R.id.action_post_tab:
                 //fragment = Fragment3.NewInstance();
+                fragment = MyGygsFragment.newInstance();
                 break;
         }
 

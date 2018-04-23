@@ -14,13 +14,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Created by libpub on 4/22/2018.
+ * Created by Isuru Nanayakkara on 4/22/2018.
  */
 
 public class ViewGygFragment extends Fragment {
     private ViewGygFirebaseAdapter mAdapter;
     private RecyclerView viewGygsRecycler;
     private DatabaseReference mDatabaseReference;
+    private LinearLayoutManager linearLayoutManager;
 
     public static ViewGygFragment newInstance() {
         return new ViewGygFragment();
@@ -47,8 +48,14 @@ public class ViewGygFragment extends Fragment {
          */
         mAdapter = new ViewGygFirebaseAdapter(ViewGygData.class, R.layout.gyg_list_layout, ViewGygViewHolder.class, mDatabaseReference);
 
+        //Init layout manager
+        linearLayoutManager = new LinearLayoutManager(view.getContext());
+        //Reverse
+        linearLayoutManager.setReverseLayout(true);
+        //Stack from top
+        linearLayoutManager.setStackFromEnd(true);
         //Set the layout manager. (Important) Defines how layout works.
-        viewGygsRecycler.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        viewGygsRecycler.setLayoutManager(linearLayoutManager);
         //Link the recycler view with the adapter
         viewGygsRecycler.setAdapter(mAdapter);
 
