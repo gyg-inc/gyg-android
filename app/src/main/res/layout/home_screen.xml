@@ -22,7 +22,7 @@
         android:layout_gravity="start"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
-        app:elevation="32dp"
+        app:elevation="8dp"
         app:itemIconTint="@drawable/nav_item_colors"
         app:itemTextColor="@drawable/nav_item_colors"
         app:itemBackground="@color/colorPrimary"
