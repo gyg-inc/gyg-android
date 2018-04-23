@@ -13,28 +13,56 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.Authentication.AuthenticationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+        <activity 
+            android:name=".UI.Authentication.AuthenticationActivity"
+            android:screenOrientation="portrait">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
         </activity>
-        <activity android:name=".UI.Profile.ProfileActivity"
+
+        <activity 
+            android:name=".UI.Profile.ProfileActivity"
             android:label="@string/profile_header"
-            android:launchMode="singleTop"></activity>
-        <activity android:name=".UI.Profile.GeneralProfileActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
+
+        <activity 
+            android:name=".UI.Profile.GeneralProfileActivity"
             android:label="@string/user_profile"
-            android:launchMode="singleTop"></activity>
-        <activity android:name=".UI.Home.HomeActivity" />
-        <activity android:name=".UI.ViewGygScreen.ViewGyg.ViewGygActivity" />
-        <activity android:name=".UI.PostGyg.PostGygActivity" />
-        <activity android:name=".UI.MyGygs.MyGygsActivity"/>
-        <activity android:name=".StartScreen" />
-        <activity android:name=".UI.ViewGygScreen.ViewDetailedGyg.ViewDetailedGygActivity"/>
-        <!--<activity android:name=".UI.Authentication.AuthenticationActivity" />-->
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
+
+        <activity 
+            android:name=".UI.Home.HomeActivity" 
+            android:screenOrientation="portrait"/>
+
+        <activity 
+            android:name=".UI.ViewGygScreen.ViewGyg.ViewGygActivity"
+            android:screenOrientation="portrait" />
+
+        <activity 
+            android:name=".UI.PostGyg.PostGygActivity"
+            android:screenOrientation="portrait" />
+
+        <activity 
+            android:name=".UI.MyGygs.MyGygsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity 
+            android:name=".StartScreen"
+            android:screenOrientation="portrait" />
+
+        <activity 
+            android:name=".UI.ViewGygScreen.ViewDetailedGyg.ViewDetailedGygActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".UI.Profile.Settings"
             android:label="@string/profile_settings"
-            android:parentActivityName=".UI.Profile.ProfileActivity">
+            android:parentActivityName=".UI.Profile.ProfileActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".UI.Profile.ProfileActivity" />
