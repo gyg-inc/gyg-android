@@ -71,7 +71,7 @@ public class GeneralProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.general_profile_screen);
+        setContentView(R.layout.profile_screen_2);
 //        mAuth = FirebaseAuth.getInstance();
 //        // Needs to get whatever user is being viewed here instead.
 //        user = mAuth.getCurrentUser();
