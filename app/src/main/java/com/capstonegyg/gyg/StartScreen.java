@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.capstonegyg.gyg.UI.Authentication.AuthenticationActivity;
-import com.capstonegyg.gyg.UI.MyGygs.MyGygsActivity;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
 import com.capstonegyg.gyg.UI.PostGyg.newLocation;
 import com.capstonegyg.gyg.UI.Profile.GeneralProfileActivity;
@@ -61,12 +60,12 @@ public class StartScreen extends AppCompatActivity {
             }
         });
 
-        myGygs.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent p = new Intent(StartScreen.this, MyGygsActivity.class);
-                startActivity(p);
-            }
-        });
+//        myGygs.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Intent p = new Intent(StartScreen.this, MyGygsActivity.class);
+//                startActivity(p);
+//            }
+//        });
 
 
         profile.setOnClickListener(new View.OnClickListener() {

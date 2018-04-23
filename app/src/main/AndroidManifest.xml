@@ -47,11 +47,7 @@
             android:name=".UI.PostGyg.PostGygActivity"
             android:screenOrientation="portrait" />
 
-        <activity 
-            android:name=".UI.MyGygs.MyGygsActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity 
+        <activity
             android:name=".StartScreen"
             android:screenOrientation="portrait" />
 

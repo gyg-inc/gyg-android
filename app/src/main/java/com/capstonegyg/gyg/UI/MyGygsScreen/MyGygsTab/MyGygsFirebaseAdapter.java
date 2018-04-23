@@ -1,13 +1,10 @@
-package com.capstonegyg.gyg.UI.MyGygs;
+package com.capstonegyg.gyg.UI.MyGygsScreen.MyGygsTab;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 

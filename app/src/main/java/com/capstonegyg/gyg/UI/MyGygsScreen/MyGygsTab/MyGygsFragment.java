@@ -1,4 +1,4 @@
-package com.capstonegyg.gyg.UI.MyGygs;
+package com.capstonegyg.gyg.UI.MyGygsScreen.MyGygsTab;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -55,7 +55,7 @@ public class MyGygsFragment extends Fragment {
             @arg3 - The class that injects data into the gyg_list_layout
             @arg4 - The database reference. Holds actual data.
          */
-        mAdapter = new MyGygsFirebaseAdapter(MyGygsData.class, R.layout.mygygs_screen, MyGygsViewHolder.class, queryRef);
+        mAdapter = new MyGygsFirebaseAdapter(MyGygsData.class, R.layout.mygygs_layout, MyGygsViewHolder.class, queryRef);
 
         //Set the layout manager. (Important) Defines how layout works.
         myGygsRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
