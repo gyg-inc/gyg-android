@@ -1,7 +1,9 @@
 package com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.capstonegyg.gyg.R;
+import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,6 +26,8 @@ public class ViewGygFragment extends Fragment {
     private DatabaseReference mDatabaseReference;
     private LinearLayoutManager linearLayoutManager;
 
+    private FloatingActionButton postGyg;
+
     public static ViewGygFragment newInstance() {
         return new ViewGygFragment();
     }
@@ -34,6 +39,15 @@ public class ViewGygFragment extends Fragment {
 
         //The recycler view that is populated
         viewGygsRecycler = view.findViewById(R.id.view_gyg_recycler_view);
+        postGyg = view.findViewById(R.id.post_gyg_fab);
+
+        postGyg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), PostGygActivity.class);
+                startActivity(i);
+            }
+        });
 
         //Get the reference to the whole database
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

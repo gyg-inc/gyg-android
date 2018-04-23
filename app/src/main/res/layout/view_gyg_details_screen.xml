@@ -156,7 +156,7 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/accept_gyg_button"
             style="@style/FirebaseUI.Button"
             android:background="@color/primary_dark"
             android:layout_width="wrap_content"

@@ -34,17 +34,20 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
     private TextView time;
 
     private Button seeProfileButton;
+    private Button acceptGygButton;
 
     private FirebaseDatabase firebaseDatabase;
 
     private String gygKey;
     private StringBuilder posterName;
+    private StringBuilder posterUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_gyg_details_screen);
         posterName = new StringBuilder();
+        posterUid = new StringBuilder();
 
         //Text views
         fee = findViewById(R.id.detail_fee);
@@ -56,7 +59,12 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
 
         //Buttons
         seeProfileButton = findViewById(R.id.see_profile_button);
+        acceptGygButton = findViewById(R.id.accept_gyg_button);
+
+        //Listen to the button events
         seeProfileButton.setOnClickListener(this);
+        acceptGygButton.setOnClickListener(this);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         gygKey = getIntent().getExtras().getString("GYG_KEY");
@@ -85,6 +93,8 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //Set poster name
                         String name = (String) dataSnapshot.getValue();
+                        //Store name for later
+                        posterUid.append(name);
                         pname.setText("Posted by: " + name);
                     }
 
@@ -112,6 +122,29 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
                 i.putExtra("POSTER_UID", posterName.toString());
                 startActivity(i);
                 break;
+            case R.id.accept_gyg_button:
+                acceptGyg();
+                break;
         }
+    }
+
+    public void acceptGyg() {
+        //Set user name
+        /*DatabaseReference notificationsRef = firebaseDatabase.getReference().child("notifications");
+        DatabaseReference posterNameReference = firebaseDatabase.getReference().child("users").child(post.gygPosterName);
+        //At child node get user name
+        posterNameReference.child("display_name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Set poster name
+                String name = (String) dataSnapshot.getValue();
+                pname.setText("Posted by: " + name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Errors
+            }
+        });*/
     }
 }
