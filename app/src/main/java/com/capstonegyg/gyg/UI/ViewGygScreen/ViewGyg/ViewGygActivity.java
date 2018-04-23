@@ -7,8 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.capstonegyg.gyg.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 /**
  * Created by ipnanayakkara on 3/5/2018.
@@ -23,6 +26,7 @@ public class ViewGygActivity extends AppCompatActivity {
     private ViewGygFirebaseAdapter mAdapter;
     private RecyclerView viewGygsRecycler;
     private DatabaseReference mDatabaseReference;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

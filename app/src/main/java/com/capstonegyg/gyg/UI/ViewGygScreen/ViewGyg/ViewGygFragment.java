@@ -13,8 +13,11 @@ import android.view.ViewGroup;
 
 import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 /**
  * Created by Isuru Nanayakkara on 4/22/2018.
