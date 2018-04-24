@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.capstonegyg.gyg.UI.MyGygsScreen.EditGyg.EditGygActivity;
 import com.capstonegyg.gyg.UI.MyGygsScreen.GygHits.GygHitsActivity;
+import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +51,7 @@ public class MyGygsFirebaseAdapter extends FirebaseRecyclerAdapter <MyGygsData, 
 
             @Override
             public void onEditClick(View view, int position) {
-                Intent i = new Intent(view.getContext(), EditGygActivity.class);
+                Intent i = new Intent(view.getContext(), PostGygActivity.class);
                 i.putExtra("GYG_KEY", getRef(position).getKey());
                 view.getContext().startActivity(i);
             }
