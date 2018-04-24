@@ -20,6 +20,6 @@
         android:clickable="true"
         android:focusable="true"
         app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add_box_white_48dp" />
+        app:srcCompat="@drawable/ic_add" />
 
 </android.support.design.widget.CoordinatorLayout>
