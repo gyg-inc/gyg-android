@@ -181,5 +181,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
         DatabaseReference gygRef = firebaseDatabase.getReference().child("gygs").child(gygKey).child("gygWorkerName");
         if(thisUser != null)
             gygRef.setValue(thisUser.getUid());
+        Toast.makeText(getApplicationContext(), "Request Sent", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

@@ -34,7 +34,7 @@ public class MyGygsFirebaseAdapter extends FirebaseRecyclerAdapter <MyGygsData, 
         //Set the poster name. Pass in data
         viewHolder.setGygFee(model.gygFee, model.gygTime);
         viewHolder.setGygLocation(model.gygLocation);
-        viewHolder.setGygWorkerName(model.gygWorkerName);
+        //viewHolder.setGygWorkerName(model.gygWorkerName);
     }
 
     @Override

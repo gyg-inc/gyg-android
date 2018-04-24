@@ -51,8 +51,11 @@
             android:name=".StartScreen"
             android:screenOrientation="portrait" />
 
-        <activity 
+        <activity
             android:name=".UI.ViewGygScreen.ViewDetailedGyg.ViewDetailedGygActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.MyGygsScreen.GygHits.GygHitsActivity"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".UI.Profile.Settings"
