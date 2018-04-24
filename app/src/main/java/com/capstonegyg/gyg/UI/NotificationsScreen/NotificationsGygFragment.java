@@ -47,7 +47,7 @@ public class NotificationsGygFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         //Query queryRef = userDBR.child("gygs").orderByChild("gygPosterName").equalTo(mAuth.getCurrentUser().getUid());
-        Query queryRef = userDBR.getRef().child("gygs")
+        Query queryRef = userDBR.child("gygs")
                         .child(mAuth.getCurrentUser().getUid())
                         .child("my_gygs").child("gygWorkerName");
 
@@ -63,9 +63,9 @@ public class NotificationsGygFragment extends Fragment {
                     if(match.getValue() != "") {
                         gygWorkerName = match.toString();
                         String notify = gygWorkerName + " picked up your gyg";
+                        NotificationsGygFragment.this.notify();
                     }
                 }
-                NotificationsGygFragment.this.notify();
             }
 
             @Override
