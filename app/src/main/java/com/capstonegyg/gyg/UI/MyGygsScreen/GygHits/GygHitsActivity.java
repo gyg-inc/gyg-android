@@ -63,7 +63,12 @@ public class GygHitsActivity extends AppCompatActivity implements View.OnClickLi
                     userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            interestedUser.setText(dataSnapshot.getValue().toString() + " is interested");
+                            Object userRef = dataSnapshot.getValue();
+                            if(userRef != null) {
+                                interestedUser.setText(dataSnapshot.getValue().toString() + " is interested");
+                            }
+                            else
+                                interestedUser.setText("No hits yet");
                         }
 
                         @Override

@@ -74,7 +74,7 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder implements View.On
         if (gygWorkerName.equals("")) {
             gygWorkerName = "POSTED";
         }
-        this.gygWorkerName.setText(gygWorkerName);
+        this.gygWorkerName.setText("POSTED");
     }
 
     public void setGygFee(Double gygFee, String gygTime) {
