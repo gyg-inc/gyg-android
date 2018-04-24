@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capstonegyg.gyg.R;
+import com.capstonegyg.gyg.UI.NotificationsScreen.NotificationsData;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
 import com.capstonegyg.gyg.UI.Profile.GeneralProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewDetailedGygActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView fee;
@@ -127,7 +131,9 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
                 startActivity(i);
                 break;
             case R.id.accept_gyg_button:
-                acceptGyg();
+                //acceptGyg();
+                //acceptGyg2();
+                acceptGyg3();
                 break;
         }
     }
@@ -158,5 +164,22 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
         else {
             Toast.makeText(getApplicationContext(), "Request Failed. Check that you are signed in", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void acceptGyg2() {
+        DatabaseReference notificationsRef = firebaseDatabase.getReference().child("notifications2").child(posterUid.toString());
+        FirebaseUser thisUser = firebaseAuth.getCurrentUser();
+
+        if(thisUser != null) {
+            NotificationsData notificationsData = new NotificationsData(gygKey, thisUser.getUid());
+            notificationsRef.push().setValue(notificationsData);
+        }
+    }
+
+    public void acceptGyg3() {
+        FirebaseUser thisUser = firebaseAuth.getCurrentUser();
+        DatabaseReference gygRef = firebaseDatabase.getReference().child("gygs").child(gygKey).child("gygWorkerName");
+        if(thisUser != null)
+            gygRef.setValue(thisUser.getUid());
     }
 }

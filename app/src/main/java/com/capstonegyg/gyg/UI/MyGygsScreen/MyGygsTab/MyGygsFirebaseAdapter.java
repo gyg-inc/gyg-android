@@ -46,15 +46,14 @@ public class MyGygsFirebaseAdapter extends FirebaseRecyclerAdapter <MyGygsData, 
             public void onHitClick(View view, int position) {
                 Intent i = new Intent(view.getContext(), GygHitsActivity.class);
                 i.putExtra("GYG_KEY", getRef(position).getKey());
-                //view.getContext().startActivity(i);
-                Log.d("Key is: ", getRef(position).getKey());
+                view.getContext().startActivity(i);
             }
 
             @Override
             public void onEditClick(View view, int position) {
                 Intent i = new Intent(view.getContext(), EditGygActivity.class);
                 i.putExtra("GYG_KEY", getRef(position).getKey());
-                //view.getContext().startActivity(i);
+                view.getContext().startActivity(i);
             }
 
             @Override

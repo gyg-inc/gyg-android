@@ -79,4 +79,6 @@
     <string name="see_profile">See Profile</string>
     <string name="accept">Accept</string>
     <string name="hits">Hits</string>
+    <string name="accept_worker">Accept</string>
+    <string name="decline">Decline</string>
 </resources>

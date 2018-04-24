@@ -5,7 +5,11 @@ package com.capstonegyg.gyg.UI.NotificationsScreen;
  */
 
 public class NotificationsData {
-    String userID;
-    String gygs[];
-    String hits[];
+    String gygKey;
+    String hitUserUID;
+
+    public NotificationsData(String gygKey, String hitUserUID) {
+        this.gygKey = gygKey;
+        this.hitUserUID = hitUserUID;
+    }
 }
