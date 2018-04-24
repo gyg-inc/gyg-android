@@ -26,6 +26,7 @@ import java.util.Objects;
 
 public class NotificationsGygFragment extends Fragment {
     private RecyclerView notificationsRecycler;
+    String gygWorkerName;
     
     public static NotificationsGygFragment newInstance() {
 
@@ -45,13 +46,25 @@ public class NotificationsGygFragment extends Fragment {
         DatabaseReference userDBR = database.getReference();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        Query queryRef = userDBR.child("gygs").orderByChild("gygPosterName").equalTo(mAuth.getCurrentUser().getUid());
+        //Query queryRef = userDBR.child("gygs").orderByChild("gygPosterName").equalTo(mAuth.getCurrentUser().getUid());
+        Query queryRef = userDBR.getRef().child("gygs")
+                        .child(mAuth.getCurrentUser().getUid())
+                        .child("my_gygs").child("gygWorkerName");
+
         queryRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {}
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Iterable<DataSnapshot> matchSnapShot = dataSnapshot.getChildren();
+                for (DataSnapshot match : matchSnapShot) {
+
+                    if(match.getValue() != "") {
+                        gygWorkerName = match.toString();
+                        String notify = gygWorkerName + " picked up your gyg";
+                    }
+                }
                 NotificationsGygFragment.this.notify();
             }
 
