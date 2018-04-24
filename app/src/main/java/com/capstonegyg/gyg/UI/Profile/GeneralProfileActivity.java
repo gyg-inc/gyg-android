@@ -107,8 +107,10 @@ public class GeneralProfileActivity extends AppCompatActivity {
 
     public void show_data(DataSnapshot dataSnapshot) {
         displayName.setText(Objects.requireNonNull(dataSnapshot.child("display_name").getValue()).toString());
-        if ((boolean) Objects.requireNonNull(dataSnapshot.child("show_email").getValue()))
-            emailDisplay.setText(email);
+        if ((boolean) Objects.requireNonNull(dataSnapshot.child("show_email").getValue())) {
+            if(dataSnapshot.child("email").getValue() != null)
+                emailDisplay.setText(Objects.requireNonNull(dataSnapshot.child("email").getValue()).toString());
+        }
         else
             emailDisplay.setText("[E-Mail not shared]");
         String skStr1 = Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString();
