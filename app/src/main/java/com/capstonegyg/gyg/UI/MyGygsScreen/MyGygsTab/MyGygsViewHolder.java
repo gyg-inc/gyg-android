@@ -16,31 +16,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class MyGygsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class MyGygsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private TextView gygName,gygWorkerName, gygFee, gygLocation;
+    private TextView gygName, gygWorkerName, gygFee, gygLocation;
     private TextView deleteButton, hitsButton, editButton;
-
-    String gygKey;
 
     //-------------Click Listeners-------------//
 
     private MyGygsViewHolder.ClickListener mClickListener;
 
     //Interface to send callbacks...
-    public interface ClickListener{
+    public interface ClickListener {
         void onHitClick(View view, int position);
+
         void onEditClick(View view, int position);
+
+        void onDeleteClick(View view, int position);
     }
 
-    public void setOnClickListener(MyGygsViewHolder.ClickListener clickListener){
+    public void setOnClickListener(MyGygsViewHolder.ClickListener clickListener) {
         mClickListener = clickListener;
     }
 
     //-------------End Click Listeners-------------//
 
 
-    public MyGygsViewHolder(View itemView){
+    public MyGygsViewHolder(View itemView) {
         super(itemView);
 
         //Info Text views
@@ -70,89 +71,36 @@ public class MyGygsViewHolder extends RecyclerView.ViewHolder implements View.On
 
     // Sets worker name, indicates POSTED if gyg hasn't been accepted yet
     public void setGygWorkerName(String gygWorkerName) {
-        if(gygWorkerName.equals("")) {
+        if (gygWorkerName.equals("")) {
             gygWorkerName = "POSTED";
         }
         this.gygWorkerName.setText(gygWorkerName);
     }
 
     public void setGygFee(Double gygFee, String gygTime) {
-        this.gygFee.setText("$" + String.valueOf(gygFee) + "/"+ gygTime);
+        this.gygFee.setText("$" + String.valueOf(gygFee) + "/" + gygTime);
     }
 
     public void setGygLocation(String gygLocation) {
         this.gygLocation.setText(gygLocation);
     }
 
-    public void setGygKey(String gygKey) {
-        this.gygKey = gygKey;
-    }
-
-
     //Listen to all events. Switch through respective one
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.delete:
-                doDelete();
+                mClickListener.onDeleteClick(itemView, getAdapterPosition());
                 break;
             case R.id.hits:
-                doHits();
+                mClickListener.onHitClick(itemView, getAdapterPosition());
                 break;
             case R.id.edit:
-                doEdit();
+                mClickListener.onEditClick(itemView, getAdapterPosition());
                 break;
             default:
-                doHits();
+                mClickListener.onHitClick(itemView, getAdapterPosition());
                 break;
         }
-    }
-
-
-    //----------------------Helper Methods----------------//
-
-    private void doDelete() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-
-        //First remove the Gyg
-        DatabaseReference gygDBR = database.getReference();
-        gygDBR.child("gygs").child(gygKey).removeValue();
-
-
-        //Then remove the my_gygs entry in users page
-        DatabaseReference deleteRef = database
-                                        .getReference()
-                                        .child("users")
-                                        .child(auth.getCurrentUser().getUid())
-                                        .child("my_gygs");
-
-        //Loop through and filter the gygs
-        deleteRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> matchSnapShot = dataSnapshot.getChildren();
-                for (DataSnapshot match : matchSnapShot) {
-                    //If this is the gyg we want to delete
-                    if(gygKey.equals(match.getValue().toString())) {
-                        match.getRef().removeValue();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
-    private void doHits() {
-        mClickListener.onHitClick(itemView, getAdapterPosition());
-    }
-
-    private void doEdit() {
-        mClickListener.onEditClick(itemView, getAdapterPosition());
     }
 }

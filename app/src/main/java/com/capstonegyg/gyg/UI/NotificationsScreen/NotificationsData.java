@@ -5,5 +5,7 @@ package com.capstonegyg.gyg.UI.NotificationsScreen;
  */
 
 public class NotificationsData {
-
+    String userID;
+    String gygs[];
+    String hits[];
 }
