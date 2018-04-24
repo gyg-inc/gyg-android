@@ -127,7 +127,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
         switch (v.getId()) {
             case R.id.see_profile_button :
                 Intent i = new Intent(ViewDetailedGygActivity.this, GeneralProfileActivity.class);
-                i.putExtra("POSTER_UID", posterName.toString());
+                i.putExtra("POSTER_UID", posterUid.toString());
                 startActivity(i);
                 break;
             case R.id.accept_gyg_button:

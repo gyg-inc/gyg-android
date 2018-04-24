@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -72,9 +73,19 @@ public class GeneralProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_screen_2);
-//        mAuth = FirebaseAuth.getInstance();
-//        // Needs to get whatever user is being viewed here instead.
-//        user = mAuth.getCurrentUser();
+
+        //Views
+        displayName = findViewById(R.id.text_displayed_name);
+        emailDisplay = findViewById(R.id.text_email_address);
+        displayedSkills = findViewById(R.id.text_displayed_skills);
+        skill1 = findViewById(R.id.text_skill_1);
+        skill2 = findViewById(R.id.text_skill_2);
+        skill3 = findViewById(R.id.text_skill_3);
+        profilePic = findViewById(R.id.profile_image);
+        bannerPic = findViewById(R.id.image_banner);
+
+        //Buttons
+        //None yet I guess.
 
         //Get UID that is passed in.
         UID = getIntent().getExtras().getString("POSTER_UID");
@@ -92,19 +103,6 @@ public class GeneralProfileActivity extends AppCompatActivity {
                 showToast("The read failed: " + databaseError.getCode());
             }
         });
-
-        //Views
-        displayName = findViewById(R.id.text_displayed_name);
-        emailDisplay = findViewById(R.id.text_email_address);
-        displayedSkills = findViewById(R.id.text_displayed_skills);
-        skill1 = findViewById(R.id.text_skill_1);
-        skill2 = findViewById(R.id.text_skill_2);
-        skill3 = findViewById(R.id.text_skill_3);
-        profilePic = findViewById(R.id.profile_image);
-        bannerPic = findViewById(R.id.image_banner);
-
-        //Buttons
-        //None yet I guess.
     }
 
     public void show_data(DataSnapshot dataSnapshot) {
