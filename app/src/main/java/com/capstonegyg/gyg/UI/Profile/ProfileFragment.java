@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if (user != null) {
+        //if (user != null) {
             UID = user.getUid();
             email = user.getEmail();
             mStor = FirebaseStorage.getInstance();
@@ -143,13 +143,13 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-        }
-        else
+        //}
+       /* else
         {
             Intent p = new Intent(getActivity(), AuthenticationActivity.class);
             startActivity(p);
         }
-
+        */
         return view;
     }
 
@@ -255,10 +255,10 @@ public class ProfileFragment extends Fragment {
         builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
+                mAuth.signOut();
                 Intent i = new Intent(getActivity(), AuthenticationActivity.class);
                 startActivity(i);
-                mAuth.signOut();
-                //getActivity().finish();
+                getActivity().finish();
             }
         });
 

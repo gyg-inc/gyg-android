@@ -73,7 +73,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                showToast("The read failed: " + databaseError.getCode());
+                //showToast("The read failed: " + databaseError.getCode());
             }
         });
 

@@ -100,7 +100,7 @@ public class GeneralProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                showToast("The read failed: " + databaseError.getCode());
+                //showToast("The read failed: " + databaseError.getCode());
             }
         });
     }
