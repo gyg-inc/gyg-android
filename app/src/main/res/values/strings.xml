@@ -81,4 +81,6 @@
     <string name="hits">Hits</string>
     <string name="accept_worker">Accept</string>
     <string name="decline">Decline</string>
+    <string name="Accept">accept</string>
+    <string name="gyg_worker_name">gyg_worker_name</string>
 </resources>
