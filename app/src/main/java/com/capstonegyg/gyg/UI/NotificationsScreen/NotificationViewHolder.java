@@ -19,6 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class NotificationViewHolder extends RecyclerView.ViewHolder{
     private LinearLayout parentView;
     private TextView hitUserName, gygName;
+    private String gygPosterName;
     //---------------------------------Click Listeners----------------------------------//
 
     private NotificationViewHolder.ClickListener mClickListener;
@@ -37,8 +38,8 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder{
     public NotificationViewHolder(View itemView) {
         super(itemView);
 
-        //should be notification_list_layout
-        parentView = itemView.findViewById(R.id.gyg_list_layout_container);
+        //should be notification
+        parentView = itemView.findViewById(R.id.notifications_recycler);
         gygName = itemView.findViewById(R.id.gyg_name);
         hitUserName = itemView.findViewById(R.id.gyg_worker_name);
 

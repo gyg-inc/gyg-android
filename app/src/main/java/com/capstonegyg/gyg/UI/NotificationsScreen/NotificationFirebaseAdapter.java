@@ -63,8 +63,8 @@ public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<Notific
     protected void populateViewHolder(final NotificationViewHolder viewHolder, final NotificationsData model, int position) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        //If user not null and not current user
-        if(user != null && !model.hitUserName.equals(user.getUid())) {
+        //If user not null and not current user // see what this fully does
+        if(user != null && model.gygPosterName.equals(user.getUid())) {
 
             //Get reference to user that posted
             usersReference = firebaseDatabase.getReference().child("users").child(model.gygName);

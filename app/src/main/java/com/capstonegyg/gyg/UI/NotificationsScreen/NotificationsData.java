@@ -7,6 +7,7 @@ package com.capstonegyg.gyg.UI.NotificationsScreen;
 public class NotificationsData {
     String gygName;
     String hitUserName;
+    public String gygPosterName;
 
     public NotificationsData(String gygName, String hitUserName) {
         this.gygName = gygName;
