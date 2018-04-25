@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.capstonegyg.gyg.R;
-import com.capstonegyg.gyg.UI.MyGygs.MyGygsFragment;
+import com.capstonegyg.gyg.UI.MyGygsScreen.MyGygsTab.MyGygsFragment;
 import com.capstonegyg.gyg.UI.NotificationsScreen.NotificationsGygFragment;
 import com.capstonegyg.gyg.UI.Profile.ProfileFragment;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygFragment;

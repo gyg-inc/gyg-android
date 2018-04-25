@@ -24,8 +24,11 @@ import java.util.Date;
 
 import com.capstonegyg.gyg.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -58,6 +61,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     SwitchCompat sw;
 
     ArrayList<String> times;
+    FirebaseDatabase firebaseDatabase;
 
     Spinner timeSpinner;
 
@@ -77,6 +81,8 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     String gygAcceptedDate;
 
     String gygKey;
+    String previousKey;
+    boolean editGyg;
 
     newLocation l;
 
@@ -87,6 +93,12 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_gyg_screen);
+
+        editGyg = false;
+
+        gygKey = getIntent().getExtras().getString("GYG_KEY");
+        if(gygKey != null) {setData(gygKey); editGyg = true;previousKey = gygKey;}
+
 
         /* get Location Data */
         l = new newLocation(this);
@@ -161,7 +173,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         this.month = month;
         this.day = day;
 
-        String dateString = "Deadline: "+ month + "/" + day + "/" + year; // creates displayed date
+        String dateString = "Deadline: "+ (month+1) + "/" + day + "/" + year; // creates displayed date
 
         this.gygEndDate = month + "/" + day + "/" + year; // saves date that's pushed to Firebase
 
@@ -280,6 +292,11 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                 getInput();
 
                 pushToFirebase();
+
+                if(editGyg == true) {
+                    DatabaseReference gygDBR = firebaseDatabase.getReference();
+                    gygDBR.child("gygs").child(previousKey).removeValue();
+                }
 
                 showPostSuccess();
             }
@@ -473,6 +490,40 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
             }
         }, 300);
+    }
+
+    void setData(String gygKey) {
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
+        DatabaseReference ref = firebaseDatabase.getReference().child("gygs").child(gygKey);
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                PostGygData postGygData = dataSnapshot.getValue(PostGygData.class);
+
+                gygName        = findViewById(R.id.gyg_title);
+                gygCategory    = findViewById(R.id.gyg_category);
+                gygLocation    = findViewById(R.id.gyg_area);
+                gygDescription = findViewById(R.id.gyg_description);
+                EditText edt = findViewById(R.id.gyg_pay);
+                TextView V = findViewById(R.id.display_date);
+
+                gygName.setText(postGygData.gygName);
+                gygCategory.setText(postGygData.gygCategory);
+                gygLocation.setText(postGygData.gygLocation);
+                gygDescription.setText(postGygData.gygDescription);
+                edt.setText(postGygData.gygFee.toString());
+                V.setText(postGygData.gygEndDate);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 

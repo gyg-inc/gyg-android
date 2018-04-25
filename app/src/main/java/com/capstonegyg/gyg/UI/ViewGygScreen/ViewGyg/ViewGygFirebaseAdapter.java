@@ -3,10 +3,12 @@ package com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewDetailedGyg.ViewDetailedGygActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -27,6 +29,9 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
     private DatabaseReference usersReference;
     private FirebaseAuth firebaseAuth;
 
+    private final int SOMEONE_ELSE = 0;
+    private final int THIS_USER = 1;
+
     //Constructor
     public ViewGygFirebaseAdapter(Class<ViewGygData> modelClass, int modelLayout, Class<ViewGygViewHolder> viewHolderClass, Query query) {
         super(modelClass, modelLayout, viewHolderClass, query);
@@ -34,12 +39,33 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
+    @Override
+    public ViewGygViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        ViewGygViewHolder viewHolder =  super.onCreateViewHolder(parent, viewType);
+
+        viewHolder.setOnClickListener(new ViewGygViewHolder.ClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String gygKey = getRef(position).getKey();
+                //Log.d("GYG_KEY", gygKey);
+                Intent i = new Intent(view.getContext(), ViewDetailedGygActivity.class);
+                //Pass along the data
+                i.putExtra("GYG_KEY", gygKey);
+                //Get context to start ViewDetailedGygActivity
+                view.getContext().startActivity(i);
+            }
+        });
+
+        return viewHolder;
+    }
+
     //Inject the model data into its respective viewholder/layout widget.
     @Override
     protected void populateViewHolder(final ViewGygViewHolder viewHolder, final ViewGygData model, int position) {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        //If not viewing user
-        if(model.gygPosterName != firebaseAuth.getCurrentUser().getUid()) {
+        //If user not null and not current user
+        if(user != null && !model.gygPosterName.equals(user.getUid())) {
 
             //Get reference to user that posted
             usersReference = firebaseDatabase.getReference().child("users").child(model.gygPosterName);
@@ -77,28 +103,12 @@ public class ViewGygFirebaseAdapter extends FirebaseRecyclerAdapter<ViewGygData,
             viewHolder.setGygName(model.gygName);
             viewHolder.setGygFee(model.gygFee, model.gygTime);
             viewHolder.setGygLocation(model.gygLocation);
+
+            viewHolder.setVisibility(View.VISIBLE);
+        }
+        //Unauthenticated or posted by user
+        else {
+            viewHolder.setVisibility(View.GONE);
         }
     }
-
-    @Override
-    public ViewGygViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewGygViewHolder viewHolder =  super.onCreateViewHolder(parent, viewType);
-        //final String currentGygKey = get
-
-        viewHolder.setOnClickListener(new ViewGygViewHolder.ClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                String gygKey = getRef(position).getKey();
-                //Log.d("GYG_KEY", gygKey);
-                Intent i = new Intent(view.getContext(), ViewDetailedGygActivity.class);
-                //Pass along the data
-                i.putExtra("GYG_KEY", gygKey);
-                //Get context to start ViewDetailedGygActivity
-                view.getContext().startActivity(i);
-            }
-        });
-
-        return viewHolder;
-    }
-
 }

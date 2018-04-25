@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,8 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
-    TextView gygName, gygPosterName, gygFee, gygLocation;
-    CircleImageView gygPosterFace;
+    private LinearLayout parentView;
+    private TextView gygName, gygPosterName, gygFee, gygLocation;
+    private CircleImageView gygPosterFace;
 
     //---------------------------------Click Listeners----------------------------------//
 
@@ -31,7 +33,7 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
 
     //Interface to send callbacks...
     public interface ClickListener{
-        public void onItemClick(View view, int position);
+        void onItemClick(View view, int position);
     }
 
     public void setOnClickListener(ViewGygViewHolder.ClickListener clickListener){
@@ -43,6 +45,7 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
     public ViewGygViewHolder(View itemView) {
         super(itemView);
 
+        parentView = itemView.findViewById(R.id.gyg_list_layout_container);
         gygName = itemView.findViewById(R.id.gyg_name);
         gygPosterName = itemView.findViewById(R.id.gyg_poster_name);
         gygFee = itemView.findViewById(R.id.gyg_fee);
@@ -56,6 +59,7 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
         });
+
     }
 
     public void setGygName(String gygName) {
@@ -80,5 +84,22 @@ public class ViewGygViewHolder extends RecyclerView.ViewHolder {
                 .load(uri)
                 //.override(75, 75)
                 .into(gygPosterFace);
+    }
+
+    //Set the viewholder visibility
+    public void setVisibility(int visibility) {
+        RecyclerView.LayoutParams param = (RecyclerView.LayoutParams)itemView.getLayoutParams();
+        if (visibility == View.VISIBLE){
+            param.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            param.width = LinearLayout.LayoutParams.MATCH_PARENT;
+            itemView.setVisibility(View.VISIBLE);
+        }
+        //Completely gone
+        else{
+            itemView.setVisibility(View.GONE);
+            param.height = 0;
+            param.width = 0;
+        }
+        itemView.setLayoutParams(param);
     }
 }

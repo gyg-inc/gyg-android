@@ -1,4 +1,4 @@
-package com.capstonegyg.gyg.UI.MyGygs;
+package com.capstonegyg.gyg.UI.MyGygsScreen.MyGygsTab;
 
 public class MyGygsData {
 

@@ -16,13 +16,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capstonegyg.gyg.R;
+import com.capstonegyg.gyg.UI.NotificationsScreen.NotificationsData;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
 import com.capstonegyg.gyg.UI.Profile.GeneralProfileActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewDetailedGygActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView fee;
@@ -37,6 +43,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
     private Button acceptGygButton;
 
     private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth firebaseAuth;
 
     private String gygKey;
     private StringBuilder posterName;
@@ -67,6 +74,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
 
 
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         gygKey = getIntent().getExtras().getString("GYG_KEY");
         setGygData(gygKey);
     }
@@ -83,7 +91,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
                 cat.setText("Category: " + post.gygCategory);
                 loc.setText("Location: " + post.gygLocation);
                 desc.setText(post.gygDescription);
-                posterName.append(post.gygPosterName);
+                posterUid.append(post.gygPosterName);
 
                 //Set user name
                 DatabaseReference posterNameReference = firebaseDatabase.getReference().child("users").child(post.gygPosterName);
@@ -94,7 +102,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
                         //Set poster name
                         String name = (String) dataSnapshot.getValue();
                         //Store name for later
-                        posterUid.append(name);
+                        posterName.append(name);
                         pname.setText("Posted by: " + name);
                     }
 
@@ -119,32 +127,61 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
         switch (v.getId()) {
             case R.id.see_profile_button :
                 Intent i = new Intent(ViewDetailedGygActivity.this, GeneralProfileActivity.class);
-                i.putExtra("POSTER_UID", posterName.toString());
+                i.putExtra("POSTER_UID", posterUid.toString());
                 startActivity(i);
                 break;
             case R.id.accept_gyg_button:
-                acceptGyg();
+                //acceptGyg();
+                //acceptGyg2();
+                acceptGyg3();
                 break;
         }
     }
 
     public void acceptGyg() {
-        //Set user name
-        /*DatabaseReference notificationsRef = firebaseDatabase.getReference().child("notifications");
-        DatabaseReference posterNameReference = firebaseDatabase.getReference().child("users").child(post.gygPosterName);
-        //At child node get user name
-        posterNameReference.child("display_name").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //Set poster name
-                String name = (String) dataSnapshot.getValue();
-                pname.setText("Posted by: " + name);
-            }
+        //Get authUser
+        FirebaseUser thisUser = firebaseAuth.getCurrentUser();
+        //Added for future use
+        DatabaseReference hitsRef =
+                firebaseDatabase.getReference()
+                .child("notifications")       //In notifications node
+                .child(posterUid.toString())  //For particular user
+                .child(gygKey)                //For particular Gyg
+                .child("hits");               //Hits array
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Errors
-            }
-        });*/
+        //User signed in
+        if(thisUser != null) {
+
+            hitsRef
+                    .push()
+                    .setValue(thisUser.getUid()); //Set this user as interested
+
+            Toast.makeText(getApplicationContext(), "Request Sent", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        //User not valid
+        else {
+            Toast.makeText(getApplicationContext(), "Request Failed. Check that you are signed in", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void acceptGyg2() {
+        DatabaseReference notificationsRef = firebaseDatabase.getReference().child("notifications2").child(posterUid.toString());
+        FirebaseUser thisUser = firebaseAuth.getCurrentUser();
+
+        if(thisUser != null) {
+            NotificationsData notificationsData = new NotificationsData(gygKey, thisUser.getUid());
+            notificationsRef.push().setValue(notificationsData);
+        }
+    }
+
+    public void acceptGyg3() {
+        FirebaseUser thisUser = firebaseAuth.getCurrentUser();
+        DatabaseReference gygRef = firebaseDatabase.getReference().child("gygs").child(gygKey).child("gygWorkerName");
+        if(thisUser != null)
+            gygRef.setValue(thisUser.getUid());
+        Toast.makeText(getApplicationContext(), "Request Sent", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

@@ -80,7 +80,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         // Shawn's thing
 
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get(" https://gyg.herokuapp.com/", new TextHttpResponseHandler() {
+        client.get(" https://gyg.herokuapp.com/client_token", new TextHttpResponseHandler() {
             public String clientToken;
 
             @Override
