@@ -41,6 +41,8 @@ public class NotificationsGygFragment extends Fragment {
     private DatabaseReference mDatabaseReference;
     private LinearLayoutManager linearLayoutManager;
 
+    private FirebaseAuth firebaseAuth;
+
     //private FloatingActionButton postGyg;
 
     public static NotificationsGygFragment newInstance() {
@@ -54,6 +56,7 @@ public class NotificationsGygFragment extends Fragment {
 
         //The recycler view that is populated
         notificationsRecycler = view.findViewById(R.id.notifications_recycler);
+        firebaseAuth = FirebaseAuth.getInstance();
         //postGyg = view.findViewById(R.id.post_gyg_fab);
 
 //        postGyg.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +70,10 @@ public class NotificationsGygFragment extends Fragment {
         //Get the reference to the whole database
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         //Find the specific Firebase node.
-        mDatabaseReference = firebaseDatabase.getReference().child("gygs");
+        Query query = firebaseDatabase.getReference()
+                .child("gygs")
+                .orderByChild("gygPosterName")
+                .equalTo(firebaseAuth.getCurrentUser().getUid());
 
         /*
             @arg1 - The "schema" file that defines data.
@@ -75,7 +81,7 @@ public class NotificationsGygFragment extends Fragment {
             @arg3 - The class that injects data into the gyg_list_layout
             @arg4 - The database reference. Holds actual data.
          */
-        mAdapter = new NotificationFirebaseAdapter(PostGygData.class, R.layout.notification_list_layout, NotificationViewHolder.class, mDatabaseReference);
+        mAdapter = new NotificationFirebaseAdapter(PostGygData.class, R.layout.notification_list_layout, NotificationViewHolder.class, query);
 
         //Init layout manager
         linearLayoutManager = new LinearLayoutManager(view.getContext());
@@ -86,7 +92,7 @@ public class NotificationsGygFragment extends Fragment {
         //Set the layout manager. (Important) Defines how layout works.
         notificationsRecycler.setLayoutManager(linearLayoutManager);
         //Link the recycler view with the adapter
-       notificationsRecycler.setAdapter(mAdapter);
+        notificationsRecycler.setAdapter(mAdapter);
 
         return view;
     }

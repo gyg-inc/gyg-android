@@ -26,18 +26,14 @@ import com.google.firebase.database.ValueEventListener;
 public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<PostGygData, NotificationViewHolder> {
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference usersReference;
     private FirebaseAuth firebaseAuth;
 
-    private final int SOMEONE_ELSE = 0;
-    private final int THIS_USER = 1;
-
-    //Constructor
     public NotificationFirebaseAdapter(Class<PostGygData> modelClass, int modelLayout, Class<NotificationViewHolder> viewHolderClass, Query query) {
         super(modelClass, modelLayout, viewHolderClass, query);
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
     }
+
 
     @Override
     public NotificationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,6 +58,33 @@ public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<PostGyg
     //Inject the model data into its respective viewholder/layout widget.
     @Override
     protected void populateViewHolder(final NotificationViewHolder viewHolder, final PostGygData model, int position) {
+
+        if(model.gygAcceptedDate.equals("")) {
+            viewHolder.setVisibility(View.GONE);
+        }
+        else {
+            viewHolder.setVisibility(View.VISIBLE);
+            //Set the gyg data
+            viewHolder.setGygName(model.gygName);
+
+            DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(model.gygWorkerName);
+
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    viewHolder.setHitUserName(dataSnapshot.child("display_name").getValue().toString());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
+
+    /*void oldCode() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //If user not null and not current user // see what this fully does
@@ -94,5 +117,5 @@ public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<PostGyg
         else {
             viewHolder.setVisibility(View.GONE);
         }
-    }
+    }*/
 }

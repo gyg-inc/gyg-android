@@ -152,7 +152,7 @@ public class GygHitsActivity extends AppCompatActivity implements View.OnClickLi
                 Toast.makeText(getApplicationContext(), "User declined", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
-            case R.id.accept_gyg_button:
+            case R.id.accept_worker:
                 //Do notification
                 ref.child("gygAcceptedDate").setValue("1");
                 Toast.makeText(getApplicationContext(), "User accepted", Toast.LENGTH_SHORT).show();
