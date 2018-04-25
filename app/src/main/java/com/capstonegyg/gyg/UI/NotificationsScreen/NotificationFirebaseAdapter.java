@@ -23,12 +23,12 @@ import com.google.firebase.database.ValueEventListener;
  * Created by Shawn on 4/24/18.
  */
 
-public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<PostGygData, NotificationViewHolder> {
+public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<NotificationsData, NotificationViewHolder> {
 
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
 
-    public NotificationFirebaseAdapter(Class<PostGygData> modelClass, int modelLayout, Class<NotificationViewHolder> viewHolderClass, Query query) {
+    public NotificationFirebaseAdapter(Class<NotificationsData> modelClass, int modelLayout, Class<NotificationViewHolder> viewHolderClass, Query query) {
         super(modelClass, modelLayout, viewHolderClass, query);
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -55,34 +55,40 @@ public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<PostGyg
         return viewHolder;
     }
 
-    //Inject the model data into its respective viewholder/layout widget.
     @Override
-    protected void populateViewHolder(final NotificationViewHolder viewHolder, final PostGygData model, int position) {
-
-        if(model.gygAcceptedDate.equals("")) {
-            viewHolder.setVisibility(View.GONE);
-        }
-        else {
-            viewHolder.setVisibility(View.VISIBLE);
-            //Set the gyg data
-            viewHolder.setGygName(model.gygName);
-
-            DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(model.gygWorkerName);
-
-            userReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    viewHolder.setHitUserName(dataSnapshot.child("display_name").getValue().toString());
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
-
+    protected void populateViewHolder(NotificationViewHolder viewHolder, NotificationsData model, int position) {
+        viewHolder.setGygName(model.gygName);
+        viewHolder.setHitUserName(model.gygPosterName);
     }
+
+    //Inject the model data into its respective viewholder/layout widget.
+//    @Override
+//    protected void populateViewHolder(final NotificationViewHolder viewHolder, final PostGygData model, int position) {
+//
+//        if(model.gygAcceptedDate.equals("")) {
+//            viewHolder.setVisibility(View.GONE);
+//        }
+//        else {
+//            viewHolder.setVisibility(View.VISIBLE);
+//            //Set the gyg data
+//            viewHolder.setGygName(model.gygName);
+//
+//            DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(model.gygWorkerName);
+//
+//            userReference.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    viewHolder.setHitUserName(dataSnapshot.child("display_name").getValue().toString());
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
+
+  
 
     /*void oldCode() {
         FirebaseUser user = firebaseAuth.getCurrentUser();

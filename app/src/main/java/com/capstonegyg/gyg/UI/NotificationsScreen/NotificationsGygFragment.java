@@ -71,9 +71,9 @@ public class NotificationsGygFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         //Find the specific Firebase node.
         Query query = firebaseDatabase.getReference()
-                .child("gygs")
-                .orderByChild("gygPosterName")
-                .equalTo(firebaseAuth.getCurrentUser().getUid());
+                .child("notifications3")
+                .child(firebaseAuth.getCurrentUser().getUid());
+
 
         /*
             @arg1 - The "schema" file that defines data.
