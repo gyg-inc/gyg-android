@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if (user != null) {
+        //if (user != null) {
             UID = user.getUid();
             email = user.getEmail();
             mStor = FirebaseStorage.getInstance();
@@ -103,7 +103,7 @@ public class ProfileFragment extends Fragment {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    showToast("The read failed: " + databaseError.getCode());
+                    showToast("Signed Out");
                 }
             });
 
@@ -143,13 +143,13 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-        }
-        else
+        //}
+       /* else
         {
             Intent p = new Intent(getActivity(), AuthenticationActivity.class);
             startActivity(p);
         }
-
+        */
         return view;
     }
 
@@ -238,8 +238,11 @@ public class ProfileFragment extends Fragment {
             skill2.setText(skStr2);
             skill3.setText(skStr3);
         }
-        Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("pic_ref").getValue())).override(155, 155).into(profilePic);
-        Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("banner_ref").getValue())).centerCrop().into(bannerPic);
+
+        if(isAdded()) {
+            Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("pic_ref").getValue())).override(155, 155).into(profilePic);
+            Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("banner_ref").getValue())).centerCrop().into(bannerPic);
+        }
     }
 
     void yesNoPopUp(String title, String message) {
@@ -271,6 +274,6 @@ public class ProfileFragment extends Fragment {
 
     public void showToast(String message)
     {
-        Toast.makeText(getActivity(), message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message,Toast.LENGTH_SHORT).show();
     }
 }

@@ -315,9 +315,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         builder.show();
     }
 
-
-
-
     /* Sets remainder of variables not set by checkInput
      * Checks for no payment
      */

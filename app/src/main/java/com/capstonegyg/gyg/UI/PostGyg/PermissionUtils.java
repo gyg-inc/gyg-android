@@ -183,13 +183,6 @@ public class PermissionUtils
         void PermissionDenied(int request_code);
         void NeverAskAgain(int request_code);
     }
-
-    private void showToast(String message)
-    {
-        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
-    }
-
-
 }
 
 

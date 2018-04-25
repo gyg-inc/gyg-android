@@ -115,7 +115,7 @@ public class ViewDetailedGygActivity extends AppCompatActivity implements View.O
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(ViewDetailedGygActivity.this, "Read Failed. Check Connection", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ViewDetailedGygActivity.this, "Read Failed. Check Connection", Toast.LENGTH_SHORT).show();
             }
         });
 

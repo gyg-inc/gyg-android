@@ -69,7 +69,6 @@ public class newLocation extends AppCompatActivity implements
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
 
-        //     showToast("Longitude: " + longitude + "\nLatitude: " + latitude);
              address = getAddress();
              return address;
         }

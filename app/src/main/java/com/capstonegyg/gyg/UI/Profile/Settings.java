@@ -73,7 +73,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                showToast("The read failed: " + databaseError.getCode());
+                //showToast("The read failed: " + databaseError.getCode());
             }
         });
 
@@ -134,7 +134,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        // When the home button is pressed, take the user back to the ProfileActivity
+        // When the home button is pressed, take the user back to the ProfileFragment
         if (id == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
         }

@@ -19,7 +19,6 @@ public class DatePickerFragment extends DialogFragment{
     int month;
     int day;
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
@@ -31,22 +30,4 @@ public class DatePickerFragment extends DialogFragment{
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), (PostGygActivity)getActivity(), year, month, day);
     }
-
-    /*public void onDateSet(DatePicker view, int year, int month, int day) {
-
-        this.year = year;
-        this.month = month;
-        this.day = day;
-
-        TextView V = view.findViewById(R.id.display_date);
-        (TextView)view.findViewById(R.id.display_date).setText("Hi");
-
-
-    }*/
-
-   /* public Date getDateFromDatePicker(){
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return calendar.getTime();
-    }*/
 }
