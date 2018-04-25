@@ -88,7 +88,7 @@ public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<Notific
 //            });
 //        }
 
-  
+
 
     /*void oldCode() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
