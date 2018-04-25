@@ -274,6 +274,6 @@ public class ProfileFragment extends Fragment {
 
     public void showToast(String message)
     {
-        Toast.makeText(getActivity(), message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), message,Toast.LENGTH_SHORT).show();
     }
 }
