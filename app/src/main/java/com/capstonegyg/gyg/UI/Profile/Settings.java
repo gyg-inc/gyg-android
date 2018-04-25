@@ -169,22 +169,22 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
                             .child("display_name")
                             .setValue(displayName.getText().toString());
                 else if (displayName.getText().length() < 6 && displayName.getText().length() > 0)
-                    showToast("Diaplay names must be at least 6 characters");
-                    postDBR.child("users")
-                            .child(UID)
-                            .child("skills")
-                            .child("skill0")
-                            .setValue(skill1.getText().toString());
-                    postDBR.child("users")
-                            .child(UID)
-                            .child("skills")
-                            .child("skill1")
-                            .setValue(skill2.getText().toString());
-                    postDBR.child("users")
-                            .child(UID)
-                            .child("skills")
-                            .child("skill2")
-                            .setValue(skill3.getText().toString());
+                    showToast("Display names must be at least 6 characters");
+                postDBR.child("users")
+                        .child(UID)
+                        .child("skills")
+                        .child("skill0")
+                        .setValue(skill1.getText().toString());
+                postDBR.child("users")
+                        .child(UID)
+                        .child("skills")
+                        .child("skill1")
+                        .setValue(skill2.getText().toString());
+                postDBR.child("users")
+                        .child(UID)
+                        .child("skills")
+                        .child("skill2")
+                        .setValue(skill3.getText().toString());
                 showToast("Profile Updated Successfully!");
             }
         }
@@ -234,9 +234,9 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
 
     public void show_data(DataSnapshot dataSnapshot) {
         displayName.setText(Objects.requireNonNull(dataSnapshot.child("display_name").getValue()).toString());
-        skill1.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString());
-        skill2.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill1").getValue()).toString());
-        skill3.setHint(Objects.requireNonNull(dataSnapshot.child("skills").child("skill2").getValue()).toString());
+        skill1.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill0").getValue()).toString());
+        skill2.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill1").getValue()).toString());
+        skill3.setText(Objects.requireNonNull(dataSnapshot.child("skills").child("skill2").getValue()).toString());
         if ((boolean) dataSnapshot.child("show_email").getValue())
             swtch.setChecked(true);
         else
