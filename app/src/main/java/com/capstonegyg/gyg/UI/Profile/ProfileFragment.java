@@ -238,8 +238,11 @@ public class ProfileFragment extends Fragment {
             skill2.setText(skStr2);
             skill3.setText(skStr3);
         }
-        Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("pic_ref").getValue())).override(155, 155).into(profilePic);
-        Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("banner_ref").getValue())).centerCrop().into(bannerPic);
+
+        if(isAdded()) {
+            Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("pic_ref").getValue())).override(155, 155).into(profilePic);
+            Glide.with(this).load(Objects.requireNonNull(dataSnapshot.child("banner_ref").getValue())).centerCrop().into(bannerPic);
+        }
     }
 
     void yesNoPopUp(String title, String message) {
