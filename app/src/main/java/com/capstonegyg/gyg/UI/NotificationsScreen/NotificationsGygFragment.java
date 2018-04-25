@@ -52,7 +52,7 @@ public class NotificationsGygFragment extends Fragment {
         View view = inflater.inflate(R.layout.notifications_screen, container, false);
 
         //The recycler view that is populated
-        notificationsRecycler = view.findViewById(R.id.view_gyg_recycler_view);
+        notificationsRecycler = view.findViewById(R.id.notifications_recycler);
         //postGyg = view.findViewById(R.id.post_gyg_fab);
 
 //        postGyg.setOnClickListener(new View.OnClickListener() {
