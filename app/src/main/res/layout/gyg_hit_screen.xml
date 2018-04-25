@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:background="@color/accent"
+            android:background="@color/primary"
             android:text="@string/accept"
             android:textAllCaps="true"
             android:textColor="@color/icons"

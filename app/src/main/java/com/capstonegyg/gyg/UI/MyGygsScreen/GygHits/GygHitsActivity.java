@@ -154,96 +154,10 @@ public class GygHitsActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.accept_gyg_button:
                 //Do notification
+                ref.child("gygAcceptedDate").setValue("1");
+                Toast.makeText(getApplicationContext(), "User accepted", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
         }
     }
-
-
-    /*public void oldCode() {
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                PostGygData postGygData = dataSnapshot.getValue(PostGygData.class);
-
-                DatabaseReference userRef = firebaseDatabase.getReference()
-                        .child("users")
-                        .child(postGygData.gygWorkerName)
-                        .child("display_name");
-
-                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Object userRef = dataSnapshot.getValue();
-                        if(userRef != null) {
-                            interestedUser.setText(dataSnapshot.getValue().toString() + " is interested");
-                        }
-                        else
-                            interestedUser.setText("No hits yet");
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
-
-    /*void oldCode2() {
-        DatabaseReference workerRef = userRef.child(postGygData.gygWorkerName);
-
-        workerRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Object userRef = dataSnapshot.child("gygWorkerName").getValue();
-
-                if(userRef != null) {
-                    Log.d("User ref Val", userRef.toString());
-
-                    //First make everything Visible
-                    hitProfileImage.setVisibility(View.VISIBLE);
-                    skillsLabel.setVisibility(View.VISIBLE);
-                    acceptWorker.setVisibility(View.VISIBLE);
-                    declineWorker.setVisibility(View.VISIBLE);
-
-                    //Set profile pic
-                    Glide.with(hitProfileImage.getContext())
-                            .load(Objects.requireNonNull(dataSnapshot.child("pic_ref")
-                                    .getValue())).override(155, 155)
-                            .into(hitProfileImage);
-
-                    //Set worker name
-                    interestedUser.setText(userRef.toString() + " is interested");
-                    //Set skill 1
-                    skill1.setText(dataSnapshot.child("skills").child("skill0").getValue().toString());
-                    //Set skill 2
-                    skill1.setText(dataSnapshot.child("skills").child("skill1").getValue().toString());
-                    //Set skill 3
-                    skill1.setText(dataSnapshot.child("skills").child("skill2").getValue().toString());
-                }
-
-                else {
-                    //Make everything dissappear
-                    hitProfileImage.setVisibility(View.GONE);
-                    skillsLabel.setVisibility(View.GONE);
-                    acceptWorker.setVisibility(View.GONE);
-                    declineWorker.setVisibility(View.GONE);
-
-                    //Set worker name
-                    interestedUser.setText("No Hits Yet");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
 }
