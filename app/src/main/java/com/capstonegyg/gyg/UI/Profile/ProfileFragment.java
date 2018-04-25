@@ -103,7 +103,7 @@ public class ProfileFragment extends Fragment {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    showToast("The read failed: " + databaseError.getCode());
+                    showToast("Signed Out");
                 }
             });
 
@@ -255,10 +255,10 @@ public class ProfileFragment extends Fragment {
         builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                mAuth.signOut();
                 Intent i = new Intent(getActivity(), AuthenticationActivity.class);
                 startActivity(i);
-                getActivity().finish();
+                mAuth.signOut();
+                //getActivity().finish();
             }
         });
 
