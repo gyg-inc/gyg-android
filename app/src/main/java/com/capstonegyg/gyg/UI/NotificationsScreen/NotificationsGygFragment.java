@@ -74,7 +74,7 @@ public class NotificationsGygFragment extends Fragment {
             @arg3 - The class that injects data into the gyg_list_layout
             @arg4 - The database reference. Holds actual data.
          */
-        mAdapter = new NotificationFirebaseAdapter(NotificationsData.class, R.layout.gyg_list_layout, NotificationViewHolder.class, mDatabaseReference);
+        mAdapter = new NotificationFirebaseAdapter(NotificationsData.class, R.layout.notification_list_layout, NotificationViewHolder.class, mDatabaseReference);
 
         //Init layout manager
         linearLayoutManager = new LinearLayoutManager(view.getContext());
