@@ -23,11 +23,6 @@
                 </intent-filter>
         </activity>
 
-        <activity 
-            android:name=".UI.Profile.ProfileActivity"
-            android:label="@string/profile_header"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
 
         <activity 
             android:name=".UI.Profile.GeneralProfileActivity"
@@ -60,11 +55,11 @@
 
         <activity android:name=".UI.Profile.Settings"
             android:label="@string/profile_settings"
-            android:parentActivityName=".UI.Profile.ProfileActivity"
+            android:parentActivityName=".StartScreen"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UI.Profile.ProfileActivity" />
+                android:value=".StartScreen" />
         </activity>
 
         <meta-data
