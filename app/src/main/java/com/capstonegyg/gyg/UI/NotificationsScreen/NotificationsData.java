@@ -15,6 +15,9 @@ public class NotificationsData {
         this.gygPosterName = gygPosterName;
     }
 
+    public NotificationsData() {
+    }
+
     public NotificationsData(String gygName, String gygRef, String gygPosterName, String gygPosterRef) {
         this.gygName = gygName;
         this.gygRef = gygRef;
