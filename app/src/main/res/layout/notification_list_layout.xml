@@ -75,12 +75,12 @@
                 android:padding="8dp">
 
                 <TextView
-                    android:id="@+id/accept"
+                    android:id="@+id/start_job"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="@string/Accept"
+                    android:text="Start Job"
                     android:textColor="@color/bt_error_red"
                     android:textSize="18sp" />
 
