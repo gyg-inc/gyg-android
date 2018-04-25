@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewDetailedGyg.ViewDetailedGygActivity;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygData;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygViewHolder;
@@ -22,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
  * Created by Shawn on 4/24/18.
  */
 
-public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<NotificationsData, NotificationViewHolder> {
+public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<PostGygData, NotificationViewHolder> {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersReference;
@@ -32,7 +33,7 @@ public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<Notific
     private final int THIS_USER = 1;
 
     //Constructor
-    public NotificationFirebaseAdapter(Class<NotificationsData> modelClass, int modelLayout, Class<NotificationViewHolder> viewHolderClass, Query query) {
+    public NotificationFirebaseAdapter(Class<PostGygData> modelClass, int modelLayout, Class<NotificationViewHolder> viewHolderClass, Query query) {
         super(modelClass, modelLayout, viewHolderClass, query);
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -60,7 +61,7 @@ public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<Notific
 
     //Inject the model data into its respective viewholder/layout widget.
     @Override
-    protected void populateViewHolder(final NotificationViewHolder viewHolder, final NotificationsData model, int position) {
+    protected void populateViewHolder(final NotificationViewHolder viewHolder, final PostGygData model, int position) {
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         //If user not null and not current user // see what this fully does
@@ -85,7 +86,7 @@ public class NotificationFirebaseAdapter extends FirebaseRecyclerAdapter<Notific
 
             //Set the gyg data
             viewHolder.setGygName(model.gygName);
-            viewHolder.setHitUserName(model.hitUserName);
+            viewHolder.setHitUserName(model.gygName);
 
             viewHolder.setVisibility(View.VISIBLE);
         }

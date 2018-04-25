@@ -15,6 +15,7 @@ import android.view.ViewStructure;
 
 import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygActivity;
+import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygData;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygFirebaseAdapter;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygFragment;
@@ -74,7 +75,7 @@ public class NotificationsGygFragment extends Fragment {
             @arg3 - The class that injects data into the gyg_list_layout
             @arg4 - The database reference. Holds actual data.
          */
-        mAdapter = new NotificationFirebaseAdapter(NotificationsData.class, R.layout.notification_list_layout, NotificationViewHolder.class, mDatabaseReference);
+        mAdapter = new NotificationFirebaseAdapter(PostGygData.class, R.layout.notification_list_layout, NotificationViewHolder.class, mDatabaseReference);
 
         //Init layout manager
         linearLayoutManager = new LinearLayoutManager(view.getContext());

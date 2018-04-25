@@ -19,7 +19,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class NotificationViewHolder extends RecyclerView.ViewHolder{
     private LinearLayout parentView;
     private TextView hitUserName, gygName;
-    private String gygPosterName;
     //---------------------------------Click Listeners----------------------------------//
 
     private NotificationViewHolder.ClickListener mClickListener;
