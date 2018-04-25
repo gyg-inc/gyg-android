@@ -3,6 +3,7 @@ package com.capstonegyg.gyg.UI.PostGyg;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -37,19 +38,13 @@ import java.util.regex.Pattern;
 /**
  *  Written by Jonathan Luetze.
  *
- *  PostGyg allows a user to create and post a Gyg to Firebase
+ *  PostGyg allows a user to create, edit, and post a Gyg to Firebase
  */
 
-// TO DO:
-    // option to add picture for a gyg - possible future implementation
-    // Change address to add City and State - possible future implementation
-    // Cancel button next to submit (DONE)
-    // Add gygWorkerName, gygAcceptedDate (DONE)
-    // remove location functions that are unnecessary (DONE)
-    // reboot activity after requesting location (DONE)
-    // change function names for location to reflect what they're doing (DONE)
-    // implement editing a gyg from Mygygs to go back here, with filled in information (make function to set filled in information so that separate class can call it)
-    //      (maybe delete the old one, post the new one once submit is clicked (have to keep track if edited or initial post for this))
+// Possible Future Implementations:
+    // option to add picture for a gyg
+    // Change address to add City and State (maybe separate variables)
+
 public class PostGygActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     int year;
@@ -74,7 +69,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
     String gygTime;
     String address;
-    String gygPosterName;
     String gygPostedDate;
 
     String gygWorkerName;
@@ -86,9 +80,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
     newLocation l;
 
-    SharedPreferences sharedPref;
-    String name;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,9 +87,9 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
         editGyg = false;
 
-        gygKey = getIntent().getExtras().getString("GYG_KEY");
-        if(gygKey != null) {setData(gygKey); editGyg = true;previousKey = gygKey;}
+        gygKey = null;
 
+        checkEditGyg();
 
         /* get Location Data */
         l = new newLocation(this);
@@ -114,7 +105,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
               }
           });
 
-            gygLocation.setText(address);
+        gygLocation.setText(address);
 
         //Set views
         sw = findViewById(R.id.switch2);
@@ -163,6 +154,19 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                 }
             }
         });
+    }
+
+    /* Checks to see if gyg needs to be edited or posted initially */
+    public void checkEditGyg() {
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            gygKey = getIntent().getExtras().getString("GYG_KEY");
+            if (gygKey != null) {
+                setData(gygKey);
+                editGyg = true;
+                previousKey = gygKey;
+            }
+        }
     }
 
     /* Sets information collected from date picker */
@@ -275,7 +279,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
         });
     }
 
-
     void doubleCheckAndPush() {
 
         /* Pop-Up Box to verify that the User wants to post the Gyg */
@@ -297,7 +300,6 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
                     DatabaseReference gygDBR = firebaseDatabase.getReference();
                     gygDBR.child("gygs").child(previousKey).removeValue();
                 }
-
                 showPostSuccess();
             }
         });
@@ -400,7 +402,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
     /* Displays a success message after posting Gyg to Firebase */
     void showPostSuccess() {
         /* Posted Successfully Message */
-        AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this);
+        AlertDialog.Builder newB = new AlertDialog.Builder(PostGygActivity.this,android.R.style.Theme_Material_Dialog_Alert);
         newB.setMessage("Posted Successfully");
 
         newB.create();
@@ -523,10 +525,7 @@ public class PostGygActivity extends AppCompatActivity implements DatePickerDial
 
             }
         });
-
     }
-
-
 }
 
 
