@@ -6,11 +6,19 @@ package com.capstonegyg.gyg.UI.NotificationsScreen;
 
 public class NotificationsData {
     String gygName;
-    String hitUserName;
-    public String gygPosterName;
+    String gygRef;
+    String gygPosterName;
+    String gygPosterRef;
 
-    public NotificationsData(String gygName, String hitUserName) {
+    public NotificationsData(String gygName, String gygPosterName) {
         this.gygName = gygName;
-        this.hitUserName = hitUserName;
+        this.gygPosterName = gygPosterName;
+    }
+
+    public NotificationsData(String gygName, String gygRef, String gygPosterName, String gygPosterRef) {
+        this.gygName = gygName;
+        this.gygRef = gygRef;
+        this.gygPosterName = gygPosterName;
+        this.gygPosterRef = gygPosterRef;
     }
 }

@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.capstonegyg.gyg.R;
+import com.capstonegyg.gyg.UI.NotificationsScreen.NotificationsData;
 import com.capstonegyg.gyg.UI.PostGyg.PostGygData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,10 +42,14 @@ public class GygHitsActivity extends AppCompatActivity implements View.OnClickLi
 
     private TextView skillsLabel, skill1, skill2, skill3;
 
+    private StringBuilder interestedUserUID, interestedUserName;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gyg_hit_screen);
+        interestedUserUID = new StringBuilder();
+        interestedUserName = new StringBuilder();
 
         //Get Firebase ref
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -83,6 +90,7 @@ public class GygHitsActivity extends AppCompatActivity implements View.OnClickLi
 
                     if(postGygData != null && !postGygData.gygWorkerName.equals("")) {
                         DatabaseReference workerRef = userRef.child(postGygData.gygWorkerName);
+                        interestedUserUID.append(postGygData.gygWorkerName);
 
                         workerRef.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -103,8 +111,11 @@ public class GygHitsActivity extends AppCompatActivity implements View.OnClickLi
                                                 .getValue())).override(155, 155)
                                         .into(hitProfileImage);
 
+                                String workerName = dataSnapshot.child("display_name").getValue().toString();
+                                interestedUserName.append(workerName);
+
                                 //Set worker name
-                                interestedUser.setText(dataSnapshot.child("display_name").getValue().toString() + " is interested");
+                                interestedUser.setText(workerName + " is interested");
                                 //Set skill 1
                                 skill1.setText(dataSnapshot.child("skills").child("skill0").getValue().toString());
                                 //Set skill 2
@@ -154,9 +165,48 @@ public class GygHitsActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.accept_worker:
                 //Do notification
-                ref.child("gygAcceptedDate").setValue("1");
-                Toast.makeText(getApplicationContext(), "User accepted", Toast.LENGTH_SHORT).show();
-                finish();
+                //ref.child("gygAcceptedDate").setValue("1");
+
+                final FirebaseUser thisUser = FirebaseAuth.getInstance().getCurrentUser();
+                final DatabaseReference notificationRef = firebaseDatabase.getReference().child("notifications3").child(interestedUserUID.toString());
+                final DatabaseReference gygRef = firebaseDatabase.getReference().child("gygs").child(gygKey);
+
+                final StringBuilder mDisplayName = new StringBuilder();
+
+                if(thisUser != null) {
+
+                    DatabaseReference myRef = firebaseDatabase.getReference().child("users").child(thisUser.getUid());
+
+                    myRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            //final NotificationsData notification = new NotificationsData(gygKey, ).getValue().toString());
+                            mDisplayName.append(dataSnapshot.child("display_name").getValue().toString());
+
+                            gygRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    NotificationsData notification = new NotificationsData(dataSnapshot.child("gygName").getValue().toString(), gygKey, mDisplayName.toString(), thisUser.getUid());
+                                    notificationRef.push().setValue(notification);
+                                    Toast.makeText(getApplicationContext(), "User accepted", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+
                 break;
         }
     }
