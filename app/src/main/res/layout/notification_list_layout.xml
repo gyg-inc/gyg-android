@@ -76,13 +76,15 @@
 
                 <Button
                     android:id="@+id/start_job"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="start"
                     android:text="Start Job"
                     android:textColor="@color/bt_error_red"
-                    android:textSize="18sp" />
+                    android:background="@color/bt_color_primary_dark"
+                    android:textSize="18sp"
+                    android:onClick="sendPayment"/>
 
             </LinearLayout>
 

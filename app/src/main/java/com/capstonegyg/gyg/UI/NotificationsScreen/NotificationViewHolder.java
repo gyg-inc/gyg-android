@@ -1,11 +1,16 @@
 package com.capstonegyg.gyg.UI.NotificationsScreen;
 
+
 import android.app.Notification;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.braintreepayments.api.dropin.DropInRequest;
+import com.capstonegyg.gyg.logic.payment;
 
 import com.bumptech.glide.Glide;
 import com.capstonegyg.gyg.R;
@@ -15,11 +20,13 @@ import java.util.Timer;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
+
 /**
  * Created by Shawn on 4/24/18.
  */
 
-public class NotificationViewHolder extends RecyclerView.ViewHolder{
+public class NotificationViewHolder extends RecyclerView.ViewHolder {
     private LinearLayout parentView;
     private TextView hitUserName, gygName;
     private Button startJob;
@@ -38,9 +45,14 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder{
         mClickListener = clickListener;
     }
 
+    public void sendPayment(View view){
+        //onBraintreeSubmit(view);
+    }
+
+
     //------------------------------End Click Listeners--------------------------------//
 
-    public NotificationViewHolder(View itemView) {
+    public NotificationViewHolder(final View itemView) {
         super(itemView);
 
         parentView = itemView.findViewById(R.id.notifications_recycler);
@@ -56,8 +68,9 @@ public class NotificationViewHolder extends RecyclerView.ViewHolder{
                     flag = 1;
                 }
                 else{
-                    startJob.setText("Start Job");
-                    flag = 0;
+                    //startJob.setText("Start Job");
+                    //flag = 0;
+                    sendPayment(itemView);
                 }
             }
         });
