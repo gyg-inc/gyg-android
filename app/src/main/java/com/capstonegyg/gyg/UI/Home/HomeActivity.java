@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import com.capstonegyg.gyg.R;
 import com.capstonegyg.gyg.UI.MyGygsScreen.MyGygsTab.MyGygsFragment;
 import com.capstonegyg.gyg.UI.NotificationsScreen.NotificationsGygFragment;
+import com.capstonegyg.gyg.UI.PostGyg.newLocation;
 import com.capstonegyg.gyg.UI.Profile.ProfileFragment;
 import com.capstonegyg.gyg.UI.ViewGygScreen.ViewGyg.ViewGygFragment;
 
@@ -25,6 +26,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
+
+        newLocation l = new newLocation(this);
+        l.getLocation();
 
         //Get the bottom navigation and container
         bottomNavigationView = findViewById(R.id.bottom_navigation);
