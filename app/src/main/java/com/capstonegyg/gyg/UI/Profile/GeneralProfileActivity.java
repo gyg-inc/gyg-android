@@ -72,7 +72,7 @@ public class GeneralProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_screen_2);
+        setContentView(R.layout.general_profile_screen);
 
         //Views
         displayName = findViewById(R.id.text_displayed_name);
